@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+html{
+    size: 100%;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+    padding: 0;
+    margin: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html, body {
+    background-color: #1c1f2d;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+    color: #ffff;
+    overflow: auto;
+    height: 100vh;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+button,input,a{
+    transition: .2s ease-in-out;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
 }
-
-.App-link {
-  color: #61dafb;
+.toast-message-withdrawal{
+    background-color: rgb(23, 255, 23);
+    box-shadow: 1px 0px 77px -2px rgba(254, 255, 254, 0.202);
+    -webkit-box-shadow: 1px 0px 77px -2px rgba(200, 248, 200, 0.324);
+    -moz-box-shadow: 1px 0px 77px -2px rgba(154, 243, 154, 0.303);
+    color: #fff;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.toast-message-deposit{
+    background-color: rgb(23, 255, 23);
+    box-shadow: 1px 0px 77px -2px rgba(254, 255, 254, 0.202);
+    -webkit-box-shadow: 1px 0px 77px -2px rgba(200, 248, 200, 0.324);
+    -moz-box-shadow: 1px 0px 77px -2px rgba(154, 243, 154, 0.303);
+    color: #fff;
+}
+.toast-message-login{
+    background-color: rgb(23, 166, 255);
+    box-shadow: 1px 0px 77px -2px rgba(254, 255, 255, 0.202);
+    -webkit-box-shadow: 1px 0px 77px -2px rgba(200, 224, 248, 0.324);
+    -moz-box-shadow: 1px 0px 77px -2px rgba(154, 197, 243, 0.303);
+    color: #fff;
+}
+.toast-message-signup{
+    background-color: rgb(30, 142, 255);
+    box-shadow: 1px 0px 77px -2px rgba(254, 254, 255, 0.202);
+    -webkit-box-shadow: 1px 0px 77px -2px rgba(200, 217, 248, 0.324);
+    -moz-box-shadow: 1px 0px 77px -2px rgba(154, 200, 243, 0.303);
+    color: #fff;
 }

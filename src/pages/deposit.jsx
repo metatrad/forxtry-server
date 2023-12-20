@@ -15,14 +15,8 @@ const Deposit = () => {
   const depositCardList = depositData.slice();
 
   //categories depositmethods
-  const depositCardListCryptocurrencies = depositData.filter(el => el.category === "Cryptocurrencies",[]) 
+  const depositCardListCryptocurrencies = depositData.filter(el => el,[]) 
   console.log(depositCardListCryptocurrencies)
-
-  const depositCardListTransfers = depositData.filter(el => el.category === "Transfers",[]) 
-  console.log(depositCardListTransfers)
-
-  const depositCardListCards = depositData.filter(el => el.category === "Cards",[]) 
-  console.log(depositCardListCards)
 
   const loadingArray = new Array(1).fill(null)
   
@@ -39,31 +33,6 @@ const Deposit = () => {
         <div className="payment-methods-wrapper">
           <AccountTopNav/>
         <div className="payment-methods">
-        <div className="cards methods">
-          <h1><FaCreditCard /> Bank Cards</h1>
-          
-          {depositCardListCards[0] ?
-            depositCardListCards.map((el) => {
-              return (
-                <Depositcard
-                  key={el._id}
-                  id={el._id}
-                  image={el.image}
-                  name={el.name}
-                  number={el.number}
-                  user={el.user}
-                  category={el.category}
-                />
-              );
-            })
-          :loadingArray.map(el=>{
-            return(
-              <Depositcard/>
-            )
-          })
-          }
-           
-        </div>
 
         <div className="crypto methods">
           <h1><PiCurrencyBtcFill /> Cryptocurrencies</h1>
@@ -78,32 +47,7 @@ const Deposit = () => {
                   name={el.name}
                   number={el.number}
                   user={el.user}
-                  category={el.category}
-                />
-              );
-            })
-          :loadingArray.map(el=>{
-            return(
-              <Depositcard/>
-            )
-          })
-          }
-        </div>
-
-        <div className="transfers methods">
-          <h1><BsBank2 />Bank transfers</h1>
-
-          {depositCardListTransfers[0] ?
-            depositCardListTransfers.map((el) => {
-              return (
-                <Depositcard
-                  key={el._id}
-                  id={el._id}
-                  image={el.image}
-                  name={el.name}
-                  number={el.number}
-                  user={el.user}
-                  category={el.category}
+                  description={el.description}
                 />
               );
             })

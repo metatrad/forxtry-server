@@ -40,7 +40,7 @@ const DepositMenu = () => {
       initialValues:{
         amount: "",
         method: "",
-        status:"pending",
+        status:"Pending",
       },
       onSubmit: (values, {resetForm}) =>{
         dispatch(depositAction(values))
@@ -85,12 +85,13 @@ const DepositMenu = () => {
 
               <h4>Deposit to: <span>{methodDisplay?.number}</span></h4>
               <h6>Account name: <span>{methodDisplay?.user}</span></h6>
+              <p className="deposit-description"><span>{methodDisplay?.description}</span></p>
 
               <p>
-                Min amount: <span>N5,000</span>
+                Min amount: <span>$10.00</span>
               </p>
               <p>
-                Max amount: <span>N50,000,000</span>
+                Max amount: <span>$60,000.00</span>
               </p>
             </div>
             <Link to="/deposit"><span><FaCircleChevronLeft/></span>Chose a different payment method</Link>
@@ -101,7 +102,7 @@ const DepositMenu = () => {
             <form action="" onSubmit={formik.handleSubmit}>
 
               <label htmlFor="amount">The Amount</label>
-              <input type="number" name="amount" id="amount" placeholder={"NGN"} value={formik.values.amount} onChange={formik.handleChange("amount")} onBlur = {formik.handleBlur("amount")}/>
+              <input type="number" name="amount" id="amount" placeholder={"$"} value={formik.values.amount} onChange={formik.handleChange("amount")} onBlur = {formik.handleBlur("amount")}/>
               <div className="show-error">
               {formik.touched.amount && formik.errors.amount}
               </div>

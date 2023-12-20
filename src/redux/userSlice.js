@@ -154,7 +154,6 @@ export const updateProfileAction = createAsyncThunk("/account", async (payload, 
             address: payload?. address,
             dob: payload?. dob,
             country: payload?.country ,
-            currency: payload?. currency,
         }, config);
         return data;
         

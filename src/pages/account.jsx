@@ -9,15 +9,15 @@ import { MdOutlineClose } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import accountImage from '../images/account-img.png'
 import { FaCamera } from "react-icons/fa";
-import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
 import "../styles/account.css";
+import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
 //form validation
 const formSchema = Yup.object({
-  image: Yup.string(),
+  image: Yup.mixed(),
   firstName: Yup.string(),
   lastName: Yup.string(),
   address: Yup.string(),
@@ -25,6 +25,7 @@ const formSchema = Yup.object({
   phone: Yup.number(),
   email: Yup.string(),
   country: Yup.string(),
+  verification: Yup.mixed(),
 })
 
 const Account = () => {
@@ -44,7 +45,7 @@ const Account = () => {
     const formik = useFormik({
       enableReinitialize: true,
       initialValues:{
-        image: userAuth?.image,
+        image: null,
         firstName: userAuth?.firstName,
         lastName: userAuth?.lastName,
         address: userAuth?.address,
@@ -52,8 +53,9 @@ const Account = () => {
         phone: userAuth?.phone,
         email: userAuth?.email,
         country: userAuth?.country,
+        verification: userAuth?.verification,
       },
-      onSubmit: values =>{
+      onSubmit: async (values) =>{
         dispatch(updateProfileAction(values))
       },
       validationSchema: formSchema,
@@ -92,8 +94,11 @@ const Account = () => {
 
             <div className="account-image">
               <div className="account-img">
-                <img src={accountImage} alt="" />
-                <div className="icon-img"><p><FaCamera/></p><input type="file" accept="image/*"/></div>
+              {userAuth.image? <img src={userAuth?.image}/> : <img src={accountImage} alt="" />}
+                
+                <div className="icon-img"><p><FaCamera/></p><input type="file" accept="image/*"
+              onChange={(event)=> formik.setFieldValue("image",event.currentTarget.files[0])}
+              onBlur = {formik.handleBlur("image")}/></div>
               </div>
 
               <div>
@@ -132,11 +137,11 @@ const Account = () => {
               onChange={formik.handleChange("dob")}
               onBlur = {formik.handleBlur("dob")}/>
 
-            {/* <div className="verification-id">
-              <input type="file"  value={formik.values.ID}
-              onChange={formik.handleChange("ID")}
-              onBlur = {formik.handleBlur("ID")}/>
-            </div> */}
+            <div className="verification-id">
+              <input type="file" accept="image/*" value={formik.values.verification}
+              onChange={(event)=> formik.setFieldValue("verification",event.currentTarget.files[0])}
+              onBlur = {formik.handleBlur("verification")}/>
+            </div>
 
             {
               userLoading? <Disabledbutton/>:<button>Save</button>
@@ -160,15 +165,6 @@ const Account = () => {
 
             <button>Change Password</button>
           </form>
-
-          <div className="card">
-            <div>
-              <h5>Credit / debit card verification:</h5>{" "}
-              <button>ADD NEW CARD</button>
-            </div>
-            <p>You don't have any credit/debit cards for verification</p>
-          </div>
-
           <h6>
             <MdOutlineClose />
             Delete Account

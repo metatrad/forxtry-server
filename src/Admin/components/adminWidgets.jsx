@@ -88,7 +88,7 @@ const AdminWidgets = ({ type }) => {
     <div className='admin-widget'>
       <div className="left">
         <span className='title'>{data.title}</span>
-        <span className='counter'>{data.isMoney ? currencyFormatter(userData?.currency,data?.amount): data?.amount}</span>
+        <span className='counter'>{data.isMoney ? currencyFormatter("USD",data?.amount): data?.amount}</span>
         <span className='link'>{data.link}</span>
       </div>
       <div className="right">

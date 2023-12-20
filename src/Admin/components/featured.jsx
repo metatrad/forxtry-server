@@ -39,7 +39,7 @@ const Featured = () => {
             <CircularProgressbar value={percentplus} text = {Math.floor(percentplus)+"%"} strokeWidth ={7}/>
         </div>
         <p className='title'>Total transactions</p>
-        <p className='amount'>{currencyFormatter(userData.currency,deposits?.totalDeposit + withdrawals?.totalWithdrawal)}</p>
+        <p className='amount'>{currencyFormatter("USD",deposits?.totalDeposit + withdrawals?.totalWithdrawal)}</p>
         <p className='desc'>This contians the total records for each major sections <br /> <br /> of the broker</p>
 
         <div className="target">
@@ -54,14 +54,14 @@ const Featured = () => {
                 <div className="item-title">Deposits</div>
                 <div className="item-result positive">
                     <IoIosArrowUp/>
-                    <div className="item-Amount ">{currencyFormatter(userData.currency,deposits?.totalDeposit)} </div>
+                    <div className="item-Amount ">{currencyFormatter("USD",deposits?.totalDeposit)} </div>
                 </div>
             </div>
             <div className="target-item">
                 <div className="item-title">Withdrawals</div>
                 <div className="item-result positive">
                     <IoIosArrowUp/>
-                    <div className="item-Amount">{currencyFormatter(userData.currency,withdrawals?.totalWithdrawal )}</div>
+                    <div className="item-Amount">{currencyFormatter("USD",withdrawals?.totalWithdrawal )}</div>
                 </div>
             </div>
         </div>

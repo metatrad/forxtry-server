@@ -23,7 +23,7 @@ const Admindeposit = () => {
     name: "",
     number: "",
     user: "",
-    category: "",
+    description: "",
   })
 
   const handleOnchange = (e) =>{
@@ -41,9 +41,9 @@ const Admindeposit = () => {
     e.preventDefault()
     console.log(data)
 
-    const { image,name,number,user,category,} = data
+    const { image,name,number,user,description,} = data
 
-    if (image && name && number && user && category){
+    if (image && name && number && user ){
       const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/admindeposit`,{
         method : "POST",
         headers : {
@@ -62,7 +62,7 @@ const Admindeposit = () => {
           name: "",
           number: "",
           user: "",
-          category: "",
+          description: "",
         }
       })
 
@@ -115,13 +115,9 @@ const Admindeposit = () => {
                 <label htmlFor="user">User</label>
                 <input type="text" name="user" onChange={handleOnchange} value = {data.user}/>
 
-                <label htmlFor="category">Category</label>
-                <select name="category" id="category" onChange={handleOnchange} value = {data.category}>
-                  <option value="">Select category</option>
-                  <option value={"Cards"}>Bank Cards</option>
-                  <option value={"Cryptocurrencies"}>Cryptocurrencies</option>
-                  <option value={"Transfers"}>Transfers</option>
-                </select>
+                <label htmlFor="user">Add a description</label>
+                <input type="text" name="user" onChange={handleOnchange} value = {data.description}/>
+
                 <button>ADD</button>
               </form>
 

@@ -157,28 +157,6 @@
     color: #fff;
 }
 
-.card{
-    border-bottom: 1px dotted #a2a5ad;
-}
-.card p{
-    font-size: 0.9rem;
-    color: #525561;
-    margin-bottom: 2em;
-}
-.card h5{
-    font-size: 1rem;
-}
-.card div{
-    justify-content: space-between;
-    display: flex;
-}
-.card button{
-    font-size: 0.8rem;
-    padding: 1em 1.2em;
-    height: 1.5em;
-    background-color: #016fd3;
-}
-
 @media only screen and (max-width: 900px){
     .account-settings{
         width: 82%;

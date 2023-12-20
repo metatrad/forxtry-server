@@ -2,6 +2,11 @@
     opacity: 0;
     position: absolute;
 }
+.deposit-description{
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: rgb(41, 42, 44);
+}
 .deposit-menu-body{
     display: flex;
 }

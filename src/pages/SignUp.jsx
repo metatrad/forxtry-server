@@ -19,7 +19,6 @@ import toast from "react-hot-toast";
 const formSchema = Yup.object({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
-  currency: Yup.string(),
 })
 
 const SignUp = () => {
@@ -39,7 +38,6 @@ const SignUp = () => {
     initialValues:{
       email: "",
       password: "",
-      currency: "USD",
     },
     onSubmit: values =>{
       dispatch(signupAction(values))
@@ -102,32 +100,6 @@ const SignUp = () => {
             <div className="show-error">
               {formik.touched.password && formik.errors.password}
             </div>
-
-            <label htmlFor="currency">Currency</label>
-            <select
-              id="currency"
-              name="currency"
-              value={formik.values.currency}
-              onChange={formik.handleChange("currency")}
-              onBlur = {formik.handleBlur("currency")}
-            >
-              <option value={"USD"}>USD</option>
-              <option value={"EUR"}>EUR</option>
-              <option value={"GBP"}>GBP</option>
-              <option value={"BRL"}>BRL</option>
-              <option value={"IDR"}>IDR</option>
-              <option value={"INR"}>INR</option>
-              <option value={"KZT"}>KZT</option>
-              <option value={"RUB"}>RUB</option>
-              <option value={"THB"}>THB</option>
-              <option value={"UAH"}>UAH</option>
-              <option value={"VND"}>VND</option>
-              <option value={"NGN"}>NGN</option>
-              <option value={"EGP"}>EGP</option>
-              <option value={"MXN"}>MXN</option>
-              <option value={"JPY"}>JPY</option>
-              <option value={"BDT"}>BDT</option>
-            </select>
 
             <div className="check">
               <input

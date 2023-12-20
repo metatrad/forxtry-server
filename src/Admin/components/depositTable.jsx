@@ -59,7 +59,7 @@ const dispatch = useDispatch();
                 
                         <TableRow item = {el} key={el?._id}>
                         <TableCell className='tableCell'>{el?.user?.email}</TableCell>
-                        <TableCell className='tableCell'>{currencyFormatter(userData?.currency,el?.amount)}</TableCell>
+                        <TableCell className='tableCell'>{currencyFormatter("USD",el?.amount)}</TableCell>
                         <TableCell className='tableCell'>{dateFormatter(el?.createdAt)}</TableCell>
                         <TableCell className='tableCell'>{el?.method}</TableCell>
                         <TableCell className='tableCell'><span className={`status ${el?.status}`}>{el?.status}</span></TableCell>     

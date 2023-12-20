@@ -15,7 +15,6 @@ import { FiCheck } from "react-icons/fi";
 import { useSelector, useDispatch} from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { logout } from '../redux/userSlice';
-import ChangeCurrency from '../components/changeCurrency';
 import CurrencyFormatter from '../utilities/currencyFormatter'
 import '../styles/tradingNav.css'
 import '../styles/demo.css'
@@ -24,10 +23,6 @@ import '../styles/demo.css'
 
 
 const Demo = () => {
-  const [showChangeCurrency, setShowChangeCurrency] = useState(false);
-  const handleShowChangeCurrency = () =>{
-    setShowChangeCurrency((prev)=>!prev);
-  }
 
   const userData = useSelector(state=>state?.user?.userAuth)
 
@@ -89,12 +84,6 @@ const Demo = () => {
       <div className='check'>
 
           <div className="tradingNav">
-          {
-          showChangeCurrency &&
-          <div className="change-currency-show">
-          <ChangeCurrency />
-          </div>
-        }
           <div className="trading-topnav">
                 <Link to ="/demo"><div className="trading-logo"></div></Link>
                 <h5 className="web-text">WEB TRADING PLATFORM</h5>
@@ -104,7 +93,7 @@ const Demo = () => {
                 <div className="account-switch-container">
 
                 <div ref={accountRef}>                
-                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter(userData?.currency,userData?.demoBalance)}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>
+                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD",userData?.demoBalance)}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>
                      
                      {
                       showAccountSwitch&&
@@ -115,10 +104,10 @@ const Demo = () => {
                       </div>
                       <h3>{userData.email}</h3>
                       <h6>ID:{userData._id}</h6>
-                      <h2 className="currency-change"><p>Currency: {userData.currency}</p><button onClick={handleShowChangeCurrency}>CHANGE</button></h2>
+                      <h2 className="currency-change"><p>Currency: {"USD"}</p></h2>
                       <div className="buttons">
-                        <Link to = "/trading"><div className='switch'><div className="round lives"></div><h5>Live account <p>{CurrencyFormatter(userData?.currency,userData?.balance)}</p></h5></div></Link>
-                        <Link to = "/demo"><div className='switch'><div className="round demos"><FiCheck size={12}/></div><h5>Demo account <p>{CurrencyFormatter(userData?.currency,userData.demoBalance)}</p></h5></div></Link>
+                        <Link to = "/trading"><div className='switch'><div className="round lives"></div><h5>Live account <p>{CurrencyFormatter("USD",userData?.balance)}</p></h5></div></Link>
+                        <Link to = "/demo"><div className='switch'><div className="round demos"><FiCheck size={12}/></div><h5>Demo account <p>{CurrencyFormatter("USD",userData.demoBalance)}</p></h5></div></Link>
                       </div>
                       <p className='logout' onClick={handleLogout}><MdOutlineLogout/>Logout</p>
                       </div>
@@ -144,34 +133,6 @@ const Demo = () => {
       <div className='widget'>
 
       <TradingWidget/>
-
-        {/* <div>
-
-        <h2>Make a Prediction</h2>
-      <div>
-        <button onClick={() => handlePrediction('even')} disabled={prediction === 'even'}>
-          Even
-        </button>
-        <button onClick={() => handlePrediction('odd')} disabled={prediction === 'odd'}>
-          Odd
-        </button>
-      </div>
-
-      <h2>Place a Trade</h2>
-      <div>
-        <button onClick={handleTrade} disabled={!prediction}>
-          Place Trade
-        </button>
-      </div>
-
-      {result && (
-        <div>
-          <h2>Result</h2>
-          <p>{`You predicted ${prediction}, and the result is ${result}.`}</p>
-        </div>
-      )}
-
-        </div> */}
 
       </div>
 

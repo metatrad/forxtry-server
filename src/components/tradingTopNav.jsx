@@ -11,19 +11,12 @@ import { MdOutlineLogout } from "react-icons/md";
 import { FiCheck } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import ChangeCurrency from "./changeCurrency";
 import { logout } from "../redux/userSlice";
 import CurrencyFormatter from "../utilities/currencyFormatter";
 import "../styles/tradingNav.css";
 
 
 const TradingTopNav = () => {
-
-  
-  const [showChangeCurrency, setShowChangeCurrency] = useState(false);
-  const handleShowChangeCurrency = () =>{
-    setShowChangeCurrency((prev)=>!prev);
-  }
 
   const userData = useSelector(state => state?.user?.userAuth);
 
@@ -59,12 +52,6 @@ const TradingTopNav = () => {
   return (
     <div className="cover-whole-top-nav">
       <div className="chart-container">
-        {
-          showChangeCurrency &&
-          <div className="change-currency-show">
-          <ChangeCurrency />
-          </div>
-        }
 
         <div className="trading-topnav">
           <Link to ="/trading"><div className="trading-logo"></div></Link>
@@ -85,7 +72,7 @@ const TradingTopNav = () => {
                 <FaTelegramPlane className="plane" color="#35cb02"/>
                 <div className="live-account">
                   <h6> LIVE ACCOUNT </h6>
-                  <p>{CurrencyFormatter(userData?.currency,userData?.balance)}</p>
+                  <p>{CurrencyFormatter("USD",userData?.balance)}</p>
                 </div>
                 <FaAngleDown
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
@@ -107,8 +94,7 @@ const TradingTopNav = () => {
                   <h3>{userData.email}</h3>
                   <h6>ID:{userData._id}</h6>
                   <h2 className="currency-change">
-                    <p>Currency: {userData.currency}</p>{" "}
-                    <button onClick={handleShowChangeCurrency}>CHANGE</button>
+                    <p>Currency: {"USD"}</p>{" "}
                   </h2>
                   <div className="buttons">
                     <Link to="/trading">
@@ -117,7 +103,7 @@ const TradingTopNav = () => {
                           <FiCheck size={12} />
                         </div>
                         <h5>
-                          Live account <p>{CurrencyFormatter(userData?.currency,userData?.balance)}</p>
+                          Live account <p>{CurrencyFormatter("USD",userData?.balance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -125,7 +111,7 @@ const TradingTopNav = () => {
                       <div className="switch">
                         <div className="round demo"></div>
                         <h5>
-                          Demo account <p>{CurrencyFormatter(userData?.currency,userData?.demoBalance)}</p>
+                          Demo account <p>{CurrencyFormatter("USD",userData?.demoBalance)}</p>
                         </h5>
                       </div>
                     </Link>

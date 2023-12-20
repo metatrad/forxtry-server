@@ -70,7 +70,7 @@ const TradingNav = () => {
 
         {
           showSupport&&
-          <div className="support">
+        <div className="support">
           <h2><p>Help</p>  <IoMdClose onClick={handleShowSupport}/></h2>
           <Link to ="/faq"><div><BsFillQuestionSquareFill color='#016fd3'/><p>FAQ</p></div></Link>
           <div><RiGraduationCapFill color='#016fd3'/><p>Tutorials</p></div>

@@ -5,7 +5,7 @@ const depositmethodSchema = mongoose.Schema({
     name: String,
     number: String,
     user: String,
-    category: String,
+    description: String,
   });
   
   //

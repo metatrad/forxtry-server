@@ -1,11 +1,16 @@
 const expressAsyncHandler = require("express-async-handler");
 const { User } = require("../schema/userSchema");
 const { generateToken } = require("../middleware/generateToken");
+const multer = require('multer');
 
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 //signup
-const createUserctrl = expressAsyncHandler(async(req,res)=>{
-    const { email, password, currency, isAdmin, image, firstName, lastName, country, phone,balance, demoBalance, address, dob, verification, } = req?.body;
+const createUserctrl = expressAsyncHandler(upload.single('verification'), async(req,res)=>{
+    const { email, password, isAdmin, firstName, lastName, country, phone,balance, demoBalance, address, dob, } = req?.body;
+    const { image, verification } = req.file.buffer.toString('base64');
 
     const oldUser = await User.findOne({ email });
 
@@ -15,7 +20,6 @@ const createUserctrl = expressAsyncHandler(async(req,res)=>{
       const user = await User.create({
         email,
         password,
-        currency,
         isAdmin,
         balance,
         demoBalance,
@@ -53,7 +57,6 @@ const updateUsersctrl = expressAsyncHandler( async (req,res)=>{
   try {
     const updateprofile = await User.findByIdAndUpdate(id, {
       email: req?.body?.email,
-      currency: req?.body?.currency,
       isAdmin: req?.body?.isAdmin,
       balance: req?.body?.balance,
       demoBalance: req?.body?.demoBalance,
@@ -88,7 +91,6 @@ const loginUserctrl = expressAsyncHandler(async (req,res)=>{
       res.json({
         _id: userFound?._id,
         email: userFound?.email,
-        currency: userFound?.currency,
         isAdmin: userFound?.isAdmin,
         image: userFound?.image,
         balance: userFound?.balance,
@@ -112,7 +114,7 @@ const loginUserctrl = expressAsyncHandler(async (req,res)=>{
 
 
 //user profile
-const userProfilectrl = expressAsyncHandler( async (req,res)=>{
+const userProfilectrl = expressAsyncHandler( upload.single('verification'), async (req,res)=>{
   try {
     const profile = await User.findById(req?.user?._id).populate(['deposit','withdrawal']);
     res.json(profile)
@@ -125,7 +127,6 @@ const updateProfilectrl = expressAsyncHandler( async (req,res)=>{
   try {
     const profile = await User.findByIdAndUpdate(req?.user?._id, {
       email: req?.body?.email,
-      currency: req?.body?.currency,
       isAdmin: req?.body?.isAdmin,
       image: req?.body?.image,
       balance: req?.body?.balance,

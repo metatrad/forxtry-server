@@ -7,15 +7,18 @@ const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfil
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const {postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
-const {balancectrl, fetchbalancectrl, singlebalancectrl, updateBalancectrl} = require("./apis/balanceapi");
 const { authMiddleware } = require("./middleware/auth");
 const {accountStatsctrl} = require("./apis/accountStats")
+const multer = require('multer');
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.json());
 dotenv.config()
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const PORT = process.env.PORT || 5000;
 

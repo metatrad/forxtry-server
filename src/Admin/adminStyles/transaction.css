@@ -23,3 +23,27 @@
     color: gray;
     margin-bottom: 15px;
 }
+.perc-data-cover{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3em;
+}
+.perc-data-num{
+    border: 20px solid green;
+    width: 5em;
+    height: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    font-size: 1.5rem;
+    background-color: transparent;
+}
+.perc-data{
+    background-color: #ffffff27;
+    padding: 0.4em 0.2em;
+    border-radius: 5px;
+    cursor: pointer;
+}

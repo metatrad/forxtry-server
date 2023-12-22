@@ -7,6 +7,7 @@ import { TbTriangleSquareCircle } from "react-icons/tb";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import { useFormik } from "formik";
 import { tradeAction } from '../redux/tradeSlice';
+import { fetchAllPercAction } from '../redux/percSlice';
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
@@ -86,7 +87,16 @@ export default function TradingViewWidget() {
   const [prediction, setPrediction] = useState(null);
   const [result, setResult] = useState(null);
 
-  const perc = 0.5
+  useEffect(()=>{
+      dispatch(fetchAllPercAction())
+  },[dispatch])
+
+  const percs = useSelector(state => state?.perc?.percList?.[0])
+  console.log(percs)
+
+  const perc = percs?.perc
+
+  console.log(perc)
 
   const handlePrediction = (selectedPrediction) => {
     if (countdown > 0 && !timer) {

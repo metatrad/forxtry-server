@@ -25,7 +25,7 @@ import { useEffect } from "react";
 const Edituser = () => {
 
   const { filterby } = useParams();
-  const userData = useSelector(state => state?.user?.userList) 
+  const userData = useSelector(state => state?.user?.userList)
   const userDisplay = userData?.docs?.filter((el) => el._id === filterby)[0];
   console.log(userDisplay)
      //dispatch

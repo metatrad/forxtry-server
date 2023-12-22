@@ -1,47 +1,30 @@
 import React from "react";
-import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as Yup from "yup"
 import Table from "../components/table";
 import Sidebar from '../components/adminSideNav.jsx'
 import toast from "react-hot-toast";
 import TopNav from '../components/adminNav'
 import Disabledbutton from "../../components/disabledbutton";
+import { fetchAllPercAction } from "../../redux/percSlice";
 import { updatePercAction } from "../../redux/percSlice";
+import Perccard from "../components/perccard";
 import '../adminStyles/transaction.css'
-
-//form validation
-const formSchema = Yup.object({
-  perc: Yup.number(),
-})
 
 const Transactions = () => {
 
   const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(fetchAllPercAction())
+    },[dispatch])
 
-  const state = useSelector(state => state?.perc);
-  console.log(state)
-  const {loading, appErr, serverErr, percCreated, percUpdated } = state
+    const userData = useSelector(state => state?.user?.userAuth);
+ 
+  const allPerc = useSelector(state => state?.perc) 
+  console.log(allPerc)
+  const {loading, appErr, serverErr, percList} = allPerc;
 
-
-  //formik form
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues:{
-      perc: percCreated?.perc,
-    },
-    onSubmit: async (values) =>{
-      dispatch(updatePercAction(values))
-    },
-    validationSchema: formSchema,
-  })
-
-   useEffect(()=>{
-    if(percUpdated){
-      toast("Updated")
-    }
-  },[dispatch, percUpdated]);
+  const loadingArray = new Array(1).fill(null)
 
   return (
     <div className="list-container">
@@ -52,15 +35,16 @@ const Transactions = () => {
       <TopNav/>
       <div className="padding">
       <div className="list-wrapper">
-      <div className="list-title">Latest Transactions</div>
-            <form action="" onSubmit={formik.handleSubmit}>
-                 <label htmlFor="perc">Email</label>
-                 <input type="number" name="number" id="number" value={formik.values.perc}
-                 onChange={formik.handleChange("perc")}
-                 onBlur = {formik.handleBlur("perc")}/>
+      <div className="list-title">Winning percentage</div>
 
-            {loading? <Disabledbutton/>:<button>Save</button>}
-            </form>
+      {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="black"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: percList?.map((el)=>{
+            return(
+              <div className="perc-data-cover" item = {el} key={el?._id}>
+                <div className='perc-data-num'>{el?.perc}%</div>
+                <div className='perc-data'><Perccard id = {el?._id}></Perccard></div>     
+              </div>
+        )})}
+            
       </div>
       </div>
       </div>

@@ -1,6 +1,9 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
 import axios from "axios";
 import baseURL from '../utilities/baseURL';
+
+export const resetPercUpdated = createAction("admintransactions/reset")
+
 
 //perc action
 export const percAction = createAsyncThunk("/perc", async (payload, { rejectWithValue, getState, dispatch })=>{
@@ -15,6 +18,7 @@ export const percAction = createAsyncThunk("/perc", async (payload, { rejectWith
     try {
         //http call
         const { data } = await axios.post(`${baseURL}/perc`, payload, config);
+        localStorage.setItem('perc', JSON.stringify(data));
         return data;
         
     } catch (error) {
@@ -113,20 +117,33 @@ const percSlice = createSlice({
             state.serverErr = action?.error?.msg; 
         })
 
-        //update perc
-        builder.addCase(updatePercAction.pending,(state, action)=>{
+         // update perc action
+        builder.addCase(updatePercAction.pending,(state,action)=>{
             state.loading = true;
-        })
-        builder.addCase(updatePercAction.fulfilled,(state, action)=>{
-            state.loading = false;
-            state.percUpdated = action?.payload;
             state.appErr = undefined;
-            state.serverErr = undefined; 
+            state.serverErr = undefined;
+        });
+        //reset action
+        builder.addCase(resetPercUpdated, (state, action)=>{
+            state.isPercUpdated = true
         })
-        builder.addCase(updatePercAction.rejected,(state, action)=>{
+        //handle success state
+        builder.addCase(updatePercAction.fulfilled, (state, action)=>{
+            state.percUpdated = action?.payload;
             state.loading = false;
-            state.appErr = action?.payload?.msg || "Unknown app error";
-            state.serverErr = action?.error?.msg || "Unknown server error"; 
+            state.appErr = undefined;
+            state.serverErr = undefined;
+            state.isPercUpdated = false;
+            localStorage.setItem('userInfo', JSON.stringify({
+                ...JSON.parse(localStorage.getItem('userInfo')),
+                perc:action?.payload?.perc,
+            }));
+        })
+        //handle rejected state
+        builder.addCase(updatePercAction.rejected, (state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.msg;
+            state.serverErr = action?.error?.msg;
         })
     }
 });

@@ -28,6 +28,7 @@ import AdminRoute from './components/adminRoute';
 import Editdeposit from './Admin/pages/edit-deposit';
 import Editwithdrawal from './Admin/pages/edit-withdrawal';
 import Transactions from './pages/transactions';
+import Editperc from './Admin/pages/edit-perc';
 import Trades from './pages/trades';
 import { loginRedux } from './redux/userSlice';
 import './LDM/light.css'
@@ -75,8 +76,12 @@ function App() {
           <Route path='/account' element={<Account/>}/>
           <Route path='/deposit' element={<Deposit/>}/>
           <Route path='/depositmenu/:filterby' element={<DepositMenu/>}/>
-          <Route path='/admintransactions/:id' element={<AdminTransactions/>}/>
           <Route path='/analytics' element={<Analytics/>}/>
+
+          <Route path='/admintransactions'>
+            <Route index element={<AdminTransactions/>}/>
+            <Route path=':filterby' element={<Editperc/>}/>
+          </Route>
 
           <Route path='/withdrawal' element={<ProtectedRoute/>}>
             <Route path='/withdrawal' element = {<Withdrawal/>}/>

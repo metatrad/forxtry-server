@@ -1,15 +1,11 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2")
 
-
-const tradeSchema = mongoose.Schema({
+const balanceSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: [true, "User ID is required"] },
-    time: { type: String },
-    up: { type: String },
-    down: { type: String },
-    investment: { type: Number},
-    result: { type: String},
-    payout: { type: Number},
+    status: {type: String, default: "pending"},
+    balance: {type: Number, default: 0},
+    demoBalance: {type: Number, default: 0}
 },{
     timestamps: true,
     toJSON: {
@@ -18,9 +14,9 @@ const tradeSchema = mongoose.Schema({
     toObject: {
         virtuals: true,
     }
-})
+});
 //pagination
-tradeSchema.plugin(mongoosePaginate)
+balanceSchema.plugin(mongoosePaginate)
 
-const Trade = mongoose.model("Trade", tradeSchema);
-module.exports = {Trade}
+const Balance = mongoose.model("Balance", balanceSchema);
+module.exports = {Balance}

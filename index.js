@@ -1,14 +1,16 @@
 const express = require("express");
-const {errorHandler, notFound} = require("./middleware/errorMiddleware")
+const { errorHandler, notFound } = require("./middleware/errorMiddleware")
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl } = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
-const {postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
+const { postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
+const { tradectrl, fetchtradectrl, singletradectrl , updatetradectrl, deletetradectrl } = require('./apis/tradesapi')
+const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
-const {accountStatsctrl} = require("./apis/accountStats")
+const { accountStatsctrl } = require("./apis/accountStats")
 const multer = require('multer');
 const app = express();
 
@@ -34,7 +36,12 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
-//signup
+//percentage win/loss
+app.post("/perc",authMiddleware, percctrl);
+app.get("/admintransaction",authMiddleware, fetchpercctrl);
+app.put("/admintransactions/:id",authMiddleware, updatepercctrl);
+
+//signup and login
 app.post("/signup", createUserctrl);
 app.post("/login",loginUserctrl);
 
@@ -44,7 +51,8 @@ app.get("/profile",authMiddleware, userProfilectrl);
 app.put("/account",authMiddleware, updateProfilectrl);
 app.put("/adminusers/:id",authMiddleware, updateUsersctrl);
 
-//login
+//trading
+app.post("/trading",authMiddleware, tradectrl);
 
 //deposit
 app.post("/depositmenu",authMiddleware,depositctrl);

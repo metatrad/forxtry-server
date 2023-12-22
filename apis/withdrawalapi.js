@@ -1,6 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const { Withdrawal } = require("../schema/withdrawalSchema");
-const {User} = require('../schema/userSchema')
+const { User } = require('../schema/userSchema')
 
 const withdrawalctrl = expressAsyncHandler(async (req, res) => {
   const { type , amount, number, account, name, status } = req.body;

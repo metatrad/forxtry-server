@@ -8,10 +8,8 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 //signup
-const createUserctrl = expressAsyncHandler(upload.single('verification'), async(req,res)=>{
-    const { email, password, isAdmin, firstName, lastName, country, phone,balance, demoBalance, address, dob, } = req?.body;
-    const { image, verification } = req.file.buffer.toString('base64');
-
+const createUserctrl = expressAsyncHandler( async(req,res)=>{
+    const { email,status, password, isAdmin, firstName, lastName, country, phone,balance, demoBalance, address, dob,image, verification } = req?.body;
     const oldUser = await User.findOne({ email });
 
     if(oldUser) throw new Error( "email is already registered");
@@ -29,6 +27,7 @@ const createUserctrl = expressAsyncHandler(upload.single('verification'), async(
         country,
         phone,
         address,
+        status,
         dob,
         verification,
       });
@@ -102,6 +101,7 @@ const loginUserctrl = expressAsyncHandler(async (req,res)=>{
         country: userFound?.country,
         phone: userFound?.phone,
         address: userFound?.address,
+        status: userFound?.status,
         token: generateToken(userFound?._id),
         message: "Logged in",
         alert: true,
@@ -134,6 +134,7 @@ const updateProfilectrl = expressAsyncHandler( async (req,res)=>{
       firstName: req?.body?.firstName,
       lastName: req?.body?.lastName,
       country: req?.body?.country,
+      status: req?.body?.status,
       phone: req?.body?.phone,
       address: req?.body?.address,
       dob: req?.body?.dob,

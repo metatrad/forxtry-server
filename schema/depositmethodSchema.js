@@ -6,6 +6,8 @@ const depositmethodSchema = mongoose.Schema({
     number: String,
     user: String,
     description: String,
+    qrcode: String,
+    calc: Number,
   });
   
   //

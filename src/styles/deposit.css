@@ -2,6 +2,11 @@
     display: flex;
     width: 100%;
 }
+.deposit-body-wrapper{
+    width: 100%;
+    padding: 1em;
+    padding-bottom: 3.5em;
+}
 .payment-methods-wrapper{
     display: flex;
     width: 85%;
@@ -53,6 +58,9 @@
     }
 }
 @media only screen and (max-width:600px){
+    .deposit-body-wrapper{
+        width: 90%;
+    }
     .tradingnav-deposit{
         display: flex;
         flex-direction: column;

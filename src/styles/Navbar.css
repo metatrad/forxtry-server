@@ -48,9 +48,9 @@ button{
 .logo{
     left: 0;
     cursor: pointer;
-    width: 7.5em;
+    width: 9em;
     height: 1.9em;
-    background-image: url(../images/quotex_logo-white.svg);
+    background-image: url(../images/earnbroker.png);
     background-position: center;
     background-size: cover;
 }
@@ -255,7 +255,7 @@ button{
         .logo{
             width: 2em;
             height: 1.9em;
-            background-image: url(../images/quotex_logo-white.svg);
+            background-image: url(../images/earnbroker.png);
             background-position: left;
             background-size: cover;
         }

@@ -8,7 +8,7 @@ const AccountTopNav = () => {
     const userData = useSelector((state) => state?.user?.userAuth);
 
   return (
-    <div>
+    <div className="account-options-cover">
       <div className="account-options">
         {userData?.email === process.env.REACT_APP_ADMIN_EMAIL && (
           <NavLink to="/admin">
@@ -23,9 +23,6 @@ const AccountTopNav = () => {
         </NavLink>
         <NavLink to="/transactions">
           <div>Transactions</div>
-        </NavLink>
-        <NavLink to="/trades">
-          <div>Trades</div>
         </NavLink>
         <NavLink to="/account">
           <div>Account</div>

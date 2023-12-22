@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -9,6 +9,7 @@ import TradingTopNav from "../components/tradingTopNav";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { IoAlertOutline } from "react-icons/io5";
+import { FaCopy } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom' 
 import AccountTopNav from "../components/accountTopNav";
 import Disabledbutton from "../components/disabledbutton";
@@ -61,6 +62,37 @@ const DepositMenu = () => {
       });
     }, [isDepositCreated, dispatch]);
 
+    //copy text
+  const [textToCopy, setTextToCopy] = useState(methodDisplay?.number);
+
+  const handleCopyClick = () => {
+    // Using document.execCommand for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = textToCopy;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+
+    // Using navigator.clipboard.writeText for modern browsers
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        toast('Copied!');
+      }).catch((err) => {
+        toast('Unable to copy text to clipboard', err);
+      });
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    // Perform the calculation (double the input value)
+    const calculatedResult = value ? parseFloat(value) / methodDisplay?.calc : '';
+    // Update the formik values and trigger re-render
+    formik.setFieldValue(name, value);
+    formik.setFieldValue('calculatedResult', calculatedResult);
+  };
+
   return (
     <div className="deposit-menu">
       <div className="top-nav">
@@ -72,8 +104,9 @@ const DepositMenu = () => {
           <TradingNav />
         </div>
 
+        <div className="depositmenu-body-cover">
+
         <div className="deposit-menu-body-wrapper">
-          <AccountTopNav/>
         <div className="deposit-menu-card-wrapper">
           <div className="left-wrapper">
             <h1>Chosen payment method:</h1>
@@ -83,7 +116,8 @@ const DepositMenu = () => {
                 <p>{methodDisplay?.name}</p>
               </div>
 
-              <h4>Deposit to: <span>{methodDisplay?.number}</span></h4>
+              <h4>Deposit to: <span>{methodDisplay?.number}</span> <div className="copy-icon" onClick={handleCopyClick}><FaCopy color="gray"/></div></h4>
+              <h5>Or scan the Qr code below: <span><img src={methodDisplay?.qrcode} /></span></h5>
               <h6>Account name: <span>{methodDisplay?.user}</span></h6>
               <p className="deposit-description"><span>{methodDisplay?.description}</span></p>
 
@@ -102,7 +136,8 @@ const DepositMenu = () => {
             <form action="" onSubmit={formik.handleSubmit}>
 
               <label htmlFor="amount">The Amount</label>
-              <input type="number" name="amount" id="amount" placeholder={"$"} value={formik.values.amount} onChange={formik.handleChange("amount")} onBlur = {formik.handleBlur("amount")}/>
+              <input type="number" name="amount" id="amount" placeholder={"$"} value={formik.values.amount} onChange={handleInputChange} onBlur = {formik.handleBlur("amount")}/>
+              {formik.values.calculatedResult !== null && (<p>Transfer {formik.values.calculatedResult} {methodDisplay?.name}</p>)}
               <div className="show-error">
               {formik.touched.amount && formik.errors.amount}
               </div>
@@ -118,11 +153,12 @@ const DepositMenu = () => {
               {loading? <Disabledbutton/>:<button>Deposit<BsArrowRightCircleFill color = "rgba(255, 255, 255, 0.195)" size={20}/></button>}
 
               <div className="warning"><IoAlertOutline className="alert-icon"/>Attention! This is for {methodDisplay?.name} transfers only. Confirm details before making payments to avoid losing them.<br/><br/>
-               Please transfer the amount exactly as you indicated, including the network fees.</div>
+               Please transfer the amount exactly as indicated.</div>
             </form>
           </div>
         </div>
         <DepositFooter/>
+        </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,10 @@
     align-items: center; 
     gap: 2em;   
     justify-content: space-between;
+    /* background-image: url(../images/Line-Chart-Vector-PNG-File.png); */
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .innovative-img{
     background-image: url(../images/platform@2x.png);
@@ -220,9 +224,9 @@ button p{
 .predict-logo{
     background-position: center;
     background-size: cover;
-    width: 140px;
-    height: 35px;
-    background-image: url(../images/quotex_logo-white.svg);
+    width: 150px;
+    height: 32px;
+    background-image: url(../images/earnbroker.png);
 }
 .prdict-text{
     width: 240px;

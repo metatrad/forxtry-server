@@ -43,12 +43,23 @@
     padding: 1em;
     width: 25em;
 }
+.admin-deposit-imgs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+}
+.admin-deposit-imgs .flex-img{
+    flex: 4;
+}
+.admin-deposit-imgs .flex-qrcode{
+    flex: 6;
+}
 .new-method .image{
     cursor: pointer; 
     position: relative;
     border-radius: 5px;
-    width: 100%;
-    height: 2em;
+    height: 3.3em;
     background-color: rgba(255, 255, 255, 0.506);
     display: flex;
     justify-content: center;
@@ -72,15 +83,15 @@
     flex-direction: column;
     padding-top: 2em;
 }
-.new-method form input,.new-method form select{
+.new-method form input{
     border: 1px solid rgb(255, 255, 255);
-    height: 2.6em;
+    height: 2.5em;
     color: #fff;
     outline: none;
     background-color: transparent;
     border-radius: 5px;
     padding: 0.2em 0.5em;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.5em;
 }
 .new-method form select{
     width: 100%;

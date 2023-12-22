@@ -14,6 +14,8 @@ import * as Yup from "yup";
 import Disabledbutton from "../components/disabledbutton";
 import AccountTopNav from "../components/accountTopNav";
 import { toast } from "react-hot-toast";
+import currencyFormatter from "../utilities/currencyFormatter";
+import { BsExclamationLg } from "react-icons/bs";
 import "../styles/withdrawal.css";
 
 //form validation
@@ -26,6 +28,10 @@ const formSchema = Yup.object({
 });
 
 const Withdrawal = () => {
+
+  const stateUser = useSelector(state => state?.user);
+  const {userLoading, userAppErr, userServerErr,userAuth, profile, userUpdate } = stateUser
+
   //get deposit methods
   const { filterby } = useParams();
   const methodData = useSelector((state) => state.method.methodList);
@@ -73,8 +79,7 @@ const Withdrawal = () => {
   });
   //get deposit created from store
   const state = useSelector((state) => state?.withdrawal);
-  const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated, message } =
-    state;
+  const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated, message } = state;
 
   //redirect
   useEffect(() => {
@@ -98,7 +103,9 @@ const Withdrawal = () => {
         <div className="withdrawal-sidenav">
           <TradingNav />
         </div>
-        <div className="withdrawal-container">
+        <div className="withdrawal-body-container">
+        {
+          userAuth?.status === "Pending"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> : <div className="withdrawal-container">
           <AccountTopNav />
           <div className="withdrawal-body">
             <div className="withdrawal-body-left">
@@ -106,15 +113,11 @@ const Withdrawal = () => {
               <div className="withdrawal-balance">
                 <div>
                   <p>In the account:</p>
-                  <h4>N0.00</h4>
+                  <h4>{currencyFormatter("USD", userAuth?.balance)}</h4>
                 </div>
-                <div>
+                <div className="no-border"> 
                   <p>Available for withdrawal:</p>
-                  <h4>N0.00</h4>
-                </div>
-                <div className="no-border">
-                  <p>Commission:</p>
-                  <h4>N0.00</h4>
+                  <h4>{currencyFormatter("USD", userAuth?.balance)}</h4>
                 </div>
               </div>
             </div>
@@ -210,6 +213,9 @@ const Withdrawal = () => {
             <DepositFooter />
           </div>
         </div>
+        }
+        </div>
+ 
       </div>
     </div>
   );

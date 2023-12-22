@@ -24,6 +24,8 @@ const Admindeposit = () => {
     number: "",
     user: "",
     description: "",
+    qrcode: "",
+    calc: "",
   })
 
   const handleOnchange = (e) =>{
@@ -41,7 +43,7 @@ const Admindeposit = () => {
     e.preventDefault()
     console.log(data)
 
-    const { image,name,number,user,description,} = data
+    const { image,name,number,user,description,qrcode, calc} = data
 
     if (image && name && number && user ){
       const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/admindeposit`,{
@@ -63,6 +65,8 @@ const Admindeposit = () => {
           number: "",
           user: "",
           description: "",
+          qrcode: "",
+          calc: "",
         }
       })
 
@@ -78,6 +82,16 @@ const Admindeposit = () => {
       return{
         ...preve,
         image : data
+      }
+    })
+  }
+  const uploadQrcode = async(e) =>{
+    const data = await ImagetoBase64(e.target.files[0])
+    // console.log(data)
+    setData((preve)=>{
+      return{
+        ...preve,
+        qrcode : data
       }
     })
   }
@@ -100,10 +114,23 @@ const Admindeposit = () => {
               <IoMdClose onClick={handleShowAddmethod} className="method-close"/>
 
               <form action="" onSubmit={handleSubmit}>
+
+                <div className="admin-deposit-imgs">
+                <div className="flex-img">
               <label htmlFor="image" id="image">Image</label>
                 <div className="image">
                   {data.image? <img src={data.image}/> : <span><IoMdCloudUpload/></span>}
                     <input id="image" accept="image/*" name = "image" onChange={uploadImage} type="file"/>
+                </div>
+                </div>
+
+                <div className="flex-qrcode">
+                <label htmlFor="qrcode" id="qrcode">Qr Code</label>
+                <div className="image">
+                  {data.qrcode? <img src={data.qrcode}/> : <span><IoMdCloudUpload/></span>}
+                    <input id="qrcode" accept="image/*" name = "qrcode" onChange={uploadQrcode} type="file"/>
+                </div>
+                </div>
                 </div>
 
                 <label htmlFor="name">Name</label>
@@ -115,8 +142,11 @@ const Admindeposit = () => {
                 <label htmlFor="user">User</label>
                 <input type="text" name="user" onChange={handleOnchange} value = {data.user}/>
 
-                <label htmlFor="user">Add a description</label>
-                <input type="text" name="user" onChange={handleOnchange} value = {data.description}/>
+                <label htmlFor="calc">Value</label>
+                <input type="number" name="calc" onChange={handleOnchange} value = {data.calc}/>
+
+                <label htmlFor="description">Add a description</label>
+                <input type="text" name="description" onChange={handleOnchange} value = {data.description}/>
 
                 <button>ADD</button>
               </form>

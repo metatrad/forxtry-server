@@ -162,11 +162,11 @@
     display: flex;
 }
 .trading-logo{
-    background-image: url(../images/quotex_logo-white.svg);
+    background-image: url(../images/earnbroker.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 6.5em;
+    width: 7em;
     height: 3em;
 }
 .bonus{
@@ -402,11 +402,12 @@
         position: fixed;
         bottom: 0;
         display: block;
-        padding: 0em 0.4em;
+        padding: 0em 1.2em;
         display: flex;
         align-items: center;
-        width: 100%;
+        width: 93%;
         justify-content: space-between;
+        z-index: 1;
     }
     .mb-trading-nav .active{
         color: #fff;

@@ -12,9 +12,11 @@ import { FaCamera } from "react-icons/fa";
 import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
+import { ImFolderUpload } from "react-icons/im";
 import "../styles/account.css";
 import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
+
 //form validation
 const formSchema = Yup.object({
   image: Yup.mixed(),
@@ -45,7 +47,7 @@ const Account = () => {
     const formik = useFormik({
       enableReinitialize: true,
       initialValues:{
-        image: null,
+        image: userAuth?.image,
         firstName: userAuth?.firstName,
         lastName: userAuth?.lastName,
         address: userAuth?.address,
@@ -68,8 +70,21 @@ const Account = () => {
       }
     },[dispatch, userUpdate]);
 
+    const uploadImage = async(e) =>{
+      const data = await ImagetoBase64(e.target.files[0])
+      console.log(data)
+      formik.setFieldValue('image', data);
+    }
+    const uploadVImage = async(e) =>{
+      const data = await ImagetoBase64(e.target.files[0])
+      console.log(data)
+      formik.setFieldValue('verification', data);
+    }
+
 
   const userData = useSelector((state) => state?.user?.userAuth);
+  console.log(userData)
+  console.log(userAuth)
 
   return (
     <div>
@@ -85,25 +100,22 @@ const Account = () => {
         </div>
 
         <div className="account-settings">
-          <div className="account-options">
-            <AccountTopNav/>
-          </div>
 
           <form action="" onSubmit={formik.handleSubmit}>
             <h1>Identity info:</h1>
 
             <div className="account-image">
               <div className="account-img">
-              {userAuth.image? <img src={userAuth?.image}/> : <img src={accountImage} alt="" />}
-                
+                {userAuth?.image ? <img src={userAuth?.image}/>: <img src={ userAuth?.image? userAuth?.image:accountImage} alt="" />}
                 <div className="icon-img"><p><FaCamera/></p><input type="file" accept="image/*"
-              onChange={(event)=> formik.setFieldValue("image",event.currentTarget.files[0])}
-              onBlur = {formik.handleBlur("image")}/></div>
+                onChange={uploadImage}
+                onBlur = {formik.handleBlur("image")}/></div>
               </div>
 
-              <div>
+              <div className="account-user-info">
                 <h2>{userData?.email}</h2>
                 <p>ID : {userData?._id}</p>
+                <p>Verification Status: <span className={`status ${userAuth?.status}`}>{userAuth?.status}</span></p>
               </div>
             </div>
 
@@ -138,8 +150,10 @@ const Account = () => {
               onBlur = {formik.handleBlur("dob")}/>
 
             <div className="verification-id">
-              <input type="file" accept="image/*" value={formik.values.verification}
-              onChange={(event)=> formik.setFieldValue("verification",event.currentTarget.files[0])}
+              <h1>Upload your verification ID here: <br /><p>e.g: National ID card, drivers liscence, etc.</p></h1>
+              <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userAuth?.verification? <img src={userAuth?.verification}/>:<span><ImFolderUpload/></span>}</div></label>
+              <input type="file" className="v-img-input" id="verification" accept="image/*"
+              onChange={uploadVImage}
               onBlur = {formik.handleBlur("verification")}/>
             </div>
 

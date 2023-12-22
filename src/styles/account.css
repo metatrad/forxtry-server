@@ -3,15 +3,6 @@
 .tradingnav{
     width: fit-content;
 }
-.account-settings h6{
-    cursor: pointer;
-    color: #ff6250;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    margin-top: -1em;
-    margin-bottom: 2em;
-}
 .account-settings form h1{
     font-size: 1rem;
 }
@@ -84,13 +75,13 @@
 .account-image .account-img img{
     height: 5em;
     width: 5em;
+    border-radius: 50px;
 }
-
 .account-settings{
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    padding: 0.7em 2em;
+    padding: 1.5em 2em;
     gap: 3em;
     width: 100%;
 }
@@ -127,10 +118,17 @@
     color: #fff;
 }
 
-.account-options{
-    gap: 2em;
+.account-options-cover{
     background-color: #2b3040;
     height: 3.3em;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+.account-options{
+    width: 100%;
+    gap: 2em;
     overflow: auto;
 }
 .account-options,.account-options a{
@@ -156,6 +154,71 @@
     font-weight: 600;
     color: #fff;
 }
+.account-user-info .status{
+    padding: 5px;
+    border-radius: 5px;
+}
+.account-user-info .Pending, .account-user-info .pending{
+    color: goldenrod;
+    background-color: rgba(255, 255, 0, 0.19);
+}
+.account-user-info .verified, .account-user-info .Verified{
+    color: rgb(2, 211, 2);
+    background-color: rgba(0, 128, 0, 0.133);
+}
+.verification-id{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+}
+.v-img-label{
+    width: 100%;
+    height: 10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.verification-img{
+    border: 1px solid blue;
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: #0c5ff932;
+    cursor: pointer;
+    width: 90%;
+}
+.v-img-input{
+    display: none;
+}
+.verification-img img{
+    height: 9em;
+}
+.verification-id h1{
+    margin-top: 0.5em;
+}
+.verification-id p{
+    color: gray;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+.verification-img span{
+    font-size: 2rem;
+    color: blue;
+}
+.account-settings h6{
+    cursor: pointer;
+    color: #ff6250;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: -1em;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+}
 
 @media only screen and (max-width: 900px){
     .account-settings{
@@ -163,16 +226,32 @@
     }
 }
 @media only screen and (max-width:650px){
-    .account-options{
-        gap: 1.3em;
+    .account-settings input{
+        height: 2.6em;
     }
-    .account-options a{
+    .account-user-info h2{
         font-size: 0.9rem;
+    }
+    .account-user-info p{
+        font-size: 0.8rem;
+    }
+    .account-settings form .account-img{
+        position: relative;
+        width: 4.4em;
+        height: 4.4em;
+    }
+    .account-image .account-img img{
+        height: 4em;
+        width: 4em;
+    }
+    .account-options-cover{
+        display: none;
     }
     .account-settings form{
         width: 100%;
         display: flex;
         flex-direction: column;
+        gap: 0.2em;
     }
     .card button{
         padding: 1.3em 1em;

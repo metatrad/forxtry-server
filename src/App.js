@@ -75,7 +75,7 @@ function App() {
           <Route path='/account' element={<Account/>}/>
           <Route path='/deposit' element={<Deposit/>}/>
           <Route path='/depositmenu/:filterby' element={<DepositMenu/>}/>
-          <Route path='/admintransactions' element={<AdminTransactions/>}/>
+          <Route path='/admintransactions/:id' element={<AdminTransactions/>}/>
           <Route path='/analytics' element={<Analytics/>}/>
 
           <Route path='/withdrawal' element={<ProtectedRoute/>}>

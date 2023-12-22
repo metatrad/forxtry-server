@@ -1,32 +1,138 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { IoMdArrowRoundUp } from "react-icons/io";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { PiDiamondsFourDuotone } from "react-icons/pi";
 import { TbTriangleSquareCircle } from "react-icons/tb";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { useFormik } from "formik";
+import { tradeAction } from '../redux/tradeSlice';
+import * as Yup from "yup";
+import { toast } from "react-hot-toast";
+import 'react-toastify/dist/ReactToastify.css';
 import { GiTrade } from "react-icons/gi";
+import { debounce } from 'lodash';
 import '../styles/trading.css'
 
 let tvScriptLoadingPromise;
 
+//form validation
+const formSchema = Yup.object({
+  time: Yup.string().required("This field is required"),
+  investment: Yup.number().required("This field is required"),
+  up: Yup.string(),
+  down: Yup.string(),
+  result: Yup.string(),
+  payout: Yup.number(),
+});
+
 export default function TradingViewWidget() {
 
+  //timer
+  const [countdown, setCountdown] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [timer, setTimer] = useState(null);
+
+  const handleInputChange = (event) => {
+    setCountdown(parseInt(event.target.value, 10));
+  };
+
+  const startCountdown = () => {
+  };
+
+  useEffect(() => {
+    return () => {
+      clearInterval(timer);
+    };
+  }, [timer]);
+
+
+  //sbumitting form
+    //dispatch
+    const dispatch = useDispatch();
+
+    //formik form
+    const formik = useFormik({
+      initialValues: {
+        time: "",
+        investment: "",
+        up: "",
+        down: "",
+        result: "",
+        payout: "",
+      },
+      onSubmit: (values, {resetForm}) =>{
+        dispatch(tradeAction(values))
+        resetForm({values: ''})
+      },
+      validationSchema: formSchema,
+    })
+
+    //get deposit created from store
+    const state = useSelector(state => state?.trading)
+    console.log(state)
+    const {appErr, loading, serverErr, tradeCreated, isTradeCreated} = state;
+
+    useEffect(()=>{
+      if(isTradeCreated)
+      toast("Trade placed", {
+        className: "toast-message-trading",
+      });
+    }, [isTradeCreated, dispatch]);
+
+    //trade
+
+    //trade result
   const [prediction, setPrediction] = useState(null);
   const [result, setResult] = useState(null);
 
+  const perc = 0.5
+
   const handlePrediction = (selectedPrediction) => {
+    if (countdown > 0 && !timer) {
+      setSeconds(countdown);
+      setTimer(
+        setInterval(() => {
+          setSeconds((prevSeconds) => {
+            if (prevSeconds > 0) {
+              return prevSeconds - 1;
+            } else {
+              clearInterval(timer);
+              setTimer(null);
+  
+              // Simulated trading logic
+              const randomOutcome = Math.random() < perc ? 'Up' : 'Down';
+              const tradeResult = randomOutcome === selectedPrediction ? 'Win' : 'Loss';
+              setResult(tradeResult);
+              return 0;
+            }
+          });
+        }, 1000)
+      );
+    }
+  
     setPrediction(selectedPrediction);
-
-    // Simulated trading logic
-    const randomOutcome = Math.random() < 0.5 ? 'Up' : 'Down';
-    setResult(randomOutcome === selectedPrediction ? 'Win' : 'Loss');
   };
+  useEffect(() => {
+    if (result) {
+      // Display toast based on the trade result
+      toast(`${result === 'Win' ? 'Trade won' : 'Trade lost'}`, {
+        type: result === 'Win' ? 'success' : 'error',
+      });
+    }
+  }, [result]);
 
-  const[switchOptions, setSwitchOptions] = useState()
+  const handleIChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleSwitch =()=>{
-    setSwitchOptions ((prev)=>!prev)
-  }
+    // Perform the calculation (double the input value)
+    const calculatedResult = value ? parseFloat(value) * 1.30 : '';
+
+    // Update the formik values and trigger re-render
+    formik.setFieldValue(name, value);
+    formik.setFieldValue('calculatedResult', calculatedResult);
+  };
+    
   const onLoadScriptRef = useRef();
 
   useEffect(
@@ -58,16 +164,8 @@ export default function TradingViewWidget() {
             theme: "dark",
             style: "1",
             locale: "en",
-            // enable_publishing: true,
             gridColor: "rgba(240, 243, 250, 0.07)",
-            // withdateranges: true,
-            // range: "YTD",
-            // hide_side_toolbar: false,
             allow_symbol_change: true,
-            // details: true,
-            // hotlist: true,
-            // calendar: true,
-            // show_popup_button: true,
             popup_width: "1000",
             popup_height: "650",
             container_id: "tradingview_ee15e"
@@ -78,10 +176,6 @@ export default function TradingViewWidget() {
     []
   );
 
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-  }
-
   return (
     <div className='tradingview-widget-container' style={{ height: "88.5vh", width: "100%" }}>
       <div id='tradingview_ee15e' style={{ height: "calc(100%)", width: "100%" }} />
@@ -89,32 +183,36 @@ export default function TradingViewWidget() {
       <div className="place-trades">
         <div className="buttons">
  
-          <form action="" onSubmit={handleSubmit}>
+          <form action="" onSubmit={formik.handleSubmit}>
             <h1><GiTrade/>Place trade</h1>
 
             <div className="inputs-trade-wrapper">
             <div>
             <label htmlFor="time">Timer</label>
-            <input type="timer" name='time' id='time'/>
+            <input type="number" name='time' id='time' value={countdown} onChange={handleInputChange}/>
             </div>
             <div>
             <label htmlFor="investment">Investment</label>
-            <input type="number" name='investment' id='investment'/>
+            <input type="number" name='investment' id='investment' value={formik.values.investment} onChange={handleIChange} onBlur = {formik.handleBlur("investment")}/>
             </div>
             </div>
 
-            <p className='payout-text-mb'>Your payout: <h6>N5,000</h6></p>
+            <div><p>Time remaining: {seconds} seconds</p></div>
+
+            {formik.values.calculatedResult !== null && (<p className='payout-text-mb'>Payout: <h6>{formik.values.calculatedResult}</h6></p>)}
+
             <div className="trade-btns-wrapper">
             <button onClick={() => handlePrediction('Up')} className='trade-btn even'>Up <IoMdArrowRoundUp className='icon'/></button>
-            <p className='payout-text-dt'>Your payout: <h6>N5,000</h6></p>
+            {formik.values.calculatedResult !== null && (<p className='payout-text-dt'>Payout: <h6>{formik.values.calculatedResult}</h6></p>)}
             <button onClick={() => handlePrediction('Down')} className='trade-btn odd'>Down <IoMdArrowRoundDown className='icon'/></button>
+            </div>
             {prediction && (
              <p>Your prediction: <strong>{prediction}</strong></p>
              )}
              {result && (<p>Result: <strong>{result}</strong></p>
              )}
-            </div>
           </form> 
+
         </div>
       </div>
     </div>

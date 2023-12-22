@@ -9,7 +9,6 @@ const Depositcard = ({image,name,description,number,user, id}) => {
         <div className="payment-methods-card">
             <img src={image} alt="" />
             <p>{name}</p>
-            <p>{description}</p>
         </div>
         </Link>
     </div>

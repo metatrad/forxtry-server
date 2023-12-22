@@ -2,6 +2,25 @@
     display: flex;
     flex-direction: column;
 }
+.withdrawal-wrapper{
+    margin-top: 1em;
+}
+.withdrawal-body-container{
+    padding: 0.8em;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+}
+.withdrawal-verified{
+    border-radius: 5px;
+    border: 1px solid rgb(255, 77, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 77, 0);
+    background-color: rgba(255, 77, 0, 0.109);
+    padding: 1.5em;
+}
 .toast-message-withdrawal{
     background-color: rgb(23, 255, 23);
     box-shadow: 1px 0px 77px -2px rgba(254, 255, 254, 0.202);
@@ -13,7 +32,7 @@
     display: flex;
 }
 .withdrawal-container{
-    padding: 0em 1em;
+    padding: 0.4em 1em;
     border-radius: 7px;
     background-color: #252936;
     width: 100%;
@@ -112,10 +131,22 @@
 
 @media only screen and (max-width:1050px){
     .withdrawal-container{
-        width: 80%;
+        width: 100%;
     }
 }
 @media only screen and (max-width:650px){
+    .withdrawal-body-container{
+        padding-bottom: 3.6em;
+    }
+    .withdrawal-verified{
+        margin: 1.3em;
+        font-weight: 300;
+    }
+    .withdrawal-balance div{
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+    }
     .withdrawal-container{
         width: 90%;
     }
@@ -127,6 +158,22 @@
         border-right: 1px none;
         border-bottom: 1px dotted gray;
         padding: 0em;
+    }
+    .withdrawal-body .withdrawal-body-left h1{
+        margin-bottom: -1em;
+    }
+    .withdrawal-body .withdrawal-body-left h4{
+        font-size: 1rem;
+    }
+    .withdrawal-body .withdrawal-body-right form{
+        padding: 0em 0em;
+    }
+    .withdrawal-body .withdrawal-body-right input{
+        border: 1px solid grey;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        height: 2em;
+        width: 18em;
     }
 
 }

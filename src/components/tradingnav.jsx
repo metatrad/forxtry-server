@@ -125,10 +125,9 @@ const TradingNav = () => {
               </Link>
             )}
           <Link to="/deposit">Deposit</Link>
-          <Link to="/">Withdrawal</Link>
-          <Link to="/">Transactions</Link>
-          <Link to="/">Trades</Link>
-          <Link to="/">Account</Link>
+          <Link to="/withdrawal">Withdrawal</Link>
+          <Link to="/transactions">Transactions</Link>
+          <Link to="/account">Account</Link>
           </div>
           <p onClick={handleLogout}><MdOutlineLogout/>Logout</p>
         </div>

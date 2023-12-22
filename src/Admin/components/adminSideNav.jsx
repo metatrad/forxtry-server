@@ -26,7 +26,7 @@ const AdminSideNav = () => {
         <NavLink to = "/adminusers"><FaUsers/><p>Users management</p></NavLink>
         <NavLink to = "/admindeposit"><TbCircleArrowUpRightFilled/><p>Deposits</p></NavLink>
         <NavLink to = "/adminwithdrawal"><TbCircleArrowDownLeftFilled/><p>Withdrawals</p></NavLink>
-        <NavLink to = "/admintransactions"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
+        <NavLink to = "/admintransactions/6585c1217f85b93c532d3202"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
         <NavLink to = "/"><IoMdSettings/><p>Settings</p></NavLink>
         <NavLink to = "/"><MdOutlineLogout/><p>Logout</p></NavLink>
       </div>

@@ -33,9 +33,9 @@ const Edituser = () => {
       //formik form
       const formik = useFormik({
         initialValues:{
+          email: userDisplay?.email,
           balance: userDisplay?.balance,
           isAdmin: userDisplay?.isAdmin,
-          email: userDisplay?.email,
           status: userDisplay?.status,
         },
         onSubmit: values =>{
@@ -71,16 +71,42 @@ const Edituser = () => {
               <Link to="/adminusers"><IoIosArrowBack className="icon"/>All users</Link>
               <h1>User details</h1>
               <div className="item">
+                <div className="admin-users-left">
                 <form onSubmit={formik.handleSubmit}>
                   {userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>:null}
-                  <input type="number" value={formik.values.balance} onChange={formik.handleChange("balance")} onBlur = {formik.handleBlur("balance")}/>
-                  <input type="text" value={formik.values.isAdmin} onChange={formik.handleChange("isAdmin")} onBlur = {formik.handleBlur("isAdmin")}/>
+                  <div className="single-inputs">
+                  <p>Email</p>
                   <input type="email" value={formik.values.email} onChange={formik.handleChange("email")} onBlur = {formik.handleBlur("email")}/>
-                  <input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
+                  </div>
+                  
+                  <div className="single-inputs">
+                    <p>Balance</p>
+                  <input type="number" value={formik.values.balance} onChange={formik.handleChange("balance")} onBlur = {formik.handleBlur("balance")}/>
+                  </div>
+
+                  <div className="single-inputs">
+                    <p>Admin Status</p>
+                    <input type="text" value={formik.values.isAdmin} onChange={formik.handleChange("isAdmin")} onBlur = {formik.handleBlur("isAdmin")}/>
+                  </div>
+
+                  <div className="single-inputs">
+                    <p>Verification Status</p>
+                    <input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
+                  </div>
                   {
                     userLoading?<Disabledbutton/>: <button type="submit">Update</button>
                   }
                 </form>
+                </div>
+                <div className="admin-users-right">
+                <h6>Verification ID</h6>
+                <div className="verification-img-admin">{userDisplay?.verification? <img src={userDisplay?.verification} alt="" />: <h3>This user has not uploaded any verification ID.</h3>}</div>
+                <p>First Name: <span>{userDisplay?.firstName}</span></p>
+                <p>Last Name: <span>{userDisplay?.lastName}</span></p>
+                <p>Address Name: <span>{userDisplay?.address}</span></p>
+                <p>Country: <span>{userDisplay?.country}</span></p>
+                <p>Date of Birth: <span>{userDisplay?.dob}</span></p>
+                </div>
               </div>
             </div>
           </div>

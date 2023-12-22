@@ -30,10 +30,9 @@ const Deposit = () => {
 
       <div className="tradingnav-deposit">
         <TradingNav />
+        <div className="deposit-body-wrapper">
         <div className="payment-methods-wrapper">
-          <AccountTopNav/>
         <div className="payment-methods">
-
         <div className="crypto methods">
           <h1><PiCurrencyBtcFill /> Cryptocurrencies</h1>
 
@@ -62,7 +61,7 @@ const Deposit = () => {
         </div>
           <DepositFooter/>
         </div>
-
+        </div>
       </div>
     </div>
   );

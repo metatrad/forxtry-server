@@ -23,12 +23,22 @@ const percctrl = expressAsyncHandler(async (req, res) => {
 const fetchpercctrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const percs = await Perc.findById();
+    const percs = await Perc.find({});
     res.json(percs)
 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+//fetch all users
+const fetchUsersctrl = expressAsyncHandler(async(req, res)=>{
+  const {page} = req?.query;
+  try {
+    const users = await User.paginate({}, {limit: 10, page: Number(page)})
+    res.json(users);
+  } catch (error) {
+    res.json(error)
   }
 });
  

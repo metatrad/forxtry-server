@@ -39,6 +39,7 @@ app.get("/", (req, res) => {
 //percentage win/loss
 app.post("/perc",authMiddleware, percctrl);
 app.get("/admintransaction",authMiddleware, fetchpercctrl);
+app.get("/trading",authMiddleware, fetchpercctrl);
 app.put("/admintransactions/:id",authMiddleware, updatepercctrl);
 
 //signup and login

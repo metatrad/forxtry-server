@@ -5,11 +5,10 @@ const mongoosePaginate = require("mongoose-paginate-v2")
 const tradeSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: [true, "User ID is required"] },
     time: { type: String },
-    up: { type: String },
-    down: { type: String },
     investment: { type: Number},
     result: { type: String},
-    payout: { type: Number},
+    calculatedResult: { type: Number},
+    tradeResult: { type: String},
 },{
     timestamps: true,
     toJSON: {

@@ -17,6 +17,8 @@ const userSchema = mongoose.Schema({
     dob: {type: String,},
     verification: {type: String},
     isAdmin : {type : Boolean, default: false },
+    otp: String,
+    otpExpiration: Date,
   },
   {
     timestamps: true,

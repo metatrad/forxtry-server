@@ -7,38 +7,11 @@ const accountStatsctrl = expressAsyncHandler(async(req, res)=>{
     try {
             //user stats
     const userStats = await User.aggregate([
-        //filter
-        // {$match: {user: {$gte: 0}}},
         {
             $group: {
               _id: null,
-              // totalUser: { $sum: "$amount" },
-              // users: { $push: "$amount" },
               totalRecordUsers: { $sum: 1 },
-              // percentage: { $multiply: [{ $divide: ["$totalRecordUsers"] }, 100] },
             },
-        //    },
-        // //   // Unwind the deposits array
-        //      { $unwind: "$totalRecordUsers" },
-        // //   // Calculate percentage for each deposit
-        //   {
-        //     $project: {
-        //       _id: 0,
-        //       user: "$users",
-        //       percentage: { $multiply: [{ $divide: ["$users", "$totalUser"] }, 100] },
-        //     },
-        //   },
-        //   // Group to calculate additional statistics
-        // {
-        //     $group:{
-        //         _id: null,
-        //         averageUser: { $avg: "$user" },
-        //         totalUser: { $sum: "$user"},
-        //         minimumUser: { $min: "$user" },
-        //         maxUser: { $max: "$user" },
-        //         totalRecordUser: { $sum: 1 },
-        //         generalPercentage: { $avg: "$percentage" }, // Calculate the general percentage
-        //     },
         }
     ])
             //deposit stats

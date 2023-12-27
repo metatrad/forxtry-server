@@ -7,8 +7,8 @@ const withdrawalctrl = expressAsyncHandler(async (req, res) => {
 
   try {
     const user = await User.findById(req?.user?._id);
-
     if (user.balance < amount) {
+      // throw new Error("Insufficient balance");
       return res.status(400).json({ message: 'Insufficient balance', alert: false });
     }
       user.balance -= amount;
@@ -22,8 +22,14 @@ const withdrawalctrl = expressAsyncHandler(async (req, res) => {
         name,
         status,
       });
+
+      const response = {
+        withdrawal,
+        balance: user.balance,
+        alert: true,
+      };
   
-      res.json({withdrawal,balance: user.balance, message: "Withdrawal placed", alert: true})
+      res.json(response)
 
   } catch (error) {
     console.error("Error withdrawing funds:", error);
@@ -35,7 +41,7 @@ const withdrawalctrl = expressAsyncHandler(async (req, res) => {
 const fetchwithdrawalctrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const withdrawal = await Withdrawal.paginate({}, {limit: 10, page: Number(page), populate: "user"});
+    const withdrawal = await Withdrawal.paginate({}, {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 },});
     res.json(withdrawal)
 
   } catch (error) {

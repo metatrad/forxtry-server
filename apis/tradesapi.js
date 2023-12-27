@@ -3,31 +3,27 @@ const { Trade } = require("../schema/tradeSchema");
 const { User } = require('../schema/userSchema')
 
 const tradectrl = expressAsyncHandler(async (req, res) => {
-  const { time , up, down, investment, result, payout, } = req.body;
-
-  console.log(req)
+  const { time , investment, result, calculatedResult, tradeResult } = req.body;
 
   try {
     const user = await User.findById(req?.user?._id,);
 
-    // console.log(user)
-
     if (user.balance < investment ) {
+      throw new Error("Insufficient balance");
       return res.status(400).json({ message: 'Insufficient balance', alert: false });
     }
       user.balance -= investment;
+
       await user.save();
       const trading = await Trade.create({
         user: req?.user?._id,
         time,
-        up,
-        down,
         result,
         investment,
-        payout,
+        calculatedResult,
       });
   
-      res.json({trading, balance: user.balance, message: "Trade placed", alert: true})
+      res.json({trading, balance: user.balance, alert: true})
 
   } catch (error) {
     console.error("Error placing trade:", error);
@@ -35,11 +31,97 @@ const tradectrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//update trade bal
+const tradebalctrl = expressAsyncHandler(async (req, res) => {
+  const { time , investment, result, calculatedResult, } = req?.body;
+
+  try {
+    const user = await User.findById(req?.user?._id,);
+
+    
+    user.balance += calculatedResult;
+    
+
+    await user.save();
+    const trading = await Trade.create({
+      user: req?.user?._id,
+      time,
+      result,
+      investment,
+      calculatedResult,
+    });
+  
+      res.json({trading, balance: user.balance, alert: true})
+
+  } catch (error) {
+    console.error("Error placing trade:", error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+//demotrade
+const demotradectrl = expressAsyncHandler(async (req, res) => {
+
+  const { time , investment, result, calculatedResult, tradeResult } = req.body;
+
+  try {
+    const user = await User.findById(req?.user?._id,);
+
+    if (user.demoBalance < investment ) {
+      throw new Error("Insufficient balance");
+      return res.status(400).json({ message: 'Insufficient balance', alert: false });
+    }
+      user.demoBalance -= investment;
+      await user.save();
+      const trading = await Trade.create({
+        user: req?.user?._id,
+        time,
+        result,
+        investment,
+        calculatedResult,
+      });
+  
+      res.json({trading, demoBalance: user.demoBalance, alert: true})
+
+  } catch (error) {
+    console.error("Error placing trade:", error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+//update trade bal
+const demotradebalctrl = expressAsyncHandler(async (req, res) => {
+  const { time , investment, result, calculatedResult, } = req?.body;
+
+  try {
+    const user = await User.findById(req?.user?._id,);
+
+    user.demoBalance += calculatedResult;
+    
+    await user.save();
+    const trading = await Trade.create({
+      user: req?.user?._id,
+      time,
+      result,
+      investment,
+      calculatedResult,
+    });
+  
+      res.json({trading, demoBalance: user.demoBalance, alert: true})
+
+  } catch (error) {
+    console.error("Error placing trade:", error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+
+
 // fetch all trades
 const fetchtradectrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const trading = await Trade.paginate({}, {limit: 10, page: Number(page), populate: "user"});
+    const trading = await Trade.paginate({}, {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 },});
     res.json(trading)
 
   } catch (error) {
@@ -95,4 +177,4 @@ const deletetradectrl = expressAsyncHandler(async (req, res) => {
 });
 
 
-module.exports = { tradectrl, fetchtradectrl, singletradectrl , updatetradectrl, deletetradectrl };
+module.exports = { tradectrl, fetchtradectrl, singletradectrl , updatetradectrl, deletetradectrl, tradebalctrl, demotradectrl, demotradebalctrl };

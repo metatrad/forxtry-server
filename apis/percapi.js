@@ -48,7 +48,6 @@ const fetchUsersctrl = expressAsyncHandler(async(req, res)=>{
 const updatepercctrl = expressAsyncHandler( async (req,res)=>{
   const {id} = req?.params;
 
-  console.log(req?.params)
   try {
     const updateperc = await Perc.findByIdAndUpdate(id, {
       perc: req?.body?.perc,

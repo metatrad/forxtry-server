@@ -3,11 +3,11 @@ const { errorHandler, notFound } = require("./middleware/errorMiddleware")
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl } = require("./apis/userapi")
+const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl } = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const { postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
-const { tradectrl, fetchtradectrl, singletradectrl , updatetradectrl, deletetradectrl } = require('./apis/tradesapi')
+const { tradectrl, fetchtradectrl, singletradectrl , updatetradectrl, deletetradectrl, tradebalctrl, demotradectrl, demotradebalctrl } = require('./apis/tradesapi')
 const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
 const { accountStatsctrl } = require("./apis/accountStats")
@@ -45,6 +45,7 @@ app.put("/admintransactions/:id",authMiddleware, updatepercctrl);
 //signup and login
 app.post("/signup", createUserctrl);
 app.post("/login",loginUserctrl);
+app.post("/otp",verifyOtpCtrl);
 
 //handle users
 app.get("/adminusers",authMiddleware, fetchUsersctrl);
@@ -53,7 +54,10 @@ app.put("/account",authMiddleware, updateProfilectrl);
 app.put("/adminusers/:id",authMiddleware, updateUsersctrl);
 
 //trading
-app.post("/trading",authMiddleware, tradectrl);
+app.post("/tradingcreate",authMiddleware, tradectrl);
+app.post("/trading",authMiddleware, tradebalctrl);
+app.post("/democreate",authMiddleware, demotradectrl);
+app.post("/demo",authMiddleware, demotradebalctrl);
 
 //deposit
 app.post("/depositmenu",authMiddleware,depositctrl);

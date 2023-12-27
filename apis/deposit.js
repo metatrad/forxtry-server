@@ -5,8 +5,6 @@ const { Deposit } = require("../schema/depositSchema");
 const depositctrl = expressAsyncHandler(async (req, res) => {
   const { type, method, amount, status } = req.body;
 
-  console.log(req.user);
-
   try { 
     const deposit = await Deposit.create({
       user: req?.user?._id,
@@ -30,11 +28,10 @@ const depositctrl = expressAsyncHandler(async (req, res) => {
 const fetchdepositctrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const deposit = await Deposit.paginate({}, {limit: 10, page: Number(page), populate: ["user", "method"]});
+    const deposit = await Deposit.paginate({}, {limit: 10, page: Number(page), populate: ["user", "method"],sort: { createdAt: -1 },});
     res.json(deposit)
 
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error", alert: false });
   }
 });
@@ -47,7 +44,6 @@ const singledepositctrl = expressAsyncHandler(async (req, res) => {
     res.json(deposit)
 
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error", alert: false });
   }
 });
@@ -64,7 +60,6 @@ const updateDepositctrl = expressAsyncHandler(async(req,res)=>{
     }, {new: true})
     res.json(deposit)
   } catch (error) {
-    console.error(error);
     res.json(error)
   }
 })
@@ -77,7 +72,6 @@ const deleteDepositctrl = expressAsyncHandler(async (req, res) => {
     res.json(deposit)
 
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error", alert: false });
   }
 });

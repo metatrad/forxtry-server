@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUserAction } from '../../redux/userSlice';
-import Edit from '../../images/edit.png'
 import AdminUserCard from './adminUsercard'
 import '../adminStyles/table.css'
 import Pagination from './pagination';
@@ -26,14 +25,12 @@ const dispatch = useDispatch();
     },[dispatch, page, setPage])
 
     const userData = useSelector(state => state?.user?.userAuth);
-    console.log(userData)
  
   const allUsers = useSelector(state => state?.user) 
   const { userAppErr, userServerErr, userList, userLoading, isUserUpdated } = allUsers;
 
       //filter only users
       const userListCard = userList?.docs?.filter(el => el,[]) 
-      console.log(userListCard)
 
       const loadingArray = new Array(1).fill(null)
 

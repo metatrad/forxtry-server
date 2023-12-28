@@ -57,3 +57,12 @@
     width: 35px;
     height: 28px;
 }
+@media only screen and (max-width:750px){
+    .admin-table{
+        font-size: 0.8rem;
+    }
+    .admin-table .tableCell{
+        font-size: 0.7rem;
+        width: 1em;
+    }
+}

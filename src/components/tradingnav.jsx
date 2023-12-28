@@ -23,11 +23,11 @@ import '../styles/tradingNav.css'
 
 const TradingNav = () => {
 
-  const dispatch = useDispatch();
+  const dispatche = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatche(logout());
     navigate("/");
     toast("Logged out successfully");
   };
@@ -35,7 +35,7 @@ const TradingNav = () => {
   const userData = useSelector(state => state?.user?.userAuth);
 
 
-  const {dispatches} = useContext(LightModeContext)
+  const {dispatch} = useContext(LightModeContext)
 
   const [showSupport, setShowSupport] = useState(false)
 
@@ -101,8 +101,8 @@ const TradingNav = () => {
   
             <h5>Templates</h5>
   
-            <div className="light mode" onClick={()=> dispatches({type:"LIGHT"}) }><MdLightMode color='#ff8a01'/> Light Mode</div>
-            <div className="dark mode" onClick={()=> dispatches({type:"DARK"}) }><MdDarkMode color='#ff8a01'/> Dark Mode</div>
+            <div className="light mode" onClick={()=> dispatch({type:"LIGHT"}) }><MdLightMode color='#ff8a01'/> Light Mode</div>
+            <div className="dark mode" onClick={()=> dispatch({type:"DARK"}) }><MdDarkMode color='#ff8a01'/> Dark Mode</div>
           </div>
         }
         </div>

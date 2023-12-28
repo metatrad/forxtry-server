@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link,NavLink } from 'react-router-dom'
+import '../adminStyles/sideNav.css'
+import { Link,NavLink,useNavigate } from 'react-router-dom'
 import { RiHomeLine } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 import { TbCircleArrowDownLeftFilled } from "react-icons/tb";
 import { TbCircleArrowUpRightFilled } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
@@ -10,12 +12,22 @@ import { PiArrowsClockwiseBold } from "react-icons/pi";
 import { HiMiniSignal } from "react-icons/hi2";
 import { LightModeContext } from '../../context/lightModeContext';
 import { useContext } from 'react';
-import '../adminStyles/sideNav.css'
+import { logout } from '../../redux/userSlice'
+import { useDispatch } from "react-redux";;
 
 
 const AdminSideNav = () => {
 
   const {dispatch} = useContext(LightModeContext)
+
+  const dispatche = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatche(logout());
+    navigate("/");
+    toast("Logged out successfully");
+  };
 
   return (
     <div className='adminSideNav'>
@@ -27,8 +39,7 @@ const AdminSideNav = () => {
         <NavLink to = "/admindeposit"><TbCircleArrowUpRightFilled/><p>Deposits</p></NavLink>
         <NavLink to = "/adminwithdrawal"><TbCircleArrowDownLeftFilled/><p>Withdrawals</p></NavLink>
         <NavLink to = "/admintransactions"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
-        <NavLink to = "/"><IoMdSettings/><p>Settings</p></NavLink>
-        <NavLink to = "/"><MdOutlineLogout/><p>Logout</p></NavLink>
+        <NavLink onClick={handleLogout}><MdOutlineLogout/><p>Logout</p></NavLink>
       </div>
       <h5>THEMES</h5>
       <div className="themes">

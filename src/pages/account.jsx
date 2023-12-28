@@ -72,19 +72,15 @@ const Account = () => {
 
     const uploadImage = async(e) =>{
       const data = await ImagetoBase64(e.target.files[0])
-      console.log(data)
       formik.setFieldValue('image', data);
     }
     const uploadVImage = async(e) =>{
       const data = await ImagetoBase64(e.target.files[0])
-      console.log(data)
       formik.setFieldValue('verification', data);
     }
 
 
   const userData = useSelector((state) => state?.user?.userAuth);
-  console.log(userData)
-  console.log(userAuth)
 
   return (
     <div>
@@ -100,6 +96,8 @@ const Account = () => {
         </div>
 
         <div className="account-settings">
+
+          <div><AccountTopNav/></div>
 
           <form action="" onSubmit={formik.handleSubmit}>
             <h1>Identity info:</h1>

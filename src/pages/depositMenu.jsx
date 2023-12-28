@@ -57,7 +57,7 @@ const DepositMenu = () => {
     //redirect
     useEffect(()=>{
       if(isDepositCreated)
-      toast("Deposited", {
+      toast("Deposit processing...", {
         className: "toast-message-deposit",
       });
     }, [isDepositCreated, dispatch]);
@@ -87,7 +87,7 @@ const DepositMenu = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     // Perform the calculation (double the input value)
-    const calculatedResult = value ? parseFloat(value) / methodDisplay?.calc : '';
+    const calculatedResult = Math.floor(value ? parseFloat(value) / methodDisplay?.calc : '');
     // Update the formik values and trigger re-render
     formik.setFieldValue(name, value);
     formik.setFieldValue('calculatedResult', calculatedResult);

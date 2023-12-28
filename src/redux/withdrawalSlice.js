@@ -87,15 +87,14 @@ const withdrawalSlice = createSlice({
         })
         //reset action
         builder.addCase(resetWithdrawalCreated, (state, action)=>{
-            state.isWithdrawalCreated = true
+            state.isWithdrawalCreated = false
         })
         builder.addCase(withdrawalAction.fulfilled,(state, action)=>{
             state.loading = false;
             state.withdrawalCreated = action?.payload;
-            state.appErr = undefined;
-            state.serverErr = undefined; 
-            state.isWithdrawalCreated = false
-
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.payload?.message; 
+            state.isWithdrawalCreated = true
         // Update localStorage
         localStorage.setItem('userInfo', JSON.stringify({
             ...JSON.parse(localStorage.getItem('userInfo')),
@@ -104,8 +103,8 @@ const withdrawalSlice = createSlice({
         })
         builder.addCase(withdrawalAction.rejected,(state, action)=>{
             state.loading = false;
-            state.appErr = action?.payload?.msg;
-            state.serverErr = action?.error?.msg; 
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message; 
         })
 
         //fetch withdrawal

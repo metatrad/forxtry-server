@@ -31,7 +31,6 @@ const SignUp = () => {
   //get data from store
   const user = useSelector(state => state?.user);
   const { userAppErr, userServerErr, userLoading, isRegistered } = user;
-  console.log(user)
 
   //formik form
   const formik = useFormik({

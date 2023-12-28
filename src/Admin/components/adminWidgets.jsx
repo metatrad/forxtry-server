@@ -20,14 +20,13 @@ const AdminWidgets = ({ type }) => {
   },[dispatch]);
 
   const statistics = useSelector( state => state?.statistics)
-  console.log(statistics)
   const {loading, appErr, serverErr, stats} = statistics;
 
   const deposits = stats?.depositStats[0];
   const withdrawals = stats?.withdrawalStats[0];
   const users = stats?.userStats[0];
 
-  const userData = useSelector(state => state.user.userAuth);
+  const userData = useSelector(state => state?.user?.userAuth);
     let data;
 
     const zero = 0;
@@ -87,13 +86,13 @@ const AdminWidgets = ({ type }) => {
   return (
     <div className='admin-widget'>
       <div className="left">
-        <span className='title'>{data.title}</span>
-        <span className='counter'>{data.isMoney ? currencyFormatter("USD",data?.amount): data?.amount}</span>
-        <span className='link'>{data.link}</span>
+        <span className='title'>{data?.title}</span>
+        <span className='counter'>{data?.isMoney ? currencyFormatter("USD",data?.amount): data?.amount}</span>
+        <span className='link'>{data?.link}</span>
       </div>
       <div className="right">
-        <div className={data.diff <zero? "percentage negative":"percentage positive"}>{data.diff <0 ?<FaAngleDown/>:<IoIosArrowUp/>}{Math.floor(data.diff)}%</div>
-        {data.icon}
+        <div className={data.diff <zero? "percentage negative":"percentage positive"}>{data?.diff <0 ?<FaAngleDown/>:<IoIosArrowUp/>}{Math.floor(data?.diff)}%</div>
+        {data?.icon}
       </div>
     </div>
   )

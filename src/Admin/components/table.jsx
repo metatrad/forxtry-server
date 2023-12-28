@@ -11,9 +11,7 @@ import '../adminStyles/table.css'
 
 const Admintable = () => {
 
-  const userData = useSelector((state) => state.user);
-  console.log(userData)
-    
+  const userData = useSelector((state) => state.user);    
     const rows = [
         {
             id: 1111111,

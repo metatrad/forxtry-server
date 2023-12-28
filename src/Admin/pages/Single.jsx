@@ -27,7 +27,6 @@ const Edituser = () => {
   const { filterby } = useParams();
   const userData = useSelector(state => state?.user?.userList)
   const userDisplay = userData?.docs?.filter((el) => el._id === filterby)[0];
-  console.log(userDisplay)
      //dispatch
      const dispatch = useDispatch();
       //formik form
@@ -49,7 +48,6 @@ const Edituser = () => {
       })
 
       const user = useSelector(state=>state.user);
-      console.log(user)
       const {userAppErr, userServerErr, userUpdated, userLoading } = user
 
       useEffect(()=>{

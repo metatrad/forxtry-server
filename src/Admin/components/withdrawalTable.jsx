@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllWithdrawalAction } from '../../redux/withdrawalSlice';
-import Edit from '../../images/edit.png'
 import Withdrawalcard from './adminWithdrawalcard';
 import '../adminStyles/table.css'
 import Pagination from './pagination';
@@ -36,7 +35,6 @@ const dispatch = useDispatch();
 
       //filter only withdrawals
       const withdrawalListCard = withdrawalList?.docs?.filter(el => el.type === "Withdrawal",[])
-      console.log(withdrawalListCard) 
       const loadingArray = new Array(1).fill(null)
 
   return (
@@ -62,7 +60,7 @@ const dispatch = useDispatch();
                         <TableCell className='tableCell'>{dateFormatter(el?.createdAt)}</TableCell>
                         <TableCell className='tableCell'>{el?.account}</TableCell>
                         <TableCell className='tableCell'><span className={`status ${el?.status}`}>{el?.status}</span></TableCell>     
-                        <TableCell className='tableCell'><Withdrawalcard id = {el?._id}><button><img src={Edit}/></button></Withdrawalcard></TableCell>     
+                        <TableCell className='tableCell'><Withdrawalcard id = {el?._id}></Withdrawalcard></TableCell>     
                       </TableRow>
         )})}
                       <Pagination setPage=  {setPage} pageNumber = {withdrawalList?.totalPages}/>

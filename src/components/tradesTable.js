@@ -13,7 +13,6 @@ import '../Admin/adminStyles/table.css'
 const Tradestable = () => {
 
   const userData = useSelector((state) => state.user);
-  console.log(userData)
     
     const rows = [
         {

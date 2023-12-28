@@ -4,6 +4,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom'
 import TradingTopNav from '../components/tradingTopNav';
 import TradingNav from '../components/tradingnav';
 import TradingWidget from '../components/tradingWidget';
+import DemoTradingViewWidget from '../components/demoWidget';
 import { MdRocketLaunch } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
@@ -25,8 +26,6 @@ import '../styles/demo.css'
 const Demo = () => {
 
   const userData = useSelector(state=>state?.user?.userAuth)
-
-  console.log(userData)
 
   const demoBalance = userData.balance + 10000;
 
@@ -132,7 +131,7 @@ const Demo = () => {
       </div>
       <div className='widget'>
 
-      <TradingWidget/>
+      <DemoTradingViewWidget/>
 
       </div>
 

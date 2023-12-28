@@ -1,5 +1,4 @@
 const dateFormatter = (date) =>{
-    console.log(date)
     let d = new Date(date);
     let year = new Intl.DateTimeFormat("en",{ year: "numeric"}).format(d);
     let month = new Intl.DateTimeFormat("en",{ month: "short"}).format(d);

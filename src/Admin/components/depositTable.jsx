@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllDepositAction } from '../../redux/depositSlice';
-import Edit from '../../images/edit.png'
 import AdminDepositCard from '../components/adminDepositcard'
 import '../adminStyles/table.css'
 import Pagination from './pagination';
@@ -36,7 +35,6 @@ const dispatch = useDispatch();
 
       //filter only deposits
       const depositListCard = depositList?.docs?.filter(el => el.type === "Deposit",[]) 
-      console.log(depositListCard)
       const loadingArray = new Array(1).fill(null)
 
   return (
@@ -63,7 +61,7 @@ const dispatch = useDispatch();
                         <TableCell className='tableCell'>{dateFormatter(el?.createdAt)}</TableCell>
                         <TableCell className='tableCell'>{el?.method}</TableCell>
                         <TableCell className='tableCell'><span className={`status ${el?.status}`}>{el?.status}</span></TableCell>     
-                        <TableCell className='tableCell'><AdminDepositCard id = {el?._id}><button><img src={Edit}/></button></AdminDepositCard></TableCell>     
+                        <TableCell className='tableCell'><AdminDepositCard id = {el?._id}></AdminDepositCard></TableCell>     
                       </TableRow>
         )})}
                       <Pagination setPage=  {setPage} pageNumber = {depositList?.totalPages}/>

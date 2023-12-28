@@ -16,7 +16,6 @@ const Deposit = () => {
 
   //categories depositmethods
   const depositCardListCryptocurrencies = depositData.filter(el => el,[]) 
-  console.log(depositCardListCryptocurrencies)
 
   const loadingArray = new Array(1).fill(null)
   
@@ -32,6 +31,7 @@ const Deposit = () => {
         <TradingNav />
         <div className="deposit-body-wrapper">
         <div className="payment-methods-wrapper">
+        <div><AccountTopNav/></div>
         <div className="payment-methods">
         <div className="crypto methods">
           <h1><PiCurrencyBtcFill /> Cryptocurrencies</h1>

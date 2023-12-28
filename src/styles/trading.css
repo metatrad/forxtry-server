@@ -1,3 +1,11 @@
+.time-left-mb{
+    display: none;
+}
+.trade-btns-cover-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+}
 .tradingview-widget-container{
     display: flex;
 }
@@ -18,7 +26,7 @@
     justify-content: space-between;
     padding: 0em 0.5em;
     font-weight: 800;
-    height: 3em;
+    height: 2.9em;
     border-radius: 5px;
     cursor: pointer;
     transition: .2s ease-in-out;
@@ -64,7 +72,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 0.8em;
 }
 .place-trades form h1{
     font-size: 1.3rem;
@@ -94,17 +102,26 @@
     font-weight: 700;
 }
 .place-trades form input{
-    width: 100%;
     background-color: transparent;
     outline: none;
-    border: 1px solid rgb(178, 176, 176);
-    padding: 0.3em;
-    border-radius: 5px;
+    border: none;
     cursor: pointer;
-    height: 3em;
     color: #fff;
 }
-.place-trades form input:focus,.place-trades form input:hover{
+.time-div, .investment-div{
+    display: flex;
+    height: 1.5em;
+    gap: 0.5em;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.3em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(178, 176, 176);
+    transition: .24s ease-in-out;
+}
+.time-div:focus,.time-div:hover,.investment-div:focus,.investment-div:hover{
     border: 1px solid rgb(255, 255, 255);
 }
 .place-trades form .inputs-trade-wrapper,.place-trades form .trade-btns-wrapper{
@@ -136,6 +153,44 @@
 .place-trades form .payout-text-mb{
     display: none;
 }
+.trade-btns-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.time-history{
+    background-color: #353a4d;
+    width: 14em;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7em;
+    height: 10em;
+}
+.time-history p{
+    margin-bottom: 0.8em;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.time-history p span{
+    font-weight: 700;
+}
+.view-trade-history{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2em;
+}
+.view-trade-history a{
+    text-decoration: underline;
+    font-size: 0.8rem;
+    color: gray;
+    font-weight: 400;
+}
+
 
 @media only screen and (max-width:1050px){
 
@@ -162,6 +217,24 @@
         display: flex;
         flex-direction: row;
     }
+    .time-history{
+        display: none;
+    }
+    .time-left-mb{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .time-div, .investment-div{
+        align-items: left;
+        justify-content: left;
+    }
+    .place-trades form input{
+        width: 90%;
+    }
 }
 @media only screen and (max-width:650px){
     .place-trades form{
@@ -169,7 +242,7 @@
         flex-direction: column;
         gap: 0.4em;
     }
-    .place-trades form h1{
+    .place-trades form h2{
         font-size: 1rem;
         position: absolute;
         top: 0;
@@ -177,8 +250,13 @@
         margin-left: 1em;
         margin-top: 0.2em;
     }
+    .time-div, .investment-div{
+        display: flex;
+        align-items: left;
+        justify-content: left;
+    }
     .place-trades form input{
-        height: 2.5em;
+        width: 90%;
     }
     .place-trades form label{
         background-color: #1c1f2d;

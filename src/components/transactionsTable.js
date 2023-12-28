@@ -30,8 +30,6 @@ const Transactionstable = () => {
 
     const transactions = [...deposits, ...withdrawals];
 
-    console.log(state)
-
   const userData = useSelector((state) => state.user);
 
   return (

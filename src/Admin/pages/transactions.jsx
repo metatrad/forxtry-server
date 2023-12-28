@@ -21,7 +21,6 @@ const Transactions = () => {
     const userData = useSelector(state => state?.user?.userAuth);
  
   const allPerc = useSelector(state => state?.perc) 
-  console.log(allPerc)
   const {loading, appErr, serverErr, percList} = allPerc;
 
   const loadingArray = new Array(1).fill(null)

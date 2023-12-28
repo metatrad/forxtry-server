@@ -26,7 +26,6 @@ const Editdeposit = () => {
   const { filterby } = useParams();
   const depositData = useSelector((state) => state?.deposit?.depositList);
   const depositDisplay = depositData?.docs?.filter((el) => el._id === filterby)[0];
-  console.log(depositData)
      //dispatch
      const dispatch = useDispatch();
       //formik form
@@ -47,7 +46,6 @@ const Editdeposit = () => {
       })
 
       const deposit = useSelector(state=>state.deposit);
-      console.log(deposit)
       const {appErr, serverErr, depositUpdated, loading, isDepositUpdated} = deposit
 
       useEffect(()=>{

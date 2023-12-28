@@ -25,7 +25,6 @@ export const signupAction = createAsyncThunk("/signup", async (payload, { reject
     }
 });
 
-
 //login action
 export const loginAction = createAsyncThunk("/login", async (payload, { rejectWithValue, getState, dispatch })=>{
     const config = {
@@ -36,6 +35,29 @@ export const loginAction = createAsyncThunk("/login", async (payload, { rejectWi
     try {
         //http call
         const { data } = await axios.post(`${baseURL}/login`, payload, config);
+        // //save browser into local storage
+        // localStorage.setItem('userInfo', JSON.stringify(data));
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
+
+  //otp action
+  export const loginWithOTP = createAsyncThunk("/loginWithOTP", async (payload, { rejectWithValue, getState, dispatch })=>{
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.post(`${baseURL}/otp`, payload, config);
+
         //save browser into local storage
         localStorage.setItem('userInfo', JSON.stringify(data));
         return data;
@@ -191,13 +213,35 @@ const userSlice = createSlice({
         });
         //handle success state
         builder.addCase(loginAction.fulfilled, (state, action)=>{
-            state.userAuth = action?.payload;
+            state.otpSent = action?.payload;
             state.userLoading = false;
             state.userAppErr = undefined;
             state.userServerErr = undefined;
         })
         //handle rejected state
         builder.addCase(loginAction.rejected, (state, action)=>{
+            state.userLoading = false;
+            state.userAppErr = action?.payload?.msg;
+            state.userServerErr = action?.error?.msg;
+
+        })
+
+                // otp login action
+        //handle pending state
+        builder.addCase(loginWithOTP.pending,(state, action)=>{
+            state.userLoading = true;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        });
+        //handle success state
+        builder.addCase(loginWithOTP.fulfilled, (state, action)=>{
+            state.userAuth = action?.payload;
+            state.userLoading = false;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        })
+        //handle rejected state
+        builder.addCase(loginWithOTP.rejected, (state, action)=>{
             state.userLoading = false;
             state.userAppErr = action?.payload?.msg;
             state.userServerErr = action?.error?.msg;
@@ -347,6 +391,7 @@ const userSlice = createSlice({
             state.userServerErr = action?.error?.msg;
         })
     }
+    
     
 
 })

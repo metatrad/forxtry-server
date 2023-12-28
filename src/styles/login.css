@@ -17,9 +17,13 @@
     align-items: center;
 }
 .login{
+    background-image: url(../images/pngwing.com\ \(9\).png);
     text-align: center;
     display: flex;
     flex-direction: column;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     align-items: center;
     justify-content: center;
 }

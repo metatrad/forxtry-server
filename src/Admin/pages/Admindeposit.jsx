@@ -41,7 +41,6 @@ const Admindeposit = () => {
   }
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    console.log(data)
 
     const { image,name,number,user,description,qrcode, calc} = data
 
@@ -55,7 +54,6 @@ const Admindeposit = () => {
       })
   
       const fetchRes = await fetchData.json()
-      console.log(fetchRes)
       toast(fetchRes.message)
 
       setData(()=>{
@@ -77,7 +75,6 @@ const Admindeposit = () => {
 
   const uploadImage = async(e) =>{
     const data = await ImagetoBase64(e.target.files[0])
-    // console.log(data)
     setData((preve)=>{
       return{
         ...preve,
@@ -87,7 +84,6 @@ const Admindeposit = () => {
   }
   const uploadQrcode = async(e) =>{
     const data = await ImagetoBase64(e.target.files[0])
-    // console.log(data)
     setData((preve)=>{
       return{
         ...preve,

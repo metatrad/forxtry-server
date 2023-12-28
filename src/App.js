@@ -28,8 +28,10 @@ import AdminRoute from './components/adminRoute';
 import Editdeposit from './Admin/pages/edit-deposit';
 import Editwithdrawal from './Admin/pages/edit-withdrawal';
 import Transactions from './pages/transactions';
+import Test from './pages/test'
 import Editperc from './Admin/pages/edit-perc';
 import Trades from './pages/trades';
+import Otp from './pages/otp'
 import { loginRedux } from './redux/userSlice';
 import './LDM/light.css'
 import { LightModeContext } from './context/lightModeContext';
@@ -58,7 +60,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/test' element={<Test/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/otp' element={<Otp/>}/>
           <Route path='/faq' element={<FAQ/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/transactions' element={<Transactions/>}/>

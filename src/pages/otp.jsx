@@ -1,8 +1,8 @@
 import React, { useEffect }  from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../redux/userSlice";
 import { useNavigate } from 'react-router-dom';
+import { loginWithOTP } from "../redux/userSlice";
 import * as Yup from "yup"
 import Disabledbutton from "../components/disabledbutton";
 import "../styles/login.css";
@@ -17,12 +17,12 @@ import toast from "react-hot-toast";
 
 //form validation
 const formSchema = Yup.object({
-  email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  email: Yup.string(),
+  otp: Yup.string(),
 })
 
 
-const Login = () => {
+const Otp = () => {
   //navigate
   const navigate = useNavigate();
   
@@ -31,37 +31,37 @@ const Login = () => {
   
   //get data from store
   const user = useSelector(state => state?.user);
-  const { userAppErr, userServerErr, userLoading, otpSent } = user;
+  const { userAppErr, userServerErr, userLoading, userAuth } = user;
 
   //formik form
   const formik = useFormik({
     initialValues:{
       email: "",
-      password: "",
+      otp: "",
     },
     onSubmit: values =>{
-      dispatch(loginAction(values))
+      dispatch(loginWithOTP(values))
     },
     validationSchema: formSchema,
   });
 
   //redirect
   useEffect(()=>{
-    if(otpSent){
-      navigate('/otp')
-      toast("Otp sent to your email", {
+    if(userAuth){
+      navigate('/trading')
+      toast("Logged in", {
         className: "toast-message-login",
       });
     }
-  },[otpSent])
+  },[userAuth])
 
   return (
     <div>
       <Navbar />
       <div className="login">
-        <h1>Sign In To Your Account</h1>
+        <h1>Enter the OTP sent to your email</h1>
         <div className="login-box">
-          <div className="account-buttons">
+        <div className="account-buttons">
             <Link to="/login">
               <button className="login">Login</button>
             </Link>
@@ -69,9 +69,9 @@ const Login = () => {
               <button className="registration">Registration</button>
             </Link>
           </div>
-
           {userAppErr || userServerErr ? <div className="show-error-top">{userServerErr}{userAppErr}</div> : null}
           <form className="login-form" action="" onSubmit={formik.handleSubmit}>
+
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -85,30 +85,23 @@ const Login = () => {
             <div className="show-error">
               {formik.touched.email && formik.errors.email}
             </div>
-
-            <label htmlFor="password">Password</label>
+            
+            <label htmlFor="otp">OTP</label>
             <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={formik.values.password}
-              onChange={formik.handleChange("password")}
-              onBlur = {formik.handleBlur("password")}
+              type="text"
+              name="otp"
+              id="otp"
+              placeholder="OTP"
+              value={formik.values.otp}
+              onChange={formik.handleChange("otp")}
+              onBlur = {formik.handleBlur("otp")}
             />
             <div className="show-error">
-              {formik.touched.password && formik.errors.password}
-            </div>
-
-            <div className="login-check">
-              <input type="checkbox" id="checkbox" className="checkbox" />
-              <label htmlFor="checkbox">
-                Remember me <Link to="/forgot">Forgot your password?</Link>
-              </label>
+              {formik.touched.otp && formik.errors.otp}
             </div>
 
             {
-              userLoading? (<Disabledbutton/>):<button className="signin-btn">Sign in<p><BsArrowRightShort size={23} /></p></button>
+              userLoading? (<Disabledbutton/>):<button type="submit" className="signin-btn">Sign in<p><BsArrowRightShort size={23} /></p></button>
             }
 
           </form>
@@ -133,4 +126,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Otp;

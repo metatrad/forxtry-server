@@ -37,7 +37,6 @@ const Withdrawal = () => {
   const methodData = useSelector((state) => state.method.methodList);
   const methodDisplay = methodData.filter((el) => el._id === filterby)[0];
 
-
   //dispatch
   const dispatch = useDispatch();
 
@@ -51,42 +50,20 @@ const Withdrawal = () => {
       status: "pending",
     },
     onSubmit: async (values, { resetForm, setStatus }) => {
-      try {
-        await dispatch(withdrawalAction(values));
-        // Check the withdrawalCreated status from the store
-        if (isWithdrawalCreated) {
-          setStatus({
-            msg: {
-              text: "Withdrawal placed successfully",
-              type: "success",
-            },
-          });
-          console.log('Status set for success');
-        } else {
-          setStatus({
-            msg: { text: "Failed to place withdrawal", type: "error" },
-          });
-          console.log('Status not success');
-        }
-      } catch (error) {
-        console.error("Error making withdrawal:", error);
-        setStatus({ message: { text: "Server error", type: "error" } });
-      } finally {
-        resetForm({ values: "" });
-      }
+      dispatch(withdrawalAction(values))
+      resetForm({values: ''})
     },
     validationSchema: formSchema,
   });
+
   //get deposit created from store
   const state = useSelector((state) => state?.withdrawal);
-  const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated, message } = state;
+  const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated } = state;
 
   //redirect
   useEffect(() => {
     if (isWithdrawalCreated) {
-      toast("Withdrawal placed", {
-        className: "toast-message-withdrawal",
-      });
+      toast.success("Withdrawal placed");
     }
   }, [isWithdrawalCreated, dispatch]);
 
@@ -104,8 +81,7 @@ const Withdrawal = () => {
           <TradingNav />
         </div>
         <div className="withdrawal-body-container">
-        {
-          userAuth?.status === "Pending"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> : <div className="withdrawal-container">
+       <div className="withdrawal-container">
           <AccountTopNav />
           <div className="withdrawal-body">
             <div className="withdrawal-body-left">
@@ -121,18 +97,17 @@ const Withdrawal = () => {
                 </div>
               </div>
             </div>
+            {
+          userAuth?.status === "Pending"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> :
             <div className="withdrawal-body-right">
               <h1>Withdrawal:</h1>
               <div className="withdrawal-amount">
                 {serverErr || appErr ? (
-                  <div>
-                    {serverErr}
+                  <div className="show-error-top">
                     {appErr}
                   </div>
                 ) : null}
                 <form action="" onSubmit={formik.handleSubmit}>
-                  {/* Display the message */}
-                  {message? <div>{message}</div>: null}
                   <label htmlFor="amount">Amount</label>
                   <input
                     type="number"
@@ -208,12 +183,12 @@ const Withdrawal = () => {
                 </div>
               </div>
             </div>
+             }
           </div>
           <div className="withdrawal-footer">
             <DepositFooter />
           </div>
         </div>
-        }
         </div>
  
       </div>

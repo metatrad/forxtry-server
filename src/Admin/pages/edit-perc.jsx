@@ -25,7 +25,6 @@ const Editperc = () => {
   const percData = useSelector(state => state?.perc?.percList)
   const percDisplay = percData?.filter((el) => el._id === filterby)[0];
 
-  console.log(percDisplay)
      //dispatch
      const dispatch = useDispatch();
       //formik form
@@ -44,7 +43,6 @@ const Editperc = () => {
       })
 
       const perc = useSelector(state=>state.perc);
-      console.log(perc)
       const {appErr, serverErr, percUpdated, loading, isPercUpdated } = perc
 
       useEffect(()=>{

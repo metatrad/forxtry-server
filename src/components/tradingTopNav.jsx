@@ -19,6 +19,8 @@ import "../styles/tradingNav.css";
 const TradingTopNav = () => {
 
   const userData = useSelector(state => state?.user?.userAuth);
+  const userstate = useSelector(state => state?.user);
+  const {userLoading, userAppErr, userServerErr, userAuth, profile, userUpdate } = userstate
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,7 +74,7 @@ const TradingTopNav = () => {
                 <FaTelegramPlane className="plane" color="#35cb02"/>
                 <div className="live-account">
                   <h6> LIVE ACCOUNT </h6>
-                  <p>{CurrencyFormatter("USD",userData?.balance)}</p>
+                  <p>{CurrencyFormatter("USD",userAuth?.balance)}</p>
                 </div>
                 <FaAngleDown
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
@@ -103,7 +105,7 @@ const TradingTopNav = () => {
                           <FiCheck size={12} />
                         </div>
                         <h5>
-                          Live account <p>{CurrencyFormatter("USD",userData?.balance)}</p>
+                          Live account <p>{CurrencyFormatter("USD",userAuth?.balance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -111,7 +113,7 @@ const TradingTopNav = () => {
                       <div className="switch">
                         <div className="round demo"></div>
                         <h5>
-                          Demo account <p>{CurrencyFormatter("USD",userData?.demoBalance)}</p>
+                          Demo account <p>{CurrencyFormatter("USD",userAuth.demoBalance)}</p>
                         </h5>
                       </div>
                     </Link>

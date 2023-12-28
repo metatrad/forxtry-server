@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaSquareFacebook } from 'react-icons/fa6';
-import { AiFillInstagram } from 'react-icons/ai';
+import { FaTelegramPlane } from "react-icons/fa";
 import '../styles/Footer.css'
 
 
@@ -11,7 +10,7 @@ const Footer = () => {
       <div className="top-footer">
         <div className="logo-media">
             <div className="logo"></div>
-            <div className="social-media"><a href="#"><h6><FaSquareFacebook size={18} color='#a6aec7'/></h6></a>  <a href="#"><h6><AiFillInstagram size={20} color='#a6aec7'/></h6></a></div>
+            <div className="social-media"><a href="https://t.me/+szlxGPGDHEQzY2VK"><h6><FaTelegramPlane size={18} color='#a6aec7'/></h6></a></div>
         </div>
         <div className="links-cover">
             <div className="links">

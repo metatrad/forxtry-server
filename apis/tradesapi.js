@@ -38,9 +38,7 @@ const tradebalctrl = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req?.user?._id,);
 
-    
-    user.balance += calculatedResult;
-    
+    user.balance += calculatedResult;    
 
     await user.save();
     const trading = await Trade.create({

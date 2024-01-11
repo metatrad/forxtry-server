@@ -7,11 +7,12 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
 //email handler
 const nodemailer = require("nodemailer")
 
 //unique id
-const {v4: uuidv4} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
 //env variables
 require("dotenv").config();
@@ -44,7 +45,7 @@ const sendOtpEmail = async (email, otp) => {
   `;
 
   const mailOptions = {
-    from: process.env.AUTH_EMAIL,
+    from: "Earn broker",
     to: email,
     subject: 'Your OTP for Login',
     html: htmlContent
@@ -182,6 +183,98 @@ const verifyOtpCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//forgot password
+const forgotPasswordctrl = expressAsyncHandler(async(req, res)=>{
+  const { email } = req?.body;
+  try {
+    const oldUser = await User.findOne({ email });
+    if(!oldUser){
+      return res.send("User not found");
+    }
+    const secret = process.env.JWT_KEY + oldUser?.password;
+    const token = jwt.sign({email: oldUser?.email, id: oldUser?._id}, secret,{expiresIn:"5m",});
+    const link = `http://localhost:5000/reset-password/${oldUser?.id}/${token}`;
+
+    //nodemailer transport
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "metatrader498@gmail.com",
+        pass: "jzfqfuvvszdqorvi"
+      }
+    });
+
+    const htmlContent = `
+    <h2>Reset password link</h2>
+    <p style="color: #333; font-size: 16px;">Dear User,</p>
+    <p style="color: #555; font-size: 16px;">Click this link to reset your password: <span style="font-weight: 200; color: #007bff; font-size: 15px;">${link}</span></p>
+    <p style="color: #777; font-size: 16px;">Note: This link is valid for 5 minutes.</p>
+    `;
+
+    const mailOptions = {
+      from: process.env.AUTH_EMAIL,
+      to: email,
+      subject: 'Reset password',
+      html: htmlContent,
+    };
+  
+    await transporter.sendMail(mailOptions);
+
+    res.send("Sent");
+
+    console.log(link)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+const getfpctrl = expressAsyncHandler(async(req, res)=>{
+  const { id, token } = req?.params;
+  console.log(req.params)
+  const oldUser = await User.findOne({ _id: id });
+  if(!oldUser){
+    return res.send("User not found");
+  }
+  const secret = process.env.JWT_KEY + oldUser?.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    res.render("index", {email:verify.email, status:"Not verified"})
+  } catch (error) {
+    console.log(error)
+    res.send("Not verified")
+  }
+})
+
+const postfpctrl = expressAsyncHandler(async(req, res)=>{
+  const { id, token } = req?.params;
+  const { password } = req.body;
+  const oldUser = await User.findOne({ _id: id });
+  if(!oldUser){
+    return res.send("User not found");
+  }
+  const secret = process.env.JWT_KEY + oldUser?.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10)
+    await User.updateOne(
+      {
+        _id:id,
+      },
+      {
+        $set: {
+          password: encryptedPassword,
+        },
+      }
+    )
+    // res.send({ status: "Password Updated" })
+
+    res.render("index", { email: verify.email, status:"verified" })
+  } catch (error) {
+    console.log(error)
+    res.send({status: "Something went wrong"})
+  }
+})
+
 //fetch all users
 const fetchUsersctrl = expressAsyncHandler(async (req, res) => {
   const { page } = req?.query;
@@ -233,15 +326,27 @@ const updateUsersctrl = expressAsyncHandler(async (req, res) => {
 //user profile
 const userProfilectrl = expressAsyncHandler(async (req, res) => {
   try {
-    const profile = await User.findById(req?.user?._id).populate([
-      "deposit",
-      "withdrawal",
-    ]);
+    const profile = await User.findById(req?.user?._id)
+      .populate({
+        path: 'deposit',
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'withdrawal',
+        options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'trade', 
+        options: { sort: { createdAt: -1 } },
+      });
+
     res.json(profile);
   } catch (error) {
     res.json(error);
   }
 });
+
+
 //update user profile
 const updateProfilectrl = expressAsyncHandler(async (req, res) => {
   try {
@@ -280,5 +385,8 @@ module.exports = {
   updateUsersctrl,
   userProfilectrl,
   updateProfilectrl,
-  verifyOtpCtrl
+  verifyOtpCtrl,
+  forgotPasswordctrl,
+  getfpctrl,
+  postfpctrl,
 };

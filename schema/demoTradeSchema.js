@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2")
 
-const tradeSchema = mongoose.Schema({
+const demoTradeSchema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: [true, "User ID is required"] },
     time: { type: Number },
     investment: { type: Number },
@@ -20,7 +20,7 @@ const tradeSchema = mongoose.Schema({
     }
 })
 //pagination
-tradeSchema.plugin(mongoosePaginate)
+demoTradeSchema.plugin(mongoosePaginate)
 
-const Trade = mongoose.model("Trade", tradeSchema);
-module.exports = {Trade}
+const Demo = mongoose.model("Demo", demoTradeSchema);
+module.exports = { Demo }

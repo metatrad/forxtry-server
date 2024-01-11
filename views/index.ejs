@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <script>
+        var status = `<%- JSON.stringify(status) %>`;
+        if (JSON.parse(status) == "verified"){
+            if(confirm("Password changed. Do you want to login?")){
+                window.location.href = "earnbroker.com/login"
+            }
+        }
+    </script>
+
+    <style>
+        body form{
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            width: 20em;
+            border-radius: 8px;
+            box-shadow: 4px 5px 14px -2px rgba(0,0,0,0.74);
+            -webkit-box-shadow: 4px 5px 14px -2px rgba(0,0,0,0.74);
+            -moz-box-shadow: 4px 5px 14px -2px rgba(0,0,0,0.74);
+            padding: 5em 1em;
+        }
+        body form h1{
+            font-size: 1rem;
+        }
+        body form label{
+            font-size: 0.8rem;
+        }
+        body form input{
+            box-shadow: 1px 1px 20px -4px rgba(0, 0, 0, 0.484);
+            -webkit-box-shadow: 1px 1px 20px -4px rgba(0, 0, 0, 0.414);
+            -moz-box-shadow: 1px 1px 20px -4px rgba(0, 0, 0, 0.391);
+            border-radius: 7px;
+            border: none;
+            padding: 1em 0.9em;
+            color: black;
+            background-color: transparent;
+            outline: none;
+        }
+        body form input:focus{
+            border: 1px solid rgb(255, 255, 255);
+        }
+        body form button{
+            box-shadow: 8px 9px 14px -2px rgba(0, 0, 0, 0.183);
+            -webkit-box-shadow: 8px 9px 14px -2px rgba(0, 0, 0, 0.258);
+            -moz-box-shadow: 8px 9px 14px -2px rgba(0, 0, 0, 0.246);
+            border: none;
+            outline: none;
+            background-color: rgb(0, 0, 0);
+            height: 3em;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+        }
+        #ejs-form{
+            height: 90vh;
+            font-family: 'Roboto', sans-serif;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #logo{
+            display: flex;
+            align-items: center;
+            width: 20em;
+            height: 3em;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-bottom: 1em;
+            gap: 0.5rem;
+        }
+        #logo img{
+           height: 3em;
+           border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ejs-form">
+    <div id="logo"><img src="https://play-lh.googleusercontent.com/PA1KkhHcRcIOgY2WTQ0J4QY4SAOHh9pgscH6b41TYSUIiyRIR8JdQDHXcie88BoSrA" alt=""> <h2>Reset your password</h2></div>
+    <form action="" method="POST">
+        <h1><%= email%></h1>
+        <label for="password">New password</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+        <label for="cpassword">Confirm password</label>
+        <input type="password" id="cpassword" name="cpassword" placeholder="Confirm Password">
+        <button type="sbumit">SUBMIT</button>
+    </form>
+</div>
+</body>
+</html>

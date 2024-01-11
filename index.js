@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: 'earnbroker.com', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,

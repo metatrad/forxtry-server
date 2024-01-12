@@ -9,7 +9,8 @@ const tradeSchema = mongoose.Schema({
     tradeResult: { type: String , default: 'Pending'},
     countdownDuration: { type: Number },
     countdownRemaining: { type: Number },
-    expirationTime: { type: String }
+    expirationTime: { type: String },
+    expirationTimeWord: { type: String,default: 'Pending' }
 },{
     timestamps: true,
     toJSON: {

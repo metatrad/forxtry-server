@@ -193,7 +193,7 @@ const forgotPasswordctrl = expressAsyncHandler(async(req, res)=>{
     }
     const secret = process.env.JWT_KEY + oldUser?.password;
     const token = jwt.sign({email: oldUser?.email, id: oldUser?._id}, secret,{expiresIn:"5m",});
-    const link = `http://localhost:5000/reset-password/${oldUser?.id}/${token}`;
+    const link = `https://https-github-com-habismartin-trading.onrender.com/reset-password/${oldUser?.id}/${token}`;
 
     //nodemailer transport
     let transporter = nodemailer.createTransport({
@@ -221,8 +221,6 @@ const forgotPasswordctrl = expressAsyncHandler(async(req, res)=>{
     await transporter.sendMail(mailOptions);
 
     res.send("Sent");
-
-    console.log(link)
   } catch (error) {
     console.log(error)
   }
@@ -230,7 +228,6 @@ const forgotPasswordctrl = expressAsyncHandler(async(req, res)=>{
 
 const getfpctrl = expressAsyncHandler(async(req, res)=>{
   const { id, token } = req?.params;
-  console.log(req.params)
   const oldUser = await User.findOne({ _id: id });
   if(!oldUser){
     return res.send("User not found");

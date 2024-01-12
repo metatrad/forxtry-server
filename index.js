@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'earnbroker.com', 
+  origin: 'https://earnbroker.com/', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -40,6 +40,10 @@ const server = http.createServer(app);
 const socketIO = require('socket.io');
 
 const io = socketIO(server);
+
+app.set('io', io);
+
+module.exports = { server, io };
 
 let lastFetchedData = null;
 const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
@@ -193,4 +197,3 @@ app.use(errorHandler)
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-

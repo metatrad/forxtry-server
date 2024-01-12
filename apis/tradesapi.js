@@ -1,20 +1,21 @@
 const expressAsyncHandler = require("express-async-handler");
-var { io } = require('../index')
 const { Trade } = require("../schema/tradeSchema");
 const { User } = require("../schema/userSchema");
+const schedule = require("node-schedule");
 
-// const emitTradeUpdate = (tradeId, updatedTradeResult) => {
-//   io.emit(`updateTradeResult:${tradeId}`, updatedTradeResult);
-// };
 
-const performTradeActions = async (trading, io) => {
+const performTradeActions = async (trading) => {
   console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
+
+  if(trading.expirationTimeWord ==="Pending"){
+    trading.expirationTimeWord =  "Done"
+  }
   
   await trading.save();
 
-  // emitTradeUpdate(trading._id, trading.tradeResult);
   console.log(`Trade ${trading._id} - Actions performed`);
+  console.log(`Trade ${trading._id} - ${trading.expirationTimeWord}`);
 };
 
 const startCountdown = (trading) => {
@@ -25,14 +26,13 @@ const startCountdown = (trading) => {
   trading.save();
   console.log("initiated")
   // Schedule a task to perform actions when the countdown reaches zero
-  setTimeout(async () => {
-    await performTradeActions(trading,io);
-  }, durationInMinutes * 60000);
+  schedule.scheduleJob(expirationTime, async () => {
+    await performTradeActions(trading);
+  });
 };
 
-
 const tradectrl = expressAsyncHandler(async (req, res) => {
-  const { time, investment, result, calculatedResult, tradeId, tradeResult,expirationTime } = req.body;
+  const { time, investment, result, calculatedResult, tradeId, } = req.body;
   const { id } = req?.params;
   try {
     const user = await User.findById(req?.user?._id);
@@ -73,7 +73,6 @@ const tradectrl = expressAsyncHandler(async (req, res) => {
 const tradebalctrl = expressAsyncHandler(async (req, res) => {
   const { time, tradeResult, investment, calculatedResult } = req?.body;
   console.log("Inside tradebalctrl");
-  console.log(req?.body);
   try {
     const user = await User.findById(req?.user?._id);
     user.balance += calculatedResult;
@@ -96,7 +95,6 @@ const tradebalctrl = expressAsyncHandler(async (req, res) => {
 const tradelosectrl = expressAsyncHandler(async (req, res) => {
   const { time, tradeResult, investment, calculatedResult } = req?.body;
   console.log("Inside tradebalctrl");
-  console.log(req?.body);
   try {
     const user = await User.findById(req?.user?._id);
     // Find and update the trade with the given time

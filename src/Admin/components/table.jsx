@@ -63,8 +63,8 @@ const Admintable = () => {
 
 
   return (
-    <TableContainer component={Paper} className = "admin-table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer className = "admin-table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className='tableCell'>User ID</TableCell>

@@ -35,26 +35,24 @@ const dispatch = useDispatch();
       const loadingArray = new Array(1).fill(null)
 
   return (
-    <TableContainer component={Paper} className = "admin-table">
-      <Table sx={{ minWidth: 500 }} aria-label="simple table">
+    <TableContainer className = "admin-table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className='tableCell'>Email</TableCell>
             <TableCell className='tableCell'>Balance</TableCell>
-            <TableCell className='tableCell'>Method</TableCell>
             <TableCell className='tableCell'>Status</TableCell>
             <TableCell className='tableCell'>ID</TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody className='table-body'>
-        {userLoading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="black"></l-mirage></h1>: userAppErr || userServerErr? <div>Error</div>: userList?.length <= 0? <h1 className='deposit-loading'>No deposit found.</h1>: userList?.docs?.map((el)=>{
+        {userLoading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: userAppErr || userServerErr? <div>Error</div>: userList?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No deposit found.</h1>: userList?.docs?.map((el)=>{
             return(
                 
                         <TableRow item = {el} key={el?._id}>
                         <TableCell className='tableCell'>{el?.email}</TableCell>
                         <TableCell className='tableCell'>{currencyFormatter("USD",el?.balance)}</TableCell>
-                        <TableCell className='tableCell'>{el?.currency}</TableCell>
                         <TableCell className='tableCell'><span className={`status ${el?.status}`}>{el?.status}</span></TableCell>     
                         <TableCell className='tableCell'><AdminUserCard id = {el?._id}></AdminUserCard></TableCell>     
                       </TableRow>

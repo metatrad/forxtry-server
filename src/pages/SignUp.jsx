@@ -12,6 +12,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Disabledbutton from "../components/disabledbutton";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import toast from "react-hot-toast";
 
 
@@ -135,6 +136,7 @@ const SignUp = () => {
         </div>
       </div>
       <Footer />
+     <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

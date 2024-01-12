@@ -18,6 +18,9 @@
     color: rgb(41, 42, 44);
 }
 .depositmenu-body-cover{
+    -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
     padding: 1em;
     padding-bottom: 3.4em;
 }
@@ -146,7 +149,6 @@
 .deposit-menu-body-wrapper{
     width: 100%;
     display: flex;
-    background-color: #252936;
     border-radius: 7px;
     flex-direction: column;
     padding: 1em;

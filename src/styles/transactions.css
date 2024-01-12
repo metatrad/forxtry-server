@@ -16,6 +16,9 @@
 .trades-wrapper{
     width: 100%;
 }
+.trades-tpn{
+    height: 4.5em;
+}
 .trades-body-wrapper{
     display: flex;
 }

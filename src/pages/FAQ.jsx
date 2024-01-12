@@ -3,6 +3,7 @@ import { useState } from "react";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { FiChevronDown } from "react-icons/fi";
 import Navbar from "../components/Navbar";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import Footer from "../components/Footer";
 import "../styles/FAQ.css";
 
@@ -289,6 +290,7 @@ const FAQ = () => {
         <div className="questions-container"></div>
       </div>
       <Footer />
+     <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

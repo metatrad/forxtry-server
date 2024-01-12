@@ -38,8 +38,8 @@ const dispatch = useDispatch();
       const loadingArray = new Array(1).fill(null)
 
   return (
-    <TableContainer component={Paper} className = "admin-table">
-      <Table sx={{ minWidth: 500 }} aria-label="simple table">
+    <TableContainer className = "admin-table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className='tableCell'>Email</TableCell>
@@ -52,7 +52,7 @@ const dispatch = useDispatch();
         </TableHead>
 
         <TableBody className='table-body'>
-        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="black"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: depositList?.docs?.length <= 0? <h1 className='deposit-loading'>No deposits found.</h1>: depositListCard?.map((el)=>{
+        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: depositList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No deposits found.</h1>: depositListCard?.map((el)=>{
             return(
                 
                         <TableRow item = {el} key={el?._id}>

@@ -9,13 +9,21 @@
     justify-content: center;
     align-items: center;
 }
+.table-cell-div{
+    display: flex;
+    flex-direction: column;
+}
+.trade-ends-span{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
 .deposit-loading{
     font-size: 1.1rem;
     font-weight: 300;
     padding: 0.6em 0.9em;
 }
 .admin-table .tableCell{
-    background-color: #353a4d;
+    background-color: transparent;
     font-size: 0.8rem;
     font-weight: 350;
     color: #fff;
@@ -35,13 +43,20 @@
     padding: 5px;
     border-radius: 5px;
 }
+.admin-table .Lost{
+    color: rgb(218, 32, 32);
+    font-weight: 800;
+    font-size: 0.8rem;
+}
 .admin-table .Pending, .admin-table .pending{
     color: goldenrod;
-    background-color: rgba(255, 255, 0, 0.19);
+    font-weight: 800;
+    font-size: 0.8rem;
 }
-.admin-table .Approved,.admin-table .approved, .admin-table .Sent, .admin-table .sent, .admin-table .verified, .admin-table .Verified{
+.admin-table .Approved,.admin-table .approved, .admin-table .Sent, .admin-table .sent, .admin-table .verified, .admin-table .Verified, .admin-table .Won{
     color: rgb(2, 211, 2);
-    background-color: rgba(0, 128, 0, 0.133);
+    font-weight: 800;
+    font-size: 0.8rem;
 }
 .Page{
     width: 100%;

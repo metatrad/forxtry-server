@@ -7,7 +7,6 @@ import TradingTopNav from "../components/tradingTopNav";
 import DepositFooter from "../components/depositFooter";
 import { IoChevronUpOutline } from "react-icons/io5";
 import { IoAlertOutline } from "react-icons/io5";
-import { withdrawalRedux } from "../redux/withdrawalSlice";
 import { useFormik } from "formik";
 import { withdrawalAction } from "../redux/withdrawalSlice";
 import * as Yup from "yup";
@@ -15,7 +14,7 @@ import Disabledbutton from "../components/disabledbutton";
 import AccountTopNav from "../components/accountTopNav";
 import { toast } from "react-hot-toast";
 import currencyFormatter from "../utilities/currencyFormatter";
-import { BsExclamationLg } from "react-icons/bs";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import "../styles/withdrawal.css";
 
 //form validation
@@ -65,7 +64,7 @@ const Withdrawal = () => {
     if (isWithdrawalCreated) {
       toast.success("Withdrawal placed");
     }
-  }, [isWithdrawalCreated, dispatch]);
+  }, [ dispatch, isWithdrawalCreated ]);
 
   const userBalance = useSelector((state) => state.deposit);
 
@@ -192,6 +191,7 @@ const Withdrawal = () => {
         </div>
  
       </div>
+      <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

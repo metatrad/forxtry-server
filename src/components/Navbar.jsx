@@ -80,6 +80,7 @@ const Navbar = () => {
           { 
               showLanguage &&
                       <div className="language-select">
+                        <h4>More languages will be added soon.</h4>
                       <div>English</div>
                       <div>English</div>
                       <div>English</div>
@@ -128,6 +129,7 @@ const Navbar = () => {
       {
         showNavLanguage &&
         <div className="reslanguage-select">
+            <h4>More languages will be added soon.</h4>
              <div>English</div>
              <div>English</div>
              <div>English</div>

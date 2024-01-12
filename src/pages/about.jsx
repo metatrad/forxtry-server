@@ -1,6 +1,7 @@
 import React from 'react'
 import "../styles/about.css"
 import { Link } from 'react-router-dom'
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import step1 from '../images/about-us-work-step-1@2x.png'
@@ -91,6 +92,7 @@ const About = () => {
         </div>
       </div>
     <Footer/>
+    <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   )
 }

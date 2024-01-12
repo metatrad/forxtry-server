@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice,createAction } from '@reduxjs/toolkit';
 import axios from "axios";
 import baseURL from '../utilities/baseURL';
+import { updateBalance } from './userSlice';
 
 //actions for refreshing
 export const resetWithdrawalCreated = createAction("withdrawal/reset")
@@ -20,6 +21,7 @@ export const withdrawalAction = createAsyncThunk("/withdrawal", async (payload, 
         //http call
         const { data } = await axios.post(`${baseURL}/withdrawal`, payload, config);
         dispatch(resetWithdrawalCreated())
+        dispatch(updateBalance(data.balance));
         return data;
         
     } catch (error) {
@@ -87,14 +89,15 @@ const withdrawalSlice = createSlice({
         })
         //reset action
         builder.addCase(resetWithdrawalCreated, (state, action)=>{
-            state.isWithdrawalCreated = false
+            state.isWithdrawalCreated = true
         })
         builder.addCase(withdrawalAction.fulfilled,(state, action)=>{
             state.loading = false;
             state.withdrawalCreated = action?.payload;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.payload?.message; 
-            state.isWithdrawalCreated = true
+            state.isWithdrawalCreated = false
+  
         // Update localStorage
         localStorage.setItem('userInfo', JSON.stringify({
             ...JSON.parse(localStorage.getItem('userInfo')),

@@ -7,12 +7,14 @@ import { DemotradeAction ,demotradebalAction } from "../redux/tradeSlice";
 import { fetchAllPercAction } from "../redux/percSlice";
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
+import Place from '../images/placetrade.png'
 import "react-toastify/dist/ReactToastify.css";
-import { GiTrade } from "react-icons/gi";
 import { FaHistory } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { PiCurrencyCircleDollarFill } from "react-icons/pi";
+import { BsCurrencyDollar } from "react-icons/bs";
 import { MdAccessTime } from "react-icons/md";
+import Audiop from '../audio/placed.mp3'
+import Audiow from '../audio/won.mp3'
+import Audiol from '../audio/lost.mp3'
 import "../styles/trading.css";
 
 //form validation
@@ -35,7 +37,7 @@ const Demotradebtns = () => {
 
   //get deposit created from store
   const state = useSelector((state) => state?.trading);
-  const { appErr, loading, serverErr, tradeCreated, isTradeCreated } = state;
+  const { appErr, loading, serverErr, demoCreated, isDemoCreated } = state;
 
   //sbumitting form
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ const Demotradebtns = () => {
   //formik form
   const formik = useFormik({
     initialValues: {
-      time: "",
+      time: 0,
       investment: 0,
       result: "",
       calculatedResult: "",
@@ -54,6 +56,7 @@ const Demotradebtns = () => {
         const trade = await dispatch(DemotradeAction(values))
         // const successCondition = (trade) => trade.isTradeCreated === true;
         if(trade?.payload?.alert){
+          new Audio(Audiop).play()
           if (countdown > 0 && !timer){
             setSeconds(countdown*60);
             setTimer(
@@ -68,7 +71,12 @@ const Demotradebtns = () => {
                     const tradeResult = Math.random() < perc ? "Win" : "Loss";
     
                     if (tradeResult === "Win"){
+                      new Audio(Audiow).play()
                       dispatch(demotradebalAction(values))
+                    }
+
+                    if (tradeResult === "Loss"){
+                      new Audio(Audiol).play()
                     }
                     
                     setResult(tradeResult);
@@ -83,6 +91,7 @@ const Demotradebtns = () => {
                 });
               }, 1000)
             );
+            toast.success("Trade placed");
           resetForm({ values: "" });
         }
         }
@@ -95,10 +104,6 @@ const Demotradebtns = () => {
     validationSchema: formSchema,
   });
 
-  useEffect(() => {
-    if (tradeCreated)
-      toast.success("Trade placed");
-  }, [ dispatch, tradeCreated]);
 
   //trade
 
@@ -124,6 +129,13 @@ const Demotradebtns = () => {
     const [countdown, setCountdown] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [timer, setTimer] = useState(null);
+
+    const handleInputTChange = (event) => {
+      const inputValue = parseInt(event.target.value, 10);
+      
+      formik.setFieldValue("time", inputValue);
+      setCountdown(Math.max(1, inputValue));
+    };
   
     const handleInputChange = (event) => {
       const inputValue = parseInt(event.target.value, 10);
@@ -148,28 +160,36 @@ const Demotradebtns = () => {
     }
   }, [result]); 
 
+  const formatTime = (totalSeconds) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
   return (
     <div className="trade-btns-cover-wrapper">
       <div className="place-trades">
         <div className="buttons">
           <form action="" onSubmit={formik.handleSubmit}>
           {appErr || serverErr ? <div className="show-error-top">{appErr}</div> : null}
-            <h2><GiTrade />Place trade</h2>
+            <h2 className="place-trade-top-text"><img src={Place} alt="" />Place trade<span>{formatTime(Math.round(seconds))}</span></h2>
 
             <div className="inputs-trade-wrapper">
               <div>
-                <label htmlFor="time">Timer(minutes)</label>
+                <label htmlFor="time">Time</label>
                 <h1 className="time-div">
-                <MdAccessTime size={25}/>
-                <input type="number" name="time" id="time" min="1" value={countdown} onChange={handleInputChange}/>
+                <MdAccessTime size={20}/>
+                <input type="number" name="time" id="time" min="1" value={formik.values.time} onChange={handleInputTChange}/>
                 </h1>
+                <p className="trade-under-text">MINUTES</p>
               </div>
               <div>
                 <label htmlFor="investment">Stake</label>
                 <h1 className="investment-div">
-                  <PiCurrencyCircleDollarFill size={25}/>
+                  <BsCurrencyDollar size={20}/>
                 <input type="number" name="investment" id="investment" value={formik.values.investment} onChange={handleIChange} onBlur={formik.handleBlur("investment")}/>
                 </h1>
+                <p className="trade-under-text">AMOUNT</p>
               </div>
             </div>
             {formik.values.calculatedResult !== null && (
@@ -186,7 +206,7 @@ const Demotradebtns = () => {
               </button>
               {formik.values.calculatedResult !== null && (
                 <p className="payout-text-dt">
-                  Payout: <h6>${formik.values.calculatedResult}</h6>
+                  Your payout: <h6>${formik.values.calculatedResult}</h6>
                 </p>
               )}
               <button
@@ -195,16 +215,14 @@ const Demotradebtns = () => {
                 Down <IoMdArrowRoundDown className="icon" />
               </button>
             </div>
-            <p className="time-left-mb">Trade ends in: <span>{Math.round(seconds/60)} minute(s), {seconds} seconds.</span></p>
           </form>
         </div>
       </div>
       <div className="time-history">
             <div>
-              <p className="time-left-dk">Trade ends in: <span>{Math.round(seconds/60)} minute(s), {seconds} seconds.</span></p>
+              <p className="time-left-dk">Trade ends in:</p>
               <div className="view-trade-history">
-                <FaHistory size={40} color="gray"/>
-                <Link to="/transactions">View transaction history</Link> 
+              <FaHistory size={40} color="gray"/><span>{formatTime(Math.round(seconds))}</span>
               </div>
             </div>
       </div>

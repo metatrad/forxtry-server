@@ -12,11 +12,26 @@ import { FiCheck } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { logout } from "../redux/userSlice";
+import '../LDM/light.css'
 import CurrencyFormatter from "../utilities/currencyFormatter";
 import "../styles/tradingNav.css";
 
 
 const TradingTopNav = () => {
+
+
+    const userInf = useSelector((state) => state.user);
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+      const storedValue = localStorage.getItem('userInfo');
+      const parsedValue = storedValue ? JSON.parse(storedValue) : null;
+      setUserInfo(parsedValue);
+    }, []); 
+  
+  const balance = useSelector((state) => state?.user?.userAuth?.balance);
+  const demoBalance = useSelector((state) => state?.user?.userAuth?.demoBalance);
 
   const userData = useSelector(state => state?.user?.userAuth);
   const userstate = useSelector(state => state?.user);
@@ -48,7 +63,7 @@ const TradingTopNav = () => {
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
-    toast("Logged out successfully");
+    toast("Logged out");
   };
 
   return (
@@ -74,7 +89,7 @@ const TradingTopNav = () => {
                 <FaTelegramPlane className="plane" color="#35cb02"/>
                 <div className="live-account">
                   <h6> LIVE ACCOUNT </h6>
-                  <p>{CurrencyFormatter("USD",userAuth?.balance)}</p>
+                  <p>{CurrencyFormatter("USD",balance)}</p>
                 </div>
                 <FaAngleDown
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
@@ -82,6 +97,7 @@ const TradingTopNav = () => {
               </div>
               {showAccountSwitch && (
                 <div className="account-swicthbox">
+                  <div className="account-switchbox-coat">
                   <div className="see">
                     <div className="standard-profit">
                       <FaTelegramPlane color="#35cb02" size={20} />{" "}
@@ -105,7 +121,7 @@ const TradingTopNav = () => {
                           <FiCheck size={12} />
                         </div>
                         <h5>
-                          Live account <p>{CurrencyFormatter("USD",userAuth?.balance)}</p>
+                          Live account <p>{CurrencyFormatter("USD",balance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -113,7 +129,7 @@ const TradingTopNav = () => {
                       <div className="switch">
                         <div className="round demo"></div>
                         <h5>
-                          Demo account <p>{CurrencyFormatter("USD",userAuth.demoBalance)}</p>
+                          Demo account <p>{CurrencyFormatter("USD",demoBalance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -122,6 +138,7 @@ const TradingTopNav = () => {
                     <MdOutlineLogout />
                     Logout
                   </p>
+                  </div>
                 </div>
               )}
             </div>

@@ -6,7 +6,9 @@ import { GiNetworkBars } from "react-icons/gi";
 import { MdContactSupport } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
-import { FaChartPie } from "react-icons/fa";
+import { BiMoneyWithdraw } from "react-icons/bi";
+import { MdMenu } from "react-icons/md";
+import { RiLuggageDepositFill } from "react-icons/ri";
 import { IoSettings } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 import { BsFillQuestionSquareFill } from "react-icons/bs";
@@ -15,10 +17,13 @@ import { MdDarkMode } from "react-icons/md";
 import { PiChartLineFill } from "react-icons/pi";
 import { LightModeContext } from '../context/lightModeContext';
 import { Divide as Hamburger } from 'hamburger-react'
+import { FaAngleRight } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 import { useContext } from 'react';
 import { logout } from "../redux/userSlice";
 import { toast } from 'react-hot-toast';
+import '../LDM/light.css'
 import '../styles/tradingNav.css'
 
 const TradingNav = () => {
@@ -29,7 +34,7 @@ const TradingNav = () => {
   const handleLogout = () => {
     dispatche(logout());
     navigate("/");
-    toast("Logged out successfully");
+    toast("Logged out");
   };
 
   const userData = useSelector(state => state?.user?.userAuth);
@@ -51,7 +56,7 @@ const TradingNav = () => {
   const [showMb, setShowMb] = useState(false)
 
   const handleShowMb = () =>{
-    setShowMb( prev => !prev )
+    setShowMb( !showMb )
   }
 
   return (
@@ -64,7 +69,8 @@ const TradingNav = () => {
             <NavLink to = "/trading"><GiNetworkBars /><p>TRADE</p></NavLink>
             <NavLink to = "/demo"><RiGraduationCapFill /><p>DEMO</p></NavLink>
             <NavLink to = "/account"><FaUser /><p>ACCOUNT</p></NavLink>
-            <NavLink to = "/analytics"><FaChartPie /><p>ANALYTICS</p></NavLink>
+            <NavLink to = "/deposit"><RiLuggageDepositFill /><p>DEPOSIT</p></NavLink>
+            <NavLink to = "/withdrawal"><BiMoneyWithdraw /><p>WITHDRAW</p></NavLink>
             <div onClick={handleShowSettings}><IoSettings /><p>SETTINGS</p></div>
         </div>
 
@@ -73,7 +79,6 @@ const TradingNav = () => {
         <div className="support">
           <h2><p>Help</p>  <IoMdClose onClick={handleShowSupport}/></h2>
           <Link to ="/faq"><div><BsFillQuestionSquareFill color='#016fd3'/><p>FAQ</p></div></Link>
-          <div><RiGraduationCapFill color='#016fd3'/><p>Tutorials</p></div>
         </div>
         }
 
@@ -96,8 +101,6 @@ const TradingNav = () => {
               <option value="">eng</option>
               
             </select>
-            <label htmlFor="time"> Time zone</label>
-            <input type="time" name='time' id='time'/>
   
             <h5>Templates</h5>
   
@@ -111,23 +114,26 @@ const TradingNav = () => {
             <NavLink to = "/FAQ"><MdContactSupport /></NavLink>
             <NavLink to = "/trading"><PiChartLineFill/></NavLink>
             <NavLink to = "/account"><FaUser /></NavLink>
-            <div><IoSettings /></div>
-            <div onClick={handleShowMb}><Hamburger size={25}/></div>
+            <NavLink to = "/userwithdrawal"><RiLuggageDepositFill /></NavLink>
+            <NavLink to = "/userdeposit"><BiMoneyWithdraw /></NavLink>
+            {/* <div><IoSettings /></div> */}
+            <div onClick={handleShowMb}><MdMenu size={30}/></div>
         </div>
         {
           showMb &&
-          <div className='mb-menu'>
-          <h4>{userData?.email}</h4>
+          <div className={`mb-menu ${showMb ? 'visible' : ''}`}>
+          <h4>{userData?.email} <span onClick={handleShowMb}><IoClose/></span></h4>
           <div className='mb-menu-links'>
-          {userData?.email === process.env.REACT_APP_ADMIN_EMAIL && (
-              <Link to="/admin">
-                <div>Admin Dashboard</div>
-              </Link>
-            )}
-          <Link to="/deposit">Deposit</Link>
-          <Link to="/withdrawal">Withdrawal</Link>
-          <Link to="/transactions">Transactions</Link>
-          <Link to="/account">Account</Link>
+
+          {userData?.isAdmin === true && (
+            <Link to="/admin"> Admin Dashboard <h6><FaAngleRight/></h6></Link>
+          )}
+          <Link to="/deposit">Deposit <h6><FaAngleRight/></h6></Link>
+          <Link to="/withdrawal">Withdrawal <h6><FaAngleRight/></h6></Link>
+          <Link to="/userdeposit">Deposit history <h6><FaAngleRight/></h6></Link>
+          <Link to="/userwithdrawal">Withdrawal history <h6><FaAngleRight/></h6></Link>
+          <Link to="/trades">Trade history <h6><FaAngleRight/></h6></Link>
+          <Link to="/account">Account <h6><FaAngleRight/></h6></Link>
           </div>
           <p onClick={handleLogout}><MdOutlineLogout/>Logout</p>
         </div>

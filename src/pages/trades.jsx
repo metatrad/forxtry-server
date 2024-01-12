@@ -9,7 +9,9 @@ import '../styles/transactions.css'
 const Trades = () => {
   return (
     <div className='trades-wrapper'>
-       <TradingTopNav/>
+      <div className="trades-tpn">
+      <TradingTopNav/>
+      </div>
        <div className='trades-body-wrapper'>
         <TradingNav/>
         <div className="trades-body">

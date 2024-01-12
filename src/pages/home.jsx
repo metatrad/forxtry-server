@@ -117,34 +117,7 @@ const Home = () => {
         </div>
 
         <div className="predict-fixed">
-          <h2>
-            To make more money,
-            <br /> make the correct prognosis
-          </h2>
-          <h5>Will the price go Up or Down?</h5>
-          <div className="predict">
-            <div className="chart"></div>
-            <div className="chart-buttons">
-              <div className="predict-logo"></div>
-              <div className="pdict-text">
-                <h4>
-                  Click <br /> on one of the buttons and see the result
-                </h4>
-              </div>
-              <button className="price-up">
-                Price will go up{" "}
-                <p>
-                  <AiOutlineArrowUp size={17} />
-                </p>
-              </button>
-              <button className="price-down">
-                Price will go down{" "}
-                <p>
-                  <AiOutlineArrowDown size={17} />
-                </p>
-              </button>
-            </div>
-          </div>
+          {/* ill come back */}
         </div>
 
         <div className="steps">
@@ -179,7 +152,7 @@ const Home = () => {
               <div className="steps-img"></div>
               <h4>Deposit and trade</h4>
               <p>
-                Over 410 instruments and a minimum deposit of $5 for optimal
+                Over 410 instruments and a minimum deposit of $10 for optimal
                 trading
               </p>
               <Link to="/deposit">
@@ -362,7 +335,7 @@ const Home = () => {
         <div className="bottom">
           <div className="image"></div>
           <h1>
-            Quotex: Innovation Platform <br /> Digital Asset Trading
+            Earnbroker: Innovation Platform <br /> Digital Asset Trading
           </h1>
           <div className="buttons">
             <Link to="/signup">

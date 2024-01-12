@@ -27,7 +27,8 @@ const Demo = () => {
 
   const userData = useSelector(state=>state?.user?.userAuth)
 
-  const demoBalance = userData.balance + 10000;
+  const balance = useSelector((state) => state?.user?.userAuth?.balance);
+  const demoBalance = useSelector((state) => state?.user?.userAuth?.demoBalance);
 
   const dispatch = useDispatch()
 
@@ -92,11 +93,12 @@ const Demo = () => {
                 <div className="account-switch-container">
 
                 <div ref={accountRef}>                
-                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD",userData?.demoBalance)}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>
+                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD", demoBalance)}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>
                      
                      {
                       showAccountSwitch&&
                       <div className="account-swicthbox">
+                        <div className="account-switchbox-coat">
                       <div className="see">
                         <div className="standard-profit"><FaTelegramPlane color='#35cb02' size={20}/> <h5>STANDARD: <p>+0% profit</p></h5> </div>
                         <div className="eye"><IoEye size={15}/></div>
@@ -105,10 +107,11 @@ const Demo = () => {
                       <h6>ID:{userData._id}</h6>
                       <h2 className="currency-change"><p>Currency: {"USD"}</p></h2>
                       <div className="buttons">
-                        <Link to = "/trading"><div className='switch'><div className="round lives"></div><h5>Live account <p>{CurrencyFormatter("USD",userData?.balance)}</p></h5></div></Link>
-                        <Link to = "/demo"><div className='switch'><div className="round demos"><FiCheck size={12}/></div><h5>Demo account <p>{CurrencyFormatter("USD",userData.demoBalance)}</p></h5></div></Link>
+                        <Link to = "/trading"><div className='switch'><div className="round lives"></div><h5>Live account <p>{CurrencyFormatter("USD",balance)}</p></h5></div></Link>
+                        <Link to = "/demo"><div className='switch'><div className="round demos"><FiCheck size={12}/></div><h5>Demo account <p>{CurrencyFormatter("USD",demoBalance)}</p></h5></div></Link>
                       </div>
                       <p className='logout' onClick={handleLogout}><MdOutlineLogout/>Logout</p>
+                      </div>
                       </div>
                      }
                      </div>

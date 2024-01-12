@@ -49,9 +49,6 @@ const Otp = () => {
   useEffect(()=>{
     if(userAuth){
       navigate('/trading')
-      toast("Logged in", {
-        className: "toast-message-login",
-      });
     }
   },[userAuth])
 

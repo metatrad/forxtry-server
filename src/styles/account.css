@@ -1,14 +1,28 @@
-
-
+.tradingNav{
+    height: 4em;
+}
 .tradingnav{
     width: fit-content;
 }
-.account-settings form h1{
-    font-size: 1rem;
+.account-settings{
+    -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
 }
-.account-settings form{
+.account-settings h1{
+    font-size: 1rem;
+    margin-bottom: 0.6em;
+}
+.account-settings .form-info{
     border-bottom: 1px dotted #a2a5ad;
-    gap: 0.5em;
+    padding-right: 1em;
+    width: 100%;
+    display: flex;
+}
+.account-settings form .inputs{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
 }
 .account-settings form .account-image{
     display: flex;
@@ -42,7 +56,7 @@
     justify-content: center;
     position: absolute;
     padding: 0.7em;
-    border-radius: 3px;
+    border-radius: 50px;
     color: #5e616c;
     background-color: #212634;
     width: 0.5em;
@@ -85,27 +99,32 @@
     gap: 3em;
     width: 100%;
 }
-.account-settings, .account-settings label{
-    background-color: #212634;
+.account-settings label{
+    background-color: transparent;
 }
 .account-settings form label{
     font-size: 0.8rem;
 }
-.account-settings form{
-    width: 60%;
+.account-settings form .inputs-cover{
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2em;
+    margin: 1em 0em;
+    align-items: center;
+    justify-content: center;
 }
 .account-settings form button{
     background-color: #016fd3;
+    width: 28%;
     margin-bottom: 1.3em;
     margin-top: 0.8em;
     height: 3em;
 }
-
 .account-settings input{
     color: #fff;
     padding: 0.2em 0.9em;
+    width: 100%;
     border-radius: 5px;
     height: 3em;
     border: 1px solid #434753;
@@ -120,6 +139,7 @@
 
 .account-options-cover{
     background-color: #2b3040;
+    border-radius: 5px;
     height: 3.3em;
     display: flex;
     align-items: center;
@@ -128,7 +148,7 @@
 }
 .account-options{
     width: 100%;
-    gap: 2em;
+    gap: 1.4em;
     overflow: auto;
 }
 .account-options,.account-options a{
@@ -141,7 +161,7 @@
 .account-options a{
     display: flex;
     width: fit-content;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     font-weight: 600;
     height: 2.4em;
     transition: .2s ease;
@@ -169,27 +189,30 @@
 .verification-id{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
+    justify-content: left;
     gap: 0.5em;
+    width: 26em;
+    margin-top: 1em;
 }
 .v-img-label{
-    width: 100%;
-    height: 10em;
+    width: 70%;
+    height: 15em;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
 }
 .verification-img{
+    width: 80%;
     border: 1px solid blue;
-    height: 10em;
+    height: 15em;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
     background-color: #0c5ff932;
     cursor: pointer;
-    width: 90%;
 }
 .v-img-input{
     display: none;
@@ -220,14 +243,49 @@
     padding-bottom: 1em;
 }
 
+@media only screen and (max-width: 1200px){
+    .account-settings form button{
+        width: 100%;
+    }
+}
 @media only screen and (max-width: 900px){
     .account-settings{
         width: 82%;
     }
+    .account-settings form .inputs{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+    .account-settings form button{
+        width: 100%;
+    }
+    .account-settings .form-info{
+        display: flex;
+        flex-direction: column;
+    }
 }
 @media only screen and (max-width:650px){
-    .account-settings input{
-        height: 2.6em;
+    .verification-id{
+        width: 100%;
+    }
+    .v-img-label{
+        width: 100%;
+        height: 10em;
+    }
+    .account-settings form .inputs-cover{
+        gap: 1em;
+    }
+    .account-settings form .inputs{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .account-settings form .inputs input{
+        width: 90%;
+    }
+    .account-settings{
+    margin-top: -4em;
     }
     .account-user-info h2{
         font-size: 0.9rem;

@@ -1,95 +1,65 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import currencyFormatter from '../utilities/currencyFormatter';
 import { userProfileAction } from "../redux/userSlice";
+import dateFormatter from '../Admin/components/dateFormatter'
+import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch } from "react-redux";
 import '../Admin/adminStyles/table.css'
 
 const Tradestable = () => {
 
-  const userData = useSelector((state) => state.user);
-    
-    const rows = [
-        {
-            id: 1111111,
-            trade: "upstake",
-            email: "email@gmail.com",
-            date: "1 march",
-            amount: 1000,
-            method: "Binance",
-            status: "Approved"
-        },
-        {
-            id: 1111111,
-            trade: "upstake",
-            email: "email@gmail.com",
-            date: "1 march",
-            amount: 1000,
-            method: "Binance",
-            status: "Pending"
-        },
-        {
-            id: 1111111,
-            trade: "upstake",
-            email: "email@gmail.com",
-            date: "1 march",
-            amount: 1000,
-            method: "Binance",
-            status: "Pending"
-        },
-        {
-            id: 1111111,
-            trade: "upstake",
-            email: "email@gmail.com",
-            date: "1 march",
-            amount: 1000,
-            method: "Binance",
-            status: "Approved"
-        },
-        {
-            id: 1111111,
-            trade: "upstake",
-            email: "email@gmail.com",
-            date: "1 march",
-            amount: 1000,
-            method: "Binance",
-            status: "Approved"
-        }
-    ] 
 
+  const [ page, setPage ] = useState(1)
 
+  const dispatch = useDispatch()
+  useEffect(()=>{
+      dispatch(userProfileAction(+page))
+  },[dispatch, page, setPage])
+
+  const state = useSelector(state => state?.user);
+  const {userLoading, userAppErr, userServerErr, profile } = state
+
+  const trades = profile?.trade || [];
+
+  const transactions = [...trades];
 
   return (
-    <TableContainer component={Paper} className = "admin-table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer className = "admin-table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell className='tableCell'>User ID</TableCell>
-            <TableCell className='tableCell'>Trade</TableCell>
-            <TableCell className='tableCell'>Email</TableCell>
             <TableCell className='tableCell'>Date</TableCell>
-            <TableCell className='tableCell'>Amount</TableCell>
-            <TableCell className='tableCell'>Method</TableCell>
-            <TableCell className='tableCell'>Status</TableCell>
+            <TableCell className='tableCell'>Stake</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className='tableCell'>{row.id}</TableCell>
-              <TableCell className='tableCell'>{row.trade}</TableCell>
-              <TableCell className='tableCell'>{row.email}</TableCell>
-              <TableCell className='tableCell'>{row.date}</TableCell>
-              <TableCell className='tableCell'>{row.amount}</TableCell>
-              <TableCell className='tableCell'>{row.method}</TableCell>
-              <TableCell className='tableCell'><span className={`status ${row.status}`}>{row.status}</span></TableCell>
-            </TableRow>
-          ))}
+        <TableBody className='table-body'>
+        {userLoading? <h1 className='deposit-loading' style={{color: "white"}}>Loading...</h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: trades?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No trade history</h1>: transactions?.map(exp =>{
+            return(
+                        <TableRow item = {exp} key={exp?._id}>
+                        <TableCell className='tableCell'>
+                          <div className='table-cell-div'>
+                           {dateFormatter(exp?.createdAt)}
+                          <span className='trade-ends-span'>{exp?.expirationTime}</span>
+                          </div>
+                        </TableCell>
+
+                        <TableCell className='tableCell row-cell'>
+                          <div className='table-cell-div'>
+                            {currencyFormatter("usd",exp?.investment)} 
+                            <span className={`status ${exp?.tradeResult}`}>
+                              {currencyFormatter("usd",exp?.calculatedResult)}
+                            </span>
+                          </div>
+                        </TableCell>    
+                      </TableRow>
+                      
+        )})}
         </TableBody>
       </Table>
     </TableContainer>

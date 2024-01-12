@@ -3,7 +3,9 @@ import axios from "axios";
 import baseURL from '../utilities/baseURL';
 
 //actions for refreshing
-export const resetUserUpdated = createAction("/adminusers/update")
+export const resetUserUpdated = createAction("/users/update")
+export const resetUserAdminUpdated = createAction("/adminusers/update")
+export const otpReset = createAction("/login/otp")
 
 //signup action
 export const signupAction = createAsyncThunk("/signup", async (payload, { rejectWithValue, getState, dispatch })=>{
@@ -37,6 +39,27 @@ export const loginAction = createAsyncThunk("/login", async (payload, { rejectWi
         const { data } = await axios.post(`${baseURL}/login`, payload, config);
         // //save browser into local storage
         // localStorage.setItem('userInfo', JSON.stringify(data));
+        dispatch(otpReset())
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
+
+//forgot password
+export const forgotPAction = createAsyncThunk("/forgot-password", async (payload, { rejectWithValue, getState, dispatch })=>{
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.post(`${baseURL}/forgot-password`, payload, config);
         return data;
         
     } catch (error) {
@@ -190,19 +213,31 @@ export const updateProfileAction = createAsyncThunk("/account", async (payload, 
     }
 });
 
-
 //get user from local storage and place in store
-const userLoginFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')): undefined;
+const userLoginFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')):undefined;
 
 //slices
 const userSlice = createSlice({
     name: 'users',
     initialState: {
         userAuth: userLoginFromStorage,
+        balance: userLoginFromStorage?.balance,
+        demoBalance: userLoginFromStorage?.demoBalance,
         userLoading: false,
         userAppErr: undefined,
         userServerErr: undefined,
     },
+    reducers: {
+        updateBalance: (state, action) => {
+            state.userAuth.balance = action?.payload;
+        },
+        updateDemoBalance: (state, action) => {
+            state.userAuth.demoBalance = action?.payload;
+        },
+        updateTrade: (state, action) => {
+            state.profile.trade = action?.payload;
+        },
+    }, 
     extraReducers: (builder) =>{
         //login action
         //handle pending state
@@ -211,19 +246,43 @@ const userSlice = createSlice({
             state.userAppErr = undefined;
             state.userServerErr = undefined;
         });
+        builder.addCase(otpReset, (state, action)=>{
+            state.isOtpSent = true
+        })
         //handle success state
         builder.addCase(loginAction.fulfilled, (state, action)=>{
             state.otpSent = action?.payload;
             state.userLoading = false;
             state.userAppErr = undefined;
             state.userServerErr = undefined;
+            state.isOtpSent = false
         })
         //handle rejected state
         builder.addCase(loginAction.rejected, (state, action)=>{
             state.userLoading = false;
             state.userAppErr = action?.payload?.msg;
             state.userServerErr = action?.error?.msg;
+        })
 
+        //forgot password
+        //handle pending state
+        builder.addCase(forgotPAction.pending,(state, action)=>{
+            state.userLoading = true;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        });
+        //handle success state
+        builder.addCase(forgotPAction.fulfilled, (state, action)=>{
+            state.linkSent = action?.payload;
+            state.userLoading = false;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        })
+        //handle rejected state
+        builder.addCase(forgotPAction.rejected, (state, action)=>{
+            state.userLoading = false;
+            state.userAppErr = action?.payload?.msg;
+            state.userServerErr = action?.error?.msg;
         })
 
                 // otp login action
@@ -236,6 +295,7 @@ const userSlice = createSlice({
         //handle success state
         builder.addCase(loginWithOTP.fulfilled, (state, action)=>{
             state.userAuth = action?.payload;
+            state.balance = action?.payload?.balance
             state.userLoading = false;
             state.userAppErr = undefined;
             state.userServerErr = undefined;
@@ -325,8 +385,12 @@ const userSlice = createSlice({
             state.userAppErr = undefined;
             state.userServerErr = undefined;
         });
+        builder.addCase(resetUserUpdated, (state, action)=>{
+            state.isUserCreated = true
+        })
         //handle success state
         builder.addCase(updateProfileAction.fulfilled, (state, action)=>{
+            state.isUserCreated = false
             state.userUpdate = action?.payload;
             state.userLoading = false;
             state.userAppErr = undefined;
@@ -392,8 +456,10 @@ const userSlice = createSlice({
         })
     }
     
-    
-
 })
+
+export const { updateBalance } = userSlice.actions;
+export const { updateDemoBalance } = userSlice.actions;
+export const { updateTrade} = userSlice.actions;
 
 export default userSlice.reducer;

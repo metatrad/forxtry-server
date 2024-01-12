@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice,createAction } from '@reduxjs/toolkit';
 import axios from "axios";
 import baseURL from '../utilities/baseURL';
+import { updateBalance } from './userSlice';
+import { updateDemoBalance } from './userSlice';
+import { updateTrade } from './userSlice';
 
 //actions for refreshing
 export const resetTradeCreated = createAction("trading/reset")
@@ -20,6 +23,7 @@ export const tradeAction = createAsyncThunk("/tradingcreate", async (payload, { 
         //http call
         const { data } = await axios.post(`${baseURL}/tradingcreate`, payload, config);
         dispatch(resetTradeCreated())
+        dispatch(updateBalance(data?.balance));
         return data;
         
     } catch (error) {
@@ -42,6 +46,7 @@ export const DemotradeAction = createAsyncThunk("/democreate", async (payload, {
         //http call
         const { data } = await axios.post(`${baseURL}/democreate`, payload, config);
         dispatch(resetDemoTradeCreated())
+        dispatch(updateDemoBalance(data?.demoBalance));
         return data;
         
     } catch (error) {
@@ -51,6 +56,7 @@ export const DemotradeAction = createAsyncThunk("/democreate", async (payload, {
         return rejectWithValue(error?.response?.data)
     }
 });
+
 
 export const tradebalAction = createAsyncThunk("/trading", async (payload, { rejectWithValue, getState, dispatch })=>{
     //get user token from store
@@ -64,7 +70,7 @@ export const tradebalAction = createAsyncThunk("/trading", async (payload, { rej
     try {
         //http call
         const { data } = await axios.post(`${baseURL}/trading`, payload, config);
-        dispatch(resetTradeCreated())
+        dispatch(updateBalance(data?.balance));
         return data;
         
     } catch (error) {
@@ -74,6 +80,29 @@ export const tradebalAction = createAsyncThunk("/trading", async (payload, { rej
         return rejectWithValue(error?.response?.data)
     }
 });
+export const tradelostAction = createAsyncThunk("/tradelost", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.post(`${baseURL}/tradelost`, payload, config);
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
+
+
 export const demotradebalAction = createAsyncThunk("/demo", async (payload, { rejectWithValue, getState, dispatch })=>{
     //get user token from store
     const userToken = getState()?.user?.userAuth?.token;
@@ -87,6 +116,7 @@ export const demotradebalAction = createAsyncThunk("/demo", async (payload, { re
         //http call
         const { data } = await axios.post(`${baseURL}/demo`, payload, config);
         dispatch(resetDemoTradeCreated())
+        dispatch(updateDemoBalance(data?.demoBalance));
         return data;
         
     } catch (error) {
@@ -103,18 +133,18 @@ const tradeSlice = createSlice({
     extraReducers:(builder)=>{
         //create trade
         builder.addCase(tradeAction.pending,(state, action)=>{
-            state.loading = true;
+            state.tradeloading = true;
         })
         //reset action
         builder.addCase(resetTradeCreated, (state, action)=>{
-            state.isTradeCreated = false
+            state.isTradeCreated = true
         })
         builder.addCase(tradeAction.fulfilled,(state, action)=>{
-            state.loading = false;
+            state.tradeloading = false;
             state.tradeCreated = action?.payload;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.payload?.message; 
-            state.isTradeCreated = true
+            state.isTradeCreated = false;
 
         // Update localStorage
         localStorage.setItem('userInfo', JSON.stringify({
@@ -123,9 +153,10 @@ const tradeSlice = createSlice({
         }));
         })
         builder.addCase(tradeAction.rejected,(state, action)=>{
-            state.loading = false;
+            state.tradeloading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message; 
+            state.isTradeCreated = false
         })
 
         //demo trade
@@ -134,14 +165,14 @@ const tradeSlice = createSlice({
         })
         //reset action
         builder.addCase(resetDemoTradeCreated, (state, action)=>{
-            state.isDemoCreated = false
+            state.isDemoCreated = true
         })
         builder.addCase(DemotradeAction.fulfilled,(state, action)=>{
             state.loading = false;
             state.demoCreated = action?.payload;
             state.appErr = undefined;
             state.serverErr = undefined; 
-            state.isTradeCreated = true
+            state.isDemoCreated = false
 
         // Update localStorage
         localStorage.setItem('userInfo', JSON.stringify({
@@ -174,6 +205,22 @@ const tradeSlice = createSlice({
         }));
         })
         builder.addCase(tradebalAction.rejected,(state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.msg;
+            state.serverErr = action?.error?.msg; 
+        })
+
+        //update trade lost
+        builder.addCase(tradelostAction.pending,(state, action)=>{
+            state.loading = true;
+        })
+        builder.addCase(tradelostAction.fulfilled,(state, action)=>{
+            state.loading = false;
+            state.lostUpdated = action?.payload;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.payload?.message; 
+        })
+        builder.addCase(tradelostAction.rejected,(state, action)=>{
             state.loading = false;
             state.appErr = action?.payload?.msg;
             state.serverErr = action?.error?.msg; 

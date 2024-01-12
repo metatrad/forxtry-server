@@ -13,6 +13,7 @@ import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
 import { ImFolderUpload } from "react-icons/im";
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import "../styles/account.css";
 import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
@@ -62,13 +63,12 @@ const Account = () => {
       },
       validationSchema: formSchema,
     })
-
-     useEffect(()=>{
-      if(userUpdate){
-        navigate('/account')
-        toast("Updated")
+    useEffect(() => {
+      if (userUpdate) {
+        toast('Profile updated');
       }
-    },[dispatch, userUpdate]);
+    }, [dispatch, userUpdate]); 
+
 
     const uploadImage = async(e) =>{
       const data = await ImagetoBase64(e.target.files[0])
@@ -98,10 +98,8 @@ const Account = () => {
         <div className="account-settings">
 
           <div><AccountTopNav/></div>
-
-          <form action="" onSubmit={formik.handleSubmit}>
-            <h1>Identity info:</h1>
-
+          <form action="" className="form-info" onSubmit={formik.handleSubmit}>
+          <div className="account-images-cover">
             <div className="account-image">
               <div className="account-img">
                 {userAuth?.image ? <img src={userAuth?.image}/>: <img src={ userAuth?.image? userAuth?.image:accountImage} alt="" />}
@@ -111,42 +109,12 @@ const Account = () => {
               </div>
 
               <div className="account-user-info">
+              <h1>Identity info:</h1>
                 <h2>{userData?.email}</h2>
-                <p>ID : {userData?._id}</p>
+                {/* <p>ID : {userData?._id}</p> */}
                 <p>Verification Status: <span className={`status ${userAuth?.status}`}>{userAuth?.status}</span></p>
               </div>
             </div>
-
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email" id="email" value={formik.values.email}
-            onChange={formik.handleChange("email")}
-            onBlur = {formik.handleBlur("email")}/>
-
-            <label htmlFor="firstName">First Name</label>
-            <input type="text" name="firstName" id="firstName" value={formik.values.firstName}
-            onChange={formik.handleChange("firstName")}
-            onBlur = {formik.handleBlur("firstName")}/>
-
-            <label htmlFor="lastName">Last Name</label>
-            <input type="text" name="lastName" id="lastName" value={formik.values.lastName}
-              onChange={formik.handleChange("lastName")}
-              onBlur = {formik.handleBlur("lastName")}/>
-
-            <label htmlFor="country">Country</label>
-            <input type="text" name="country" id="country" value={formik.values.country}
-              onChange={formik.handleChange("country")}
-              onBlur = {formik.handleBlur("country")}/>
-
-            <label htmlFor="address">Address</label>
-            <input type="text" name="address" id="address" value={formik.values.address}
-              onChange={formik.handleChange("address")}
-              onBlur = {formik.handleBlur("address")}/>
-
-            <label htmlFor="dob">Date Of Birth</label>
-            <input type="date" name="dob" id="dob" value={formik.values.dob}
-              onChange={formik.handleChange("dob")}
-              onBlur = {formik.handleBlur("dob")}/>
-
             <div className="verification-id">
               <h1>Upload your verification ID here: <br /><p>e.g: National ID card, drivers liscence, etc.</p></h1>
               <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userAuth?.verification? <img src={userAuth?.verification}/>:<span><ImFolderUpload/></span>}</div></label>
@@ -154,26 +122,80 @@ const Account = () => {
               onChange={uploadVImage}
               onBlur = {formik.handleBlur("verification")}/>
             </div>
+            </div>
+
+            <div className="inputs-cover">
+
+            <div className="inputs"> 
+            <label htmlFor="email">Email</label>
+            <input type="text" name="email" id="email" value={formik.values.email}
+            onChange={formik.handleChange("email")}
+            onBlur = {formik.handleBlur("email")}/>
+            </div>
+
+            <div className="inputs">
+            <label htmlFor="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" value={formik.values.firstName}
+            onChange={formik.handleChange("firstName")}
+            onBlur = {formik.handleBlur("firstName")}/>
+            </div>
+
+            <div className="inputs">
+            <label htmlFor="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" value={formik.values.lastName}
+              onChange={formik.handleChange("lastName")}
+              onBlur = {formik.handleBlur("lastName")}/>
+            </div>
+
+            <div className="inputs">
+            <label htmlFor="country">Country</label>
+            <input type="text" name="country" id="country" value={formik.values.country}
+              onChange={formik.handleChange("country")}
+              onBlur = {formik.handleBlur("country")}/>
+            </div>
+
+            <div className="inputs">
+            <label htmlFor="address">Address</label>
+            <input type="text" name="address" id="address" value={formik.values.address}
+              onChange={formik.handleChange("address")}
+              onBlur = {formik.handleBlur("address")}/>
+            </div>
+
+            <div className="inputs">
+            <label htmlFor="dob">Date Of Birth</label>
+            <input type="date" name="dob" id="dob" value={formik.values.dob}
+              onChange={formik.handleChange("dob")}
+              onBlur = {formik.handleBlur("dob")}/>
+            </div>
 
             {
               userLoading? <Disabledbutton/>:<button>Save</button>
             }
- 
+
+            </div>
+
           </form>
 
           <form className="changePassword" action="">
+
+            <div className="inputs">
             <label htmlFor="oldPassword">Old Password</label>
             <input type="passowrd" name="oldPassword" id="oldPassword" />
+            </div>
 
+            <div className="inputs">
             <label htmlFor="newPassword"> New Password</label>
             <input type="password" name="newPassword" id="newPassword" />
+            </div>
 
+            <div className="inputs">
             <label htmlFor="confirmNewPassword">Confirm New Password</label>
             <input
               type="password"
               name="confirmNewPassword"
               id="confirmNewPassword"
             />
+            </div>
 
             <button>Change Password</button>
           </form>
@@ -183,6 +205,7 @@ const Account = () => {
           </h6>
         </div>
       </div>
+     <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

@@ -1,14 +1,12 @@
 import React, { useEffect }  from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "../redux/userSlice";
+import { forgotPAction } from "../redux/userSlice";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup"
 import Disabledbutton from "../components/disabledbutton";
 import "../styles/login.css";
 import { Link } from "react-router-dom";
-import { BiLogoFacebook } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
 import { BsArrowRightShort } from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -18,11 +16,10 @@ import toast from "react-hot-toast";
 //form validation
 const formSchema = Yup.object({
   email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
 })
 
 
-const Login = () => {
+const ForgotP = () => {
   //navigate
   const navigate = useNavigate();
   
@@ -31,33 +28,31 @@ const Login = () => {
   
   //get data from store
   const user = useSelector(state => state?.user);
-  const { userAppErr, userServerErr, userLoading, otpSent, isOtpSent } = user;
+  const { userAppErr, userServerErr, userLoading, linkSent } = user;
 
   //formik form
   const formik = useFormik({
     initialValues:{
       email: "",
-      password: "",
     },
     onSubmit: values =>{
-      dispatch(loginAction(values))
+      dispatch(forgotPAction(values))
     },
     validationSchema: formSchema,
   });
 
   //redirect
   useEffect(()=>{
-    if(isOtpSent){
-      navigate('/otp')
-      toast("Otp sent to your email");
+    if(linkSent){
+      toast("A link has been sent to your email to reset your password.");
     }
-  },[dispatch, isOtpSent])
+  },[dispatch, linkSent])
 
   return (
     <div>
       <Navbar />
       <div className="login">
-        <h1>Sign In To Your Account</h1>
+        <h1>Enter your mail to reset your password.</h1>
         <div className="login-box">
           <div className="account-buttons">
             <Link to="/login">
@@ -84,46 +79,11 @@ const Login = () => {
               {formik.touched.email && formik.errors.email}
             </div>
 
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={formik.values.password}
-              onChange={formik.handleChange("password")}
-              onBlur = {formik.handleBlur("password")}
-            />
-            <div className="show-error">
-              {formik.touched.password && formik.errors.password}
-            </div>
-
-            <div className="login-check">
-              <input type="checkbox" id="checkbox" className="checkbox" />
-              <label htmlFor="checkbox">
-                Remember me <Link to="/forgot-password">Forgot your password?</Link>
-              </label>
-            </div>
-
             {
-              userLoading? (<Disabledbutton/>):<button className="signin-btn">Sign in<p><BsArrowRightShort size={23} /></p></button>
+              userLoading? (<Disabledbutton/>):<button className="signin-btn">Send<p><BsArrowRightShort size={23} /></p></button>
             }
 
           </form>
-
-          <div className="login-bottom">
-            <h4>Sign in via</h4>
-
-            <div className="login-media">
-              <h2 className="login-fb">
-                {" "}
-                <BiLogoFacebook />
-              </h2>
-              <h2 className="login-gg">
-                <FcGoogle />
-              </h2>
-            </div>
-          </div>
         </div>
       </div>
       <Footer />
@@ -131,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotP;

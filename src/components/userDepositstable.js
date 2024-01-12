@@ -13,7 +13,7 @@ import dateFormatter from '../Admin/components/dateFormatter'
 import Pagination from '../Admin/components/pagination'
 import '../Admin/adminStyles/table.css'
 
-const Transactionstable = () => {
+const UserDepositTable = () => {
 
     const [ page, setPage ] = useState(1)
 
@@ -26,15 +26,15 @@ const Transactionstable = () => {
     const {userLoading, userAppErr, userServerErr, profile } = state
 
     const deposits = profile?.deposit || [];
-    const withdrawals = profile?.withdrawal || [];
 
-    const transactions = [...deposits, ...withdrawals];
+    const transactions = [...deposits];
 
   const userData = useSelector((state) => state.user);
 
+
   return (
-    <TableContainer component={Paper} className = "admin-table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer className = "admin-table">
+      <Table sx={{ minWidth: 350 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className='tableCell'>Date</TableCell>
@@ -43,7 +43,7 @@ const Transactionstable = () => {
           </TableRow>
         </TableHead>
         <TableBody className='table-body'>
-        {userLoading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="black"></l-mirage></h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: profile?.docs?.length <= 0? <h1 className='deposit-loading'>No transactions found.</h1>: transactions?.map(exp =>{
+        {userLoading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: transactions?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>You haven't made any deposits yet.</h1>: transactions?.map(exp =>{
             return(
                         <TableRow item = {exp} key={exp?._id}>
                         <TableCell className='tableCell'>{dateFormatter(exp?.createdAt)}</TableCell>
@@ -51,11 +51,10 @@ const Transactionstable = () => {
                         <TableCell className='tableCell row-cell'>{currencyFormatter("usd",exp?.amount)} {exp?.method}</TableCell>        
                       </TableRow>
         )})}
-                      <Pagination setPage=  {setPage} pageNumber = {profile?.docs?.totalPages}/>
         </TableBody>
       </Table>
     </TableContainer>
   )
 }
 
-export default Transactionstable
+export default UserDepositTable;

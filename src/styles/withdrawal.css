@@ -2,8 +2,11 @@
     display: flex;
     flex-direction: column;
 }
+.top-nav{
+    height: 4em;
+}
 .withdrawal-wrapper{
-    margin-top: 1em;
+    /* margin-top: 1em; */
 }
 .withdrawal-body-container{
     padding: 0.8em;
@@ -32,9 +35,11 @@
     display: flex;
 }
 .withdrawal-container{
-    padding: 0.4em 1em;
+    -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
+    padding: 1.5em;
     border-radius: 7px;
-    background-color: #252936;
     width: 100%;
 }
 .withdrawal-container .withdrawal-body{

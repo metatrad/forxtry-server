@@ -27,10 +27,12 @@ import NotAdmin from './components/notAdmin';
 import AdminRoute from './components/adminRoute';
 import Editdeposit from './Admin/pages/edit-deposit';
 import Editwithdrawal from './Admin/pages/edit-withdrawal';
-import Transactions from './pages/transactions';
 import Test from './pages/test'
 import Editperc from './Admin/pages/edit-perc';
 import Trades from './pages/trades';
+import UserDeposit from './pages/userDeposit'
+import UserWithdrawal from './pages/userWithdrawal'
+import ForgotP from './pages/forgot-password'
 import Otp from './pages/otp'
 import { loginRedux } from './redux/userSlice';
 import './LDM/light.css'
@@ -60,12 +62,14 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/test' element={<Test/>}/>
+          <Route path='/chart-server' element={<Test/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/forgot-password' element={<ForgotP/>}/>
           <Route path='/otp' element={<Otp/>}/>
           <Route path='/faq' element={<FAQ/>}/>
           <Route path='/about' element={<About/>}/>
-          <Route path='/transactions' element={<Transactions/>}/>
+          <Route path='/userdeposit' element={<UserDeposit/>}/>
+          <Route path='/userwithdrawal' element={<UserWithdrawal/>}/>
           <Route path='/trades' element={<Trades/>}/>
 
           <Route path='/not-admin' element={<NotAdmin/>}/>

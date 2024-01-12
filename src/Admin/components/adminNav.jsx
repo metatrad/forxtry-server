@@ -24,10 +24,9 @@ const AdminNav = () => {
             <div className="admin-language"><MdLanguage/>Eng</div>
             <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>
             <div className="expand"><FaExpand/></div>
-            <div className="notfication"><FaRegBell/><div className='num'>1</div></div>
-            <div className="chat"><MdChatBubbleOutline/><div className='num'>2</div></div>
+            <div className="notfication"><FaRegBell/><div className='num'></div></div>
+            <div className="chat"><MdChatBubbleOutline/><div className='num'></div></div>
             <div className="menu"><Hamburger size={20}/></div>
-            <div className='img'><img src={adminImg} alt="" /></div>
         </div>
       </div>
     </div>

@@ -21,8 +21,14 @@ const AccountTopNav = () => {
         <NavLink to="/withdrawal">
           <div>Withdrawal</div>
         </NavLink>
-        <NavLink to="/transactions">
-          <div>Transactions</div>
+        <NavLink to="/userdeposit">
+          <div>Deposit history</div>
+        </NavLink>
+        <NavLink to="/userwithdrawal">
+          <div>Withdrawal history</div>
+        </NavLink>
+        <NavLink to="/trades">
+          <div>Trade history</div>
         </NavLink>
         <NavLink to="/account">
           <div>Account</div>

@@ -5,16 +5,8 @@
 }
 .show-error-top{
     color: red;
-    font-weight: 400;
+    font-weight: 800;
     font-size: 0.9rem;
-    width: 365px;
-    background-color: rgba(255, 0, 0, 0.171);
-    border: 1px solid rgba(255, 0, 0, 0.729);
-    border-radius: 5px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .login{
     background-image: url(../images/pngwing.com\ \(9\).png);

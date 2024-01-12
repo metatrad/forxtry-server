@@ -1,3 +1,17 @@
+.cover-whole-top-nav{
+    position: fixed;
+    width: 100%;
+    backdrop-filter: blur(20px);
+    top: 0;
+    z-index: 20;
+}
+.dt-nav{
+    display: flex;
+    position: relative;
+}
+.dt-nav .light{
+    color: #000;
+}
 .right-top-nav{
     display: flex;
     align-items: center;
@@ -17,7 +31,7 @@
     height: 82vh;
     justify-content: space-between;
     overflow: auto;
-    width: 6em;
+    width: 4em;
     gap: 1em;
     display: flex;
     flex-direction: column;
@@ -31,6 +45,10 @@
     flex-direction: column;
     transition: .2s ease;
     padding: 1em 1.4em;
+    position: absolute;
+    backdrop-filter: blur(20px);
+    margin-left: 4em;
+    z-index: 10;
 }
 .support .mode{
     width: 95%;
@@ -71,7 +89,7 @@
     border: 1px solid #ffffff;
 }
 .support label{
-    background-color: #1c1f2d;
+    background-color: transparent;
 }
 .support div{
     display: flex;
@@ -111,8 +129,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    width: 3em;
-    height: 2.6em;
+    width: 2.5em;
+    height: 2em;
     cursor: pointer;
     transition: .2s ease;
 }
@@ -177,6 +195,9 @@
     border-radius: 50px;
     padding: 0.6em 0.7em;
     gap: 0.2em;
+    -webkit-box-shadow: 1px 1px 15px 0px rgba(255, 255, 255, 0.166);
+    -moz-box-shadow: 1px 1px 15px 0px rgba(255, 255, 255, 0.156);
+    box-shadow: 1px 1px 15px 0px rgba(255, 255, 255, 0.129);
 }
 .bonus p{
     font-size: 0.75rem;
@@ -189,13 +210,13 @@
 }
 .notification{
     background-color: #3b405ba6;
-    padding: 0.5em;
+    padding: 0.3em;
     border-radius: 5px;
     cursor: pointer;
     transition: .2s ease;
 }
 .notification:hover{
-    background-color: #2b2f3f;
+    background-color: #1c1f2ad3;
 }
 .account-switch{
     cursor: pointer;
@@ -204,14 +225,15 @@
     align-items: center;
     gap: 0.5em;
     padding: 0.4em;
-    border-radius: 5px;
+    border-radius: 7px;
     transition: .2s ease;
 }
 .account-switch:hover{
-    background-color: #2b2f3f;
+    background-color: #151720;
 }
 .account-switch h6{
     color: #818389;
+    font-size: 0.6rem;
     font-weight: 800;
 }
 .account-switch p{
@@ -233,18 +255,23 @@
     background-color: #2b2f3f;
 }
 .account-swicthbox{
-    display: flex;
-    flex-direction: column;
-    gap: 0.64em;
     top: 0;
     position: absolute;
-    border-radius: 5px;
-    width: 15em;
-    height: 19em;
-    background-color: #353a4d;
+    border-radius: 10px;
+    width: 16em;
+    height: 19.5em;
+    background-color: #191919;
     margin-top: 4.3em;
-    padding: 0.6em 1.2em;
     transition: .3s ease;
+    padding: 0.5em;
+}
+.account-switchbox-coat{
+    gap: 0.5em;
+    display: flex;
+    flex-direction: column;
+    padding: 0.9em 1.2em;
+    border-radius: 5px;
+    background-color: #353a4d;
 }
 .account-swicthbox h3{
     font-size: 0.88rem;
@@ -331,6 +358,7 @@
     align-items: center;
     font-size: 0.9rem;
     color: red;
+    font-weight: 800;
 }
 .account-swicthbox .buttons{
     display: flex;
@@ -345,16 +373,37 @@
 }
 
 .mb-menu{
+    top: 0;
+    display: none;
     display: flex;
     flex-direction: column;
-    background-color: #1c1f2d;
+    backdrop-filter: blur(20px);
     position: absolute;
-    height: 82vh;
+    height: 0vh;
     width: 100%;
-    z-index:1;
+    z-index:100;
+    transition: all 0.2s ease-in-out;
 }
+.visible {
+    display: block;
+    height: 100vh;
+}
+
 .mb-menu h4{
-    margin-bottom: 1em;
+    margin: 1em 0em 0em 0em;
+    width: 93%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mb-menu h4 span{
+    width: 2em;
+    height: 2em;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.208);
 }
 .mb-menu h4, .mb-menu p{
     display: flex;
@@ -363,20 +412,32 @@
     font-size: 0.9rem;
 }
 .mb-menu p{
+    padding: 0.5em;
+    border: 1px solid red;
+    border-radius: 5px;
     color: red;
+    width: 3em;
+    font-weight: 800;
+    cursor: pointer;
+    bottom: 0;
+    margin: 1em;
+    background-color: rgba(255, 0, 0, 0.221);
 }
 .mb-menu-links{
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.032);
-    height: 58vh;
-    justify-content: space-between;
-    padding: 2em 1em; 
+    background-color: rgba(255, 255, 255, 0);
+    gap: 1em;
+    padding: 2em 1em;
 }
 .mb-menu-links a{
     border-radius: 5px;
-    background-color: #4347534a;
+    background-color: #434753a2;
     padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1050px){
@@ -402,19 +463,21 @@
         position: fixed;
         bottom: 0;
         display: block;
-        padding: 0em 1.2em;
+        padding: 0.7em 1.3em;
         display: flex;
         align-items: center;
-        width: 93%;
+        width: 90%;
         justify-content: space-between;
-        z-index: 1;
+        z-index: 2;
     }
     .mb-trading-nav .active{
+        border-radius: 2px;
+        border-bottom: 1px solid white;
         color: #fff;
     }
     .mb-trading-nav a,.mb-trading-nav div{
         font-size: 1.4rem;
-        color: gray;
+        color: rgba(255, 255, 255, 0.448);
     }
     .dt-nav{
         display: none;
@@ -426,7 +489,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 3.33em;
+        height: 3em;
     }
     .trading-topnav{
         height: 2em;

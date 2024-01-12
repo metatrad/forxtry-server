@@ -43,8 +43,6 @@ const io = socketIO(server);
 
 app.set('io', io);
 
-module.exports = { server, io };
-
 let lastFetchedData = null;
 const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
 let tradingPair = 'EUR-USD'; // Default trading pair

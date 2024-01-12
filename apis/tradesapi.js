@@ -7,13 +7,10 @@ const schedule = require("node-schedule");
 const performTradeActions = async (trading) => {
   console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
-
   if(trading.expirationTimeWord ==="Pending"){
     trading.expirationTimeWord =  "Done"
   }
-  
   await trading.save();
-
   console.log(`Trade ${trading._id} - Actions performed`);
   console.log(`Trade ${trading._id} - ${trading.expirationTimeWord}`);
 };

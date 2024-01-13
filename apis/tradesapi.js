@@ -99,15 +99,8 @@ const tradebalctrl = expressAsyncHandler(async (req, res) => {
   console.log("Inside tradebalctrl");
   try {
     const user = await User.findById(req?.user?._id);
-    user.balance += calculatedResult;
-    // Find and update the trade with the given time
-    const trade = await Trade.findOneAndUpdate(
-      { user: req?.user?._id, time, tradeResult: "Pending" },
-      { tradeResult: "Won" },
-      { new: true } // Return the updated document
-    );
-    // Save the user and trade changes
-    await Promise.all([user.save(), trade.save()]);
+
+    await Promise.all([user.save()]);
     // await user.save();
     res.json({ balance: user.balance, alert: true });
   } catch (error) {
@@ -218,4 +211,5 @@ module.exports = {
   deletetradectrl,
   tradebalctrl,
   tradelosectrl,
+  updateExpctrl,
 };

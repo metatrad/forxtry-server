@@ -6,12 +6,15 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const socketIo = require('socket.io');
 const WebSocket = require('ws');
+const { Trade } = require("./schema/tradeSchema");
+const { Demo } = require("./schema/demoTradeSchema");
+const { User } = require("./schema/userSchema");
+const { Perc } = require('./schema/percentageSchema')
+const schedule = require("node-schedule");
 const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const { postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
-const { tradectrl, tradebalctrl, tradelosectrl } = require('./apis/tradesapi')
-const { demotradectrl, demotradebalctrl} = require('./apis/demoTradeapi')
 const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
 const { accountStatsctrl } = require("./apis/accountStats")
@@ -23,7 +26,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: 'https://earnbroker.com', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -46,7 +49,6 @@ const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
 let tradingPair = 'EUR-USD'; // Default trading pair
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
     // Send the last fetched data to the newly connected client
     if (lastFetchedData) {
       socket.emit('forexCandlesticks', [lastFetchedData]);
@@ -57,7 +59,6 @@ io.on('connection', (socket) => {
 
   // Authenticate with Polygon.io
   polygonWs.onopen = () => {
-    console.log('WebSocket connection established with Polygon.io');
     const authMessage = JSON.stringify({ action: 'auth', params: polygonApiKey });
     polygonWs.send(authMessage);
 
@@ -70,7 +71,6 @@ io.on('connection', (socket) => {
 
     if (Array.isArray(messages)) {
       messages.forEach((message) => {
-        console.log(messages)
         if (message.ev === 'CAS') {
           const realTimeData = {
             timestamp: parseFloat((message.e/1000)),
@@ -89,10 +89,8 @@ io.on('connection', (socket) => {
   // Handle disconnection
   socket.on('disconnect', () => {
     if (polygonWs.readyState === WebSocket.OPEN) {
-      console.log('Closing WebSocket connection');
       polygonWs.close();
     }
-    console.log('Client disconnected');
   });
   // Handle WebSocket errors
   polygonWs.onerror = (error) => {
@@ -127,6 +125,239 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
+
+
+
+//trading
+const performTradeActions = async (trading) => {
+
+  try {
+    const user = await User.findById(trading.user);
+  const percRecord = await Perc.findOne();
+
+  if (!percRecord) {
+    console.log('Perc record not found')
+    throw new Error("Perc record not found"); 
+  }
+  const perc = percRecord.perc;
+
+  console.log(`Trade ${trading._id} - Countdown reached zero`);
+  trading.status = 'Completed';
+
+  const tradeResults = Math.random() < perc ? "Win" : "Loss";
+
+  if (tradeResults === "Win") {
+    trading.tradeResult =  "Won"
+    user.balance+=trading.calculatedResult
+  }
+  if (tradeResults === "Loss") {
+    trading.tradeResult =  "Lost"
+  }
+  await trading.save();
+  await user.save();
+
+  console.log(`Trade ${trading._id} - Actions performed`);
+  console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
+  io.emit('expirationTimeReached', { tradeId: trading._id, tradeResult: trading.tradeResult, updateprofile: { balance: user.balance }, alert: true });
+    
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+const startCountdown = (trading, calculatedResult) => {
+  const durationInMinutes = trading.time;
+  const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
+  trading.expirationTime = expirationTime;
+  trading.save();
+  console.log("initiated")
+
+  schedule.scheduleJob(expirationTime, async () => {
+    await performTradeActions(trading, calculatedResult);
+  });
+};
+
+app.post("/tradingcreate",authMiddleware , async (req, res) => {
+  const { time, investment, result, calculatedResult, tradeId, } = req?.body;
+  const { id } = req?.params;
+  try {
+    const user = await User.findById(req?.user?._id);
+    if (user.balance < investment) {
+      throw new Error("Insufficient balance");
+    }
+    user.balance -= investment;
+    await user.save();
+    const trading = await Trade.create({
+      user: req?.user?._id,
+      time,
+      result,
+      investment,
+      calculatedResult,
+      tradeId,
+    });
+    // Start the countdown
+    startCountdown(trading, calculatedResult);
+
+    const updateprofile = await User.findByIdAndUpdate(
+      id,
+      {
+        balance: req?.body?.balance,
+        demoBalance: req?.body?.demoBalance,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.json({ trading,tradeId: trading._id, updateprofile, balance: user.balance, alert: true, });
+  } catch (error) {
+    console.error("Error placing trade:", error);
+    res.status(500).json({ message: "Insufficient balance", alert: false });
+  }
+});
+
+//update trade bal
+app.post("/trading",authMiddleware,async (req, res) => {
+  console.log("Inside tradebalctrl");
+  try {
+    const user = await User.findById(req?.user?._id);
+    console.log(user)
+    // Retrieve calculatedResult from the trade with the given tradeId
+    const tradeId = req?.body?.tradeId;
+    const trade = await Trade.findOne({});
+
+    console.log(trade)
+
+    if (!trade) {
+      throw new Error("Trade not found");
+    }
+
+    const calculatedResult = trade.calculatedResult;
+    console.log('Calculated Result:', calculatedResult);
+
+    user.balance += 10;
+
+    await user.save();
+    // await user.save();
+    res.json({ balance: user.balance, alert: true });
+  } catch (error) {
+    console.error("Error updating balance:", error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+app.post("/tradelost",authMiddleware , async (req, res) => {
+  const { time, tradeResult, investment, calculatedResult } = req?.body;
+  console.log("Inside tradebalctrl");
+  try {
+    const user = await User.findById(req?.user?._id);
+    // Find and update the trade with the given time
+    const trade = await Trade.findOneAndUpdate(
+      { user: req?.user?._id, time, tradeResult: "Pending" },
+      { tradeResult: "Lost" },
+      { new: true } // Return the updated document
+    );
+    // Save the user and trade changes
+    await Promise.all([user.save(), trade.save()]);
+    // await user.save();
+    res.json({ alert: true });
+  } catch (error) {
+    console.error("loss error:", error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+
+
+
+//demo trading
+const performDemoTradeActions = async (trading) => {
+
+  try {
+    const user = await User.findById(trading.user);
+  const percRecord = await Perc.findOne();
+
+  if (!percRecord) {
+    console.log('Perc record not found')
+    throw new Error("Perc record not found"); 
+  }
+  const perc = percRecord.perc;
+
+  console.log(`Trade ${trading._id} - Countdown reached zero`);
+  trading.status = 'Completed';
+
+  const tradeResults = Math.random() < perc ? "Win" : "Loss";
+
+  if (tradeResults === "Win") {
+    trading.tradeResult =  "Won"
+    user.demoBalance+=trading.calculatedResult
+  }
+  if (tradeResults === "Loss") {
+    trading.tradeResult =  "Lost"
+  }
+  await trading.save();
+  await user.save();
+
+  console.log(`Trade ${trading._id} - Actions performed`);
+  console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
+  io.emit('expirationDemoTimeReached', { tradeId: trading._id, tradeResult: trading.tradeResult, updateprofile: { demoBalance: user.demoBalance }, alert: true });
+    
+  } catch (error) {
+    console.log(error)
+  }
+};
+const startDemoCountdown = (trading, calculatedResult) => {
+  const durationInMinutes = trading.time;
+  const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
+  trading.expirationTime = expirationTime;
+  trading.save();
+  console.log("initiated")
+
+  schedule.scheduleJob(expirationTime, async () => {
+    await performDemoTradeActions(trading, calculatedResult);
+  });
+};
+
+app.post("/democreate",authMiddleware, async (req, res) => {
+  const { time, investment, result, calculatedResult, tradeId, } = req?.body;
+  const { id } = req?.params;
+  try {
+    const user = await User.findById(req?.user?._id);
+    if (user.demoBalance < investment) {
+      throw new Error("Insufficient balance");
+    }
+    user.demoBalance -= investment;
+    await user.save();
+    const trading = await Demo.create({
+      user: req?.user?._id,
+      time,
+      result,
+      investment,
+      calculatedResult,
+      tradeId,
+    });
+    // Start the countdown
+    startDemoCountdown(trading, calculatedResult);
+
+    const updateprofile = await User.findByIdAndUpdate(
+      id,
+      {
+        balance: req?.body?.balance,
+        demoBalance: req?.body?.demoBalance,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.json({ trading,tradeId: trading._id, updateprofile, demoBalance: user.demoBalance, alert: true, });
+  } catch (error) {
+    console.error("Error placing trade:", error);
+    res.status(500).json({ message: "Insufficient balance", alert: false });
+  }
+});
+
+
 //percentage win/loss
 app.post("/perc",authMiddleware, percctrl);
 app.get("/admintransaction",authMiddleware, fetchpercctrl);
@@ -149,14 +380,6 @@ app.get("/adminusers",authMiddleware, fetchUsersctrl);
 app.get("/profile",authMiddleware, userProfilectrl);
 app.put("/account",authMiddleware, updateProfilectrl);
 app.put("/adminusers/:id",authMiddleware, updateUsersctrl);
-
-//trading
-app.post("/tradingcreate",authMiddleware, tradectrl);
-app.post("/trading",authMiddleware, tradebalctrl);
-app.post("/tradelost",authMiddleware, tradelosectrl);
-
-app.post("/democreate",authMiddleware, demotradectrl);
-app.post("/demo",authMiddleware, demotradebalctrl);
 
 //deposit
 app.post("/depositmenu",authMiddleware,depositctrl);

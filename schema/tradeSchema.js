@@ -10,7 +10,6 @@ const tradeSchema = mongoose.Schema({
     countdownDuration: { type: Number },
     countdownRemaining: { type: Number },
     expirationTime: { type: String },
-    expirationTimeWord: { type: String,default: 'Pending' }
 },{
     timestamps: true,
     toJSON: {

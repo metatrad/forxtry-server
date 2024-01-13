@@ -46,6 +46,11 @@ userSchema.virtual('trade', {
   foreignField: 'user',
   localField: '_id'
 })
+userSchema.virtual('demo', {
+  ref: 'Demo',
+  foreignField: 'user',
+  localField: '_id'
+})
 
 //pagination
 userSchema.plugin(mongoosePaginate)

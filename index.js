@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'https://earnbroker.com', 
+  origin: 'http://localhost:3000', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -40,8 +40,6 @@ const server = http.createServer(app);
 const socketIO = require('socket.io');
 
 const io = socketIO(server);
-
-app.set('io', io);
 
 let lastFetchedData = null;
 const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
@@ -63,17 +61,16 @@ io.on('connection', (socket) => {
     const authMessage = JSON.stringify({ action: 'auth', params: polygonApiKey });
     polygonWs.send(authMessage);
 
-    // Subscribe to Forex pair (e.g., EUR/USD)
     const subscribeMessage = JSON.stringify({ action: 'subscribe', params: `CAS.${tradingPair}` });
     polygonWs.send(subscribeMessage);
 
   };
-  // Handle real-time data from Polygon.io
   polygonWs.onmessage = (event) => {
     const messages = JSON.parse(event.data);
 
     if (Array.isArray(messages)) {
       messages.forEach((message) => {
+        console.log(messages)
         if (message.ev === 'CAS') {
           const realTimeData = {
             timestamp: parseFloat((message.e/1000)),
@@ -82,7 +79,6 @@ io.on('connection', (socket) => {
             low: parseFloat(message.l),
             close: parseFloat(message.c),
           };
-    
           // Emit real-time data to connected clients
           io.emit('forexData', realTimeData);
         }

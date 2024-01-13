@@ -1,28 +1,54 @@
 const expressAsyncHandler = require("express-async-handler");
 const { Trade } = require("../schema/tradeSchema");
 const { User } = require("../schema/userSchema");
+const { Perc } = require('../schema/percentageSchema')
 const schedule = require("node-schedule");
 
-
 const performTradeActions = async (trading) => {
+
+  try {
+  const percRecord = await Perc.findOne();
+
+  if (!percRecord) {
+    console.log('Perc record not found')
+    throw new Error("Perc record not found"); 
+  }
+  const perc = percRecord.perc;
+
   console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
-  if(trading.expirationTimeWord ==="Pending"){
-    trading.expirationTimeWord =  "Done"
+
+  const tradeResults = Math.random() < perc ? "Win" : "Loss";
+
+  if (tradeResults === "Win") {
+    trading.tradeResult =  "Won"
+  }
+  if (tradeResults === "Loss") {
+    trading.tradeResult =  "Lost"
   }
   await trading.save();
+  const user = await User.findById(trading.user);
+
+  if (tradeResults === 'Win') {
+    user.balance += trading.calculatedResult; 
+  }
+  await user.save();
   console.log(`Trade ${trading._id} - Actions performed`);
-  console.log(`Trade ${trading._id} - ${trading.expirationTimeWord}`);
+  console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
+    
+  } catch (error) {
+    console.log(error)
+  }
+
 };
 
 const startCountdown = (trading) => {
   const durationInMinutes = trading.time;
   const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
-  // Save the expiration time in the database
   trading.expirationTime = expirationTime;
   trading.save();
   console.log("initiated")
-  // Schedule a task to perform actions when the countdown reaches zero
+
   schedule.scheduleJob(expirationTime, async () => {
     await performTradeActions(trading);
   });
@@ -48,6 +74,7 @@ const tradectrl = expressAsyncHandler(async (req, res) => {
     });
     // Start the countdown
     startCountdown(trading);
+
     const updateprofile = await User.findByIdAndUpdate(
       id,
       {

@@ -335,6 +335,10 @@ const userProfilectrl = expressAsyncHandler(async (req, res) => {
       .populate({
         path: 'trade', 
         options: { sort: { createdAt: -1 } },
+      })
+      .populate({
+        path: 'demo', 
+        options: { sort: { createdAt: -1 } },
       });
 
     res.json(profile);

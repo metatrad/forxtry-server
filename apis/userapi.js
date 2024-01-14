@@ -379,6 +379,7 @@ const updateProfilectrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 module.exports = {
   createUserctrl,
   fetchUsersctrl,

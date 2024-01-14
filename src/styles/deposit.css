@@ -1,3 +1,4 @@
+
 .tradingNav{
     height: 4em;
 }
@@ -31,8 +32,8 @@
     display: flex;
     align-items: center;
     font-size: 1rem;
-    font-weight: 400;
-    margin: 1em 0em;
+    font-weight: 800;
+    margin-top: 2em;
 }
 .payment-methods .methods{
     display: flex;

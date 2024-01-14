@@ -52,7 +52,7 @@ const ForgotP = () => {
     <div>
       <Navbar />
       <div className="login">
-        <h1>Enter your mail to reset your password.</h1>
+        <h1>Enter mail to reset your password.</h1>
         <div className="login-box">
           <div className="account-buttons">
             <Link to="/login">

@@ -14,6 +14,10 @@ import { toast } from "react-hot-toast";
 import { logout } from "../redux/userSlice";
 import '../LDM/light.css'
 import CurrencyFormatter from "../utilities/currencyFormatter";
+import { updateBalance, updateDemoBalance } from "../redux/userSlice";
+import io from 'socket.io-client';
+import Audiow from "../audio/won.mp3";
+import Audiol from "../audio/lost.mp3";
 import "../styles/tradingNav.css";
 
 
@@ -65,6 +69,37 @@ const TradingTopNav = () => {
     navigate("/");
     toast("Logged out");
   };
+
+
+  const [expiredTradeId, setExpiredTradeId] = useState(null);
+  const userInfoLS = JSON.parse(localStorage.getItem('userInfo')) || {};
+
+
+  useEffect(() => {
+    const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
+
+    // Listen for the expirationTimeReached event
+    socket.on('expirationTimeReached', (data) => {
+      setExpiredTradeId(data);
+      if(data.tradeResult==="Won"){
+        dispatch(updateBalance( data.updateprofile.balance ));
+        userInfoLS.balance =  data.updateprofile.balance 
+        localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
+        new Audio(Audiow).play();
+        toast.success("Trade won")
+      }
+      if(data.tradeResult==="Lost"){
+        new Audio(Audiol).play();
+        toast.failure("Trade Lost")
+      }
+    });
+
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [dispatch]);
+  
 
   return (
     <div className="cover-whole-top-nav">

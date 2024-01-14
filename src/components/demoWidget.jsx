@@ -110,7 +110,7 @@ const ForexCandlestickChart = () => {
       if (socket || socket.connected) {
 
         socket.on('forexData', (realTimeData) => {
-          // socket.emit('updateTradingPair', userTradingPair);
+          socket.emit('updateTradingPair', userTradingPair);
           try {
             if (!loading){
             candlestickSeries.update({
@@ -121,7 +121,7 @@ const ForexCandlestickChart = () => {
               close: realTimeData.close,
             })};
           } catch (error) {
-            console.log(error)
+            console.error(error)
           } 
         });
       }

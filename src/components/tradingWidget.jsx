@@ -107,7 +107,7 @@ const ForexCandlestickChart = () => {
 
     useEffect(() => {
 
-      if (socket || socket.connected) {
+      if (socket && socket.connected) {
         socket.on('forexData', (realTimeData) => {
           try {
             socket.emit('updateTradingPair', userTradingPair);
@@ -120,7 +120,7 @@ const ForexCandlestickChart = () => {
               close: realTimeData.close,
             })};
           } catch (error) {
-            console.log(error)
+            console.error(error)
           } 
         });
       }
@@ -137,7 +137,7 @@ const ForexCandlestickChart = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://api.polygon.io/v2/aggs/ticker/C:${historicalTradingPair}/range/5/minute/2023-12-09/2024-01-30?adjusted=true&sort=desc&limit=50000&apiKey=rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW`
+          `https://api.polygon.io/v2/aggs/ticker/C:${historicalTradingPair}/range/5/minute/2023-12-20/2024-01-30?adjusted=true&sort=desc&limit=50000&apiKey=rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW`
         );
         const data = response.data.results.map((item) => ({
           time: ((item.t/1000)-300),
@@ -147,7 +147,6 @@ const ForexCandlestickChart = () => {
           close: item.c,
         })).sort((a, b) => a.time - b.time);
         
-        // Update the existing candlestick series with the new data
         candlestickSeries.setData(data);
         
       } catch (error) {
@@ -291,7 +290,7 @@ const ForexCandlestickChart = () => {
 
   return (
     <div className="tradingview-widget-container">
-      <header className="App-header">
+      <div className="App-header">
         <h1><img src={Exchange} />{userTradingPair} Chart</h1>
         <div className='trading-widget-select'>
         <Select
@@ -327,7 +326,7 @@ const ForexCandlestickChart = () => {
            
             </div>}<div id="chart"></div>
       </main>
-      </header>
+      </div>
  
       <Tradebtns/>
     </div>

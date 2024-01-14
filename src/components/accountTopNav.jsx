@@ -10,17 +10,11 @@ const AccountTopNav = () => {
   return (
     <div className="account-options-cover">
       <div className="account-options">
-        {userData?.email === process.env.REACT_APP_ADMIN_EMAIL && (
+        {userData?.isAdmin && 
           <NavLink to="/admin">
             <div>Admin Dashboard</div>
           </NavLink>
-        )}
-        <NavLink to="/deposit">
-          <div>Deposit</div>
-        </NavLink>
-        <NavLink to="/withdrawal">
-          <div>Withdrawal</div>
-        </NavLink>
+        }
         <NavLink to="/userdeposit">
           <div>Deposit history</div>
         </NavLink>
@@ -29,6 +23,9 @@ const AccountTopNav = () => {
         </NavLink>
         <NavLink to="/trades">
           <div>Trade history</div>
+        </NavLink>
+        <NavLink to="/demoTrades">
+          <div>Demo trades</div>
         </NavLink>
         <NavLink to="/account">
           <div>Account</div>

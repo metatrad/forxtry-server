@@ -1,14 +1,11 @@
-/* select */
 .chartContainer #chartContainer{
-    height: 60vh;
+    height: min-content;
+}
+.widget{
+    height: min-content;
 }
 .trading-widget-select-mb{
     display: none;
-}
-.currency-options-container{
-    position: relative;
-    width: 10em;
-    background: rgb(255, 0, 0);
 }
 .select-option{
     position: relative;
@@ -24,7 +21,6 @@
     padding: 0.5em;
 }
 .box-chart-loading{
-    backdrop-filter: blur(10px);
     position: absolute;
     display: flex;
     align-items: center;
@@ -37,7 +33,6 @@
     height: 350px;
     position: relative;
 }
-
 .App-header h1{
     width: 10em;
     background-position: center;
@@ -55,22 +50,12 @@
 #chart{
     width: 990px;
     height: 60vh;
-    border-right: 1px solid rgba(128, 128, 128, 0.327);
-    border-left: 1px solid rgba(128, 128, 128, 0.385);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.263);
+    border-top: none;
+    border-radius: 2px;
 }
 .tradingview-widget-container h1 img{
     height: 1em;
-}
-.trading-widget-select select{
-    width: 7em;
-    font-weight: 800;
-    height: 3em;
-    outline:none;
-    border: none;
-    box-shadow: -3px 3px 6px 1px rgba(255, 255, 255, 0.05);
-    -webkit-box-shadow: -3px 3px 6px 1px rgba(255, 255, 255, 0.056);
-    -moz-box-shadow: -3px 3px 6px 1px rgba(255, 255, 255, 0.05);
-    background-color: #515666;
 }
 .chart-candle{
     color: black;
@@ -90,7 +75,11 @@
 .tradingview-widget-container{
     display: flex;
     width: 100%;
-    height: 80vh;
+    border-radius: 5px;
+} 
+.tradingview-widget-container a{
+    color: #2c96f7;
+    text-shadow: 1px 1px 1px 1px rgba(170, 205, 242, 0.232);
 }
 .wrapper-chart{
     width: 100%;
@@ -140,6 +129,7 @@
     background-color: rgba(255, 255, 255, 0.158);
 }
 .place-trades{
+    margin-top: 1em;
     position: relative;
     background-color: #2b3040;
     border-radius: 7px;
@@ -259,7 +249,7 @@
 }
 .tradingnav{
     width: 6em;
-    height: 82vh;
+    height: 80vh;
 }
 .widget{
     display: flex;
@@ -337,7 +327,7 @@
     }
     .tradingview-widget-container{
         flex-direction: column;
-        width: 100%;
+        width: 99%;
     }
     .place-trades form p{
         flex-direction: column;
@@ -380,10 +370,6 @@
     }
 }
 @media only screen and (max-width:650px){
-    #chart{
-        width: 990px;
-        height: 49vh;
-    }
     .trading-widget-select-mb{
         display: block;
         position: absolute;
@@ -393,31 +379,37 @@
     }
     .tradingview-widget-container{
         display: flex;
-        width: 100%;
-        height: 70vh;
+        width: 98.5%;
+        flex-direction: column;
+        justify-content: space-between;
+        height: max-content;
+        border: none;
     }
     .chartContainer #chartContainer{
         width: 500px;
-        height: 40vh;
+        height: 60vh;
     }
     .box-chart-loading{
         width: 100%;
-        height: 330px
+        height: 48vh
     }
     #chart{
         width: 98%;
         height: 100%;
+        border: 1px solid rgba(128, 128, 128, 0.289);
+        border-top:none
     }
     .wrapper-chart{
-        width: 100%;
+        width: 96%;
         height: 54.3vh;
     }
     .trade-btns-cover-wrapper{
-        height: max-content;
+        height: min-content;
         width: 100%;
+        margin-top: 0.7em;
     }
     .place-trades{
-        height: max-content;
+        height: min-content;
     }
     .time-history{
         display: none;
@@ -444,13 +436,15 @@
         justify-content: left;
     }
     .place-trades form input{
-        width: 88%;
+        width: 100%;
+        height: 5em;
+        margin-bottom: 0.2em;
     }
     .place-trades form label{
         background-color: #1c1f2d;
     }    
     .trade-btn{
-        height: 2.5em;
+        height: 3em;
     }
     .place-trades{
         background-color: transparent;
@@ -459,8 +453,11 @@
     }
     .place-trades form .inputs-trade-wrapper{
         gap: 1.2em;
-        width: 78%;
+        width: 90%;
         height: 3.1em;
+        margin-bottom: 1.3em;
+        align-items: left;
+        padding: 0em;
     }
     .place-trades form p{
         flex-direction: row;
@@ -469,6 +466,9 @@
         display: block;
         display: flex;
         flex-direction: row;
+        position: absolute;
+        top: 0;
+        margin-top: 0.5em;
     }
     .place-trades form .payout-text-dt{
         display: none;

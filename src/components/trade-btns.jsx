@@ -4,16 +4,20 @@ import { IoMdArrowRoundUp } from "react-icons/io";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { useFormik } from "formik";
-import {tradeAction,tradebalAction,tradelostAction,} from "../redux/tradeSlice";
+import {tradeAction,tradebalAction } from "../redux/tradeSlice";
 import { fetchAllPercAction } from "../redux/percSlice";
 import { userProfileAction } from "../redux/userSlice";
-import Place from "../images/placetrade.png";
+import { Link } from 'react-router-dom' 
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import { FaHistory } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
+import { updateBalance } from "../redux/userSlice";
+import io from 'socket.io-client';
+import axios from 'axios';
 import Audiop from "../audio/placed.mp3";
+import BaseUrl from "../utilities/baseURL"
 import Audiow from "../audio/won.mp3";
 import Audiol from "../audio/lost.mp3";
 import "../styles/trading.css";
@@ -37,14 +41,6 @@ const Tradebtns = () => {
 
   const percs = useSelector((state) => state?.perc?.percList?.[0]);
 
-  //timer
-  const [result, setResult] = useState(null);
-
-  const [countdown, setCountdown] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [timer, setTimer] = useState(null);
-  const [expirationTime, setExpirationTime] = useState(null);
-
   const perc = percs?.perc;
 
   //get deposit created from store
@@ -52,8 +48,6 @@ const Tradebtns = () => {
 
   const state = useSelector((state) => state?.user);
   const { userLoading, userAppErr, userServerErr, profile } = state;
-
-  console.log(profile?.trade)
 
   const states = useSelector((state) => state?.trading);
   const {
@@ -72,9 +66,6 @@ const Tradebtns = () => {
     dispatch(userProfileAction(+page));
   }, [dispatch, page, setPage]);
 
-  const trades = profile?.trade || [];
-
-  //sbumitting form
   //formik form
   const formik = useFormik({
     initialValues: {
@@ -86,46 +77,10 @@ const Tradebtns = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         const trade = await dispatch(tradeAction(values));
-
-        // const successCondition = (trade) => trade.isTradeCreated === true;
         if (trade?.payload?.alert) {
           new Audio(Audiop).play();
-          if (countdown > 0 && !timer) {
-            setSeconds(countdown*60);
-            setTimer(
-              setInterval(() => {
-                setSeconds((prevSeconds) => {
-                  if (prevSeconds > 0) {
-                    return prevSeconds - 1;
-                  } else {
-                    setTimer(null);
-                    clearInterval(timer);
-
-                    const tradeResults = Math.random() < perc ? "Win" : "Loss";
-
-                    if (tradeResults === "Win") {
-                      new Audio(Audiow).play();
-                      dispatch(tradebalAction(values));
-                    }
-                    if (tradeResults === "Loss") {
-                      new Audio(Audiol).play();
-                      dispatch(tradelostAction(values));
-                    }
-
-                    setResult(tradeResults);
-
-                    setTimeout(() => {
-                      setResult(null);
-                    }, 100);
-
-                    return 0;
-                  }
-                });
-              }, 1000)
-            );
-            toast.success("Trade placed");
-            resetForm({ values: "" });
-          }
+          toast.success("Trade placed");
+          resetForm({ values: "" });
         }
       } catch (error) {
         console.error("Dispatch failed:", error);
@@ -134,44 +89,11 @@ const Tradebtns = () => {
     validationSchema: formSchema,
   });
 
-
   const handleIChange = (event) => {
     const { name, value } = event.target;
-
-    // Perform the calculation (double the input value)
     const calculatedResult = Math.floor(value ? parseFloat(value) * 1.3 : "");
-
-    // Update the formik values and trigger re-render
     formik.setFieldValue(name, value);
     formik.setFieldValue("calculatedResult", calculatedResult);
-  };
-
-  const handleInputTChange = (event) => {
-    const inputValue = parseInt(event.target.value, 10);
-
-    formik.setFieldValue("time", inputValue);
-    setCountdown(Math.max(1, inputValue));
-  };
-
-  useEffect(() => {
-    return () => {
-      clearInterval(timer);
-    };
-  }, [timer]);
-
-  useEffect(() => {
-    setTimer(null);
-    if (result) {
-      toast(`${result === "Win" ? "Trade won" : "Trade lost"}`, {
-        type: result === "Win" ? "success" : "error",
-      });
-    }
-  }, [result]);
-
-  const formatTime = (totalSeconds) => {
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
@@ -183,8 +105,8 @@ const Tradebtns = () => {
               <div className="show-error-top">{appErr}</div>
             ) : null}
             <h2 className="place-trade-top-text">
-              <img src={Place} alt="" /> Place trade{" "}
-              <span>{formatTime(Math.round(seconds))}</span>
+              Place trade{" "}
+              <span><Link to="/trades">View trades</Link></span>
             </h2>
 
             <div className="inputs-trade-wrapper">
@@ -198,8 +120,8 @@ const Tradebtns = () => {
                     id="time"
                     min="1"
                     value={formik.values.time}
-                    onChange={handleInputTChange}
-                  />
+                    onChange={formik.handleChange("time")}
+                    />
                 </h1>
                 <p className="trade-under-text">MINUTES</p>
               </div>
@@ -246,10 +168,9 @@ const Tradebtns = () => {
       </div>
       <div className="time-history">
         <div className="time-history-cover">
-          <p className="time-left-dk">Trade ends:</p>
+          <p className="time-left-dk"><Link to="/trades">View trades</Link></p>
           <div className="view-trade-history">
-            <FaHistory size={40} color="gray" />
-            <span> {formatTime(Math.round(seconds))}</span>
+            <Link to="/trades"><FaHistory size={40} color="gray" /></Link>
           </div>
         </div>
       </div>

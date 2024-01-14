@@ -33,7 +33,7 @@ const Deposit = () => {
         <div className="payment-methods-wrapper">
         <div><AccountTopNav/></div>
         <div className="payment-methods">
-        <h1><PiCurrencyBtcFill /> Select a method to make your deposit</h1>
+        <h1 className="deposit-select-text"><PiCurrencyBtcFill /> Select a method to make your deposit</h1>
         <div className="crypto methods">
           {depositCardListCryptocurrencies[0] ?
             depositCardListCryptocurrencies.map((el) => {

@@ -30,6 +30,7 @@ import Editwithdrawal from './Admin/pages/edit-withdrawal';
 import Test from './pages/test'
 import Editperc from './Admin/pages/edit-perc';
 import Trades from './pages/trades';
+import DemoTrades from './pages/demoTrades';
 import UserDeposit from './pages/userDeposit'
 import UserWithdrawal from './pages/userWithdrawal'
 import ForgotP from './pages/forgot-password'
@@ -71,6 +72,7 @@ function App() {
           <Route path='/userdeposit' element={<UserDeposit/>}/>
           <Route path='/userwithdrawal' element={<UserWithdrawal/>}/>
           <Route path='/trades' element={<Trades/>}/>
+          <Route path='/demoTrades' element={<DemoTrades/>}/>
 
           <Route path='/not-admin' element={<NotAdmin/>}/>
           <Route path='/trading' element={<ProtectedRoute/>}>

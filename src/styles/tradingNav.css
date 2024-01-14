@@ -9,6 +9,10 @@
     display: flex;
     position: relative;
 }
+.mblight{
+    color: black;
+    background-color: transparent;
+}
 .dt-nav .light{
     color: #000;
 }

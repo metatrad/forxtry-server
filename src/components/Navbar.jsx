@@ -4,13 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import '../styles/Navbar.css'
 import '../App.css'
 import { FiGlobe } from 'react-icons/fi';
+import { FiMoon } from "react-icons/fi";
+import { useContext } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { FiChevronUp } from 'react-icons/fi';
 import { FiChevronRight } from 'react-icons/fi';
 import { Cross as Hamburger } from 'hamburger-react'
+import { LightModeContext } from '../context/lightModeContext';
+
 
 const Navbar = () => {
-
+  const {dispatch} = useContext(LightModeContext)
 
   //show language opions
   const [showLanguage,setShowLanguage] = useState(false);
@@ -74,6 +78,8 @@ const Navbar = () => {
         </div>
       </div>
       <div className="nav-right">
+      <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>
+
         <div className="language-container" ref={languageRef}>
           <div className="language" style={showLanguage ? { background: '#232634', color: '#2b99ff' } : {}} onClick={handleShowLanguage}><FiGlobe/>EN{showLanguage? <FiChevronUp/>:<FiChevronDown/>}
           </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate,NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GiNetworkBars } from "react-icons/gi";
@@ -23,6 +23,10 @@ import { IoClose } from "react-icons/io5";
 import { useContext } from 'react';
 import { logout } from "../redux/userSlice";
 import { toast } from 'react-hot-toast';
+import { updateBalance, updateDemoBalance } from "../redux/userSlice";
+import io from 'socket.io-client';
+import Audiow from "../audio/won.mp3";
+import Audiol from "../audio/lost.mp3";
 import '../LDM/light.css'
 import '../styles/tradingNav.css'
 
@@ -59,18 +63,46 @@ const TradingNav = () => {
     setShowMb( !showMb )
   }
 
+  const [expiredDemoTradeId, setExpiredDemoTradeId] = useState(null);
+  const userInfoLS = JSON.parse(localStorage.getItem('userInfo')) || {};
+
+
+  useEffect(() => {
+    const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
+
+    // Listen for the expirationTimeReached event
+    socket.on('expirationDemoTimeReached', (data) => {
+      setExpiredDemoTradeId(data);
+      if(data.tradeResult==="Won"){
+        dispatch(updateDemoBalance( data.updateprofile.demoBalance ));
+        userInfoLS.demoBalance =  data.updateprofile.demoBalance 
+        localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
+        new Audio(Audiow).play();
+        toast.success("Trade won")
+      }
+      if(data.tradeResult==="Lost"){
+        new Audio(Audiol).play();
+        toast.failure("Trade Lost")
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [dispatch]);
+
   return (
 
     <div className='trading-nav'>
 
       <div className='dt-nav'>
         <div className="trading-navbar">
-            <div onClick={handleShowSupport}><MdContactSupport /><p>SUPPORT</p></div>
             <NavLink to = "/trading"><GiNetworkBars /><p>TRADE</p></NavLink>
             <NavLink to = "/demo"><RiGraduationCapFill /><p>DEMO</p></NavLink>
             <NavLink to = "/account"><FaUser /><p>ACCOUNT</p></NavLink>
             <NavLink to = "/deposit"><RiLuggageDepositFill /><p>DEPOSIT</p></NavLink>
             <NavLink to = "/withdrawal"><BiMoneyWithdraw /><p>WITHDRAW</p></NavLink>
+            <NavLink to = "/trades"><BiMoneyWithdraw /><p>TRADES</p></NavLink>
             <div onClick={handleShowSettings}><IoSettings /><p>SETTINGS</p></div>
         </div>
 
@@ -111,10 +143,9 @@ const TradingNav = () => {
         </div>
 
         <div className="mb-trading-nav">
-            <NavLink to = "/FAQ"><MdContactSupport /></NavLink>
+            <NavLink to = "/userwithdrawal"><RiLuggageDepositFill /></NavLink>
             <NavLink to = "/trading"><PiChartLineFill/></NavLink>
             <NavLink to = "/account"><FaUser /></NavLink>
-            <NavLink to = "/userwithdrawal"><RiLuggageDepositFill /></NavLink>
             <NavLink to = "/userdeposit"><BiMoneyWithdraw /></NavLink>
             {/* <div><IoSettings /></div> */}
             <div onClick={handleShowMb}><MdMenu size={30}/></div>
@@ -128,12 +159,12 @@ const TradingNav = () => {
           {userData?.isAdmin === true && (
             <Link to="/admin"> Admin Dashboard <h6><FaAngleRight/></h6></Link>
           )}
-          <Link to="/deposit">Deposit <h6><FaAngleRight/></h6></Link>
-          <Link to="/withdrawal">Withdrawal <h6><FaAngleRight/></h6></Link>
           <Link to="/userdeposit">Deposit history <h6><FaAngleRight/></h6></Link>
           <Link to="/userwithdrawal">Withdrawal history <h6><FaAngleRight/></h6></Link>
           <Link to="/trades">Trade history <h6><FaAngleRight/></h6></Link>
-          <Link to="/account">Account <h6><FaAngleRight/></h6></Link>
+          <Link to="/demoTrades">Demo Trades <h6><FaAngleRight/></h6></Link>
+          <div className="light mode mblight" onClick={()=> dispatch({type:"LIGHT"}) }><MdLightMode color='#ff8a01'/> Light Mode</div>
+          <div className="dark mode mbdark" onClick={()=> dispatch({type:"DARK"}) }><MdDarkMode color='#ff8a01'/> Dark Mode</div>
           </div>
           <p onClick={handleLogout}><MdOutlineLogout/>Logout</p>
         </div>

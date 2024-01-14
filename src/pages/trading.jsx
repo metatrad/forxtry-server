@@ -13,19 +13,14 @@ const Trading = () => {
               <TradingTopNav/>
           </div>
         </div>
-
       <div className="trading-section">
-
       <div className='tradingnav'>
         <TradingNav/>
       </div>
       <div className='widget'>
         <TradingWidget/>
       </div>
-
       </div>
-
-
     </div>
   )
 }

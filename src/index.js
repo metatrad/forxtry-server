@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <LightModeContextProvider>
     <Provider store = {store}>
-        <App />
+      <App />
     </Provider>
     </LightModeContextProvider>
   </React.StrictMode>

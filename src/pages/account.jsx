@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -68,16 +68,42 @@ const Account = () => {
         toast('Profile updated');
       }
     }, [dispatch, userUpdate]); 
+    const [imagePreview, setImagePreview] = useState(userAuth?.image || accountImage)
+    const [imageVPreview, setImageVPreview] = useState(userAuth?.verification || <span><ImFolderUpload/></span>)
 
+    console.log(imagePreview)
 
-    const uploadImage = async(e) =>{
-      const data = await ImagetoBase64(e.target.files[0])
-      formik.setFieldValue('image', data);
-    }
-    const uploadVImage = async(e) =>{
-      const data = await ImagetoBase64(e.target.files[0])
-      formik.setFieldValue('verification', data);
-    }
+const uploadImage = async (e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    const data = await ImagetoBase64(file);
+    formik.setFieldValue('image', data);
+
+    // Set image preview for immediate display
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+const uploadVImage = async (e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    const data = await ImagetoBase64(file);
+    formik.setFieldValue('verification', data);
+
+    // Set image preview for immediate display
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageVPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+};
 
 
   const userData = useSelector((state) => state?.user?.userAuth);
@@ -102,7 +128,7 @@ const Account = () => {
           <div className="account-images-cover">
             <div className="account-image">
               <div className="account-img">
-                {userAuth?.image ? <img src={userAuth?.image}/>: <img src={ userAuth?.image? userAuth?.image:accountImage} alt="" />}
+                {userAuth?.image ? <img src={userAuth?.image}/>: <img src={imagePreview} alt="" />}
                 <div className="icon-img"><p><FaCamera/></p><input type="file" accept="image/*"
                 onChange={uploadImage}
                 onBlur = {formik.handleBlur("image")}/></div>
@@ -111,13 +137,12 @@ const Account = () => {
               <div className="account-user-info">
               <h1>Identity info:</h1>
                 <h2>{userData?.email}</h2>
-                {/* <p>ID : {userData?._id}</p> */}
                 <p>Verification Status: <span className={`status ${userAuth?.status}`}>{userAuth?.status}</span></p>
               </div>
             </div>
             <div className="verification-id">
               <h1>Upload your verification ID here: <br /><p>e.g: National ID card, drivers liscence, etc.</p></h1>
-              <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userAuth?.verification? <img src={userAuth?.verification}/>:<span><ImFolderUpload/></span>}</div></label>
+              <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userAuth?.verification? <img src={userAuth?.verification}/>: <img src={imageVPreview}/> }</div></label>
               <input type="file" className="v-img-input" id="verification" accept="image/*"
               onChange={uploadVImage}
               onBlur = {formik.handleBlur("verification")}/>
@@ -174,30 +199,6 @@ const Account = () => {
 
             </div>
 
-          </form>
-
-          <form className="changePassword" action="">
-
-            <div className="inputs">
-            <label htmlFor="oldPassword">Old Password</label>
-            <input type="passowrd" name="oldPassword" id="oldPassword" />
-            </div>
-
-            <div className="inputs">
-            <label htmlFor="newPassword"> New Password</label>
-            <input type="password" name="newPassword" id="newPassword" />
-            </div>
-
-            <div className="inputs">
-            <label htmlFor="confirmNewPassword">Confirm New Password</label>
-            <input
-              type="password"
-              name="confirmNewPassword"
-              id="confirmNewPassword"
-            />
-            </div>
-
-            <button>Change Password</button>
           </form>
           <h6>
             <MdOutlineClose />

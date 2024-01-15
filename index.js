@@ -68,7 +68,6 @@ io.on('connection', (socket) => {
   };
   polygonWs.onmessage = (event) => {
     const messages = JSON.parse(event.data);
-    console.log(messages)
 
     if (Array.isArray(messages)) {
       messages.forEach((message) => {

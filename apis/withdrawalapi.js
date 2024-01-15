@@ -43,7 +43,6 @@ const fetchwithdrawalctrl = expressAsyncHandler(async (req, res) => {
   try {
     const withdrawal = await Withdrawal.paginate({}, {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 }});
     res.json(withdrawal)
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", alert: false });

@@ -14,7 +14,7 @@ const schedule = require("node-schedule");
 const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
-const { postdepositMethodctrl, fetchdepositMethodctrl } = require("./apis/depositmethodapi")
+const { postdepositMethodctrl, fetchdepositMethodctrl,fetchmethodctrl,updatemethodctrl,deletemethodctrl  } = require("./apis/depositmethodapi")
 const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
 const { accountStatsctrl } = require("./apis/accountStats")
@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
   };
   polygonWs.onmessage = (event) => {
     const messages = JSON.parse(event.data);
+    console.log(messages)
 
     if (Array.isArray(messages)) {
       messages.forEach((message) => {
@@ -398,9 +399,14 @@ app.delete("/withdrawal/:id",authMiddleware,deletewithdrawalctrl);
 
 //api deposit method
 app.post("/admindeposit", postdepositMethodctrl);
-
 //fetch deposit method
 app.get("/admindeposit", fetchdepositMethodctrl);
+//admin deposit method
+app.get("/admindepositall", fetchmethodctrl);
+app.put("/admindepositupdate/:id", updatemethodctrl);
+app.delete("/admindepositdelete/:id", deletemethodctrl);
+
+
 
 //account stats
 app.get("/admin",accountStatsctrl)

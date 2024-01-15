@@ -107,7 +107,7 @@ const ForexCandlestickChart = () => {
 
     useEffect(() => {
 
-      if (socket && socket.connected) {
+      if (socket || socket.connected) {
         socket.on('forexData', (realTimeData) => {
           try {
             socket.emit('updateTradingPair', userTradingPair);

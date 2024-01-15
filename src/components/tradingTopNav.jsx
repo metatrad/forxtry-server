@@ -25,7 +25,6 @@ const TradingTopNav = () => {
 
 
     const userInf = useSelector((state) => state.user);
-    console.log(userInf)
   
   const balance = useSelector((state) => state?.user?.userAuth?.balance);
   const demoBalance = useSelector((state) => state?.user?.userAuth?.demoBalance);

@@ -1,6 +1,9 @@
 .admin{
     display: flex;
 }
+.side-bar-admin{
+    width: 13em;
+}
 .home-component{
     flex: 5;
 }

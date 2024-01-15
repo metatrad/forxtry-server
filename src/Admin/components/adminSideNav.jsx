@@ -9,7 +9,7 @@ import { TbCircleArrowUpRightFilled } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { PiArrowsClockwiseBold } from "react-icons/pi";
-import { HiMiniSignal } from "react-icons/hi2";
+import { RiCoinsFill } from "react-icons/ri";
 import { LightModeContext } from '../../context/lightModeContext';
 import { useContext } from 'react';
 import { logout } from '../../redux/userSlice'
@@ -37,6 +37,7 @@ const AdminSideNav = () => {
         <NavLink to = "/admin"><RiHomeLine/><p>DashBoard</p></NavLink>
         <NavLink to = "/adminusers"><FaUsers/><p>Users management</p></NavLink>
         <NavLink to = "/admindeposit"><TbCircleArrowUpRightFilled/><p>Deposits</p></NavLink>
+        <NavLink to = "/admindepositmethod"><RiCoinsFill/><p>Deposit Method</p></NavLink>
         <NavLink to = "/adminwithdrawal"><TbCircleArrowDownLeftFilled/><p>Withdrawals</p></NavLink>
         <NavLink to = "/admintransactions"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
         <NavLink onClick={handleLogout}><MdOutlineLogout/><p>Logout</p></NavLink>

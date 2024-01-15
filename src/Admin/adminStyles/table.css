@@ -1,6 +1,34 @@
+.wrapper-method{
+    width: 40em;
+}
+.delete-btn-method{
+    height: 2em;
+    background-color: red;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0em 0.5em;
+    height: 3.5em;
+}
+.admin-deposit-card-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+}
+.delete-btn-method:hover{
+    background-color: rgb(246, 67, 67);
+}
+.users-search-input{
+    background-color: transparent;
+    border-radius: 7px;
+    border: 1px solid white;
+    color: #fff;
+    padding: 1em 0.5em;
+    outline: none;
+}
 .admin-deposit-card{
     background-color: #51596c;
     color: #fff;
+    /* width: 50em; */
 }
 .table-body{
     width: 100%;
@@ -71,6 +99,20 @@
     border-radius: 3px;
     width: 35px;
     height: 28px;
+}
+.admin-deposit-card{
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 0.6em;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-weight: 500;
+    gap: 0.4em;
+}
+.admin-deposit-card img{
+    height: 2em;
 }
 @media only screen and (max-width:750px){
     .admin-table{

@@ -1,3 +1,23 @@
+.account-images-cover-admin{
+    display: flex;
+    gap: 1em;
+}
+.image-method-update, .qr-code-update{
+    width: 10em;
+    height: 6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0044ff35;
+    border-radius: 7px;
+    border: 1px solid blue;
+}
+.account-images-cover-admin input{
+    opacity: 0;
+}
+.account-images-cover-admin img{
+   height: 6em;
+}
 .single{
     display: flex;
 }

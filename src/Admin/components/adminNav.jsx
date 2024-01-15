@@ -6,7 +6,6 @@ import { FaExpand } from "react-icons/fa6";
 import { FaRegBell } from "react-icons/fa";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { Spin as Hamburger } from 'hamburger-react'
-import adminImg from '../img/user-icon.png'
 import { LightModeContext } from '../../context/lightModeContext';
 import { useContext } from 'react';
 import '../adminStyles/adminNav.css'
@@ -18,8 +17,6 @@ const AdminNav = () => {
   return (
     <div className='adminNav'>
       <div className="wrapper">
-        <div className="search"><input type="text" placeholder='Search...'/><FiSearch/></div>
-
         <div className="right-items">
             <div className="admin-language"><MdLanguage/>Eng</div>
             <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>

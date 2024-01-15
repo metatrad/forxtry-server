@@ -46,13 +46,20 @@ const Editwithdrawal = () => {
             id: withdrawalDisplay?.id,
           }
           dispatch(updateWithdrawalAction(data))
-          toast("Updated")
         },
         validationSchema: formSchema,
       })
 
       const withdrawal = useSelector(state=>state.withdrawal);
       const {appErr, serverErr, withdrawalUpdated, loading, isWithdrawalUpdated} = withdrawal
+
+      useEffect(() => {
+        if (isWithdrawalUpdated) {
+          toast('Updated');
+        }
+      }, [dispatch, isWithdrawalUpdated]); 
+
+
 
 
   return (

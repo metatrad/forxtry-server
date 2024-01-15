@@ -8,8 +8,11 @@
     align-items: center;
 }
 .right-items{
+    position: absolute;
     gap: 1em;
     font-size: 1.1rem;
+    float: right;
+    right: 0;
 }
 .adminNav .wrapper{
     height: 70px;

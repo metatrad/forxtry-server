@@ -43,13 +43,20 @@ const Edituser = () => {
             id: userDisplay?._id,
           }
           dispatch(updateUserAction(data))
-          toast("Updated")
         },
         validationSchema: formSchema,
       })
 
       const user = useSelector(state=>state.user);
       const {userAppErr, userServerErr, userUpdated, userLoading } = user
+
+      useEffect(() => {
+        if (userUpdated) {
+          toast('Updated');
+        }
+      }, [dispatch, userUpdated]);
+
+
 
 
   return (

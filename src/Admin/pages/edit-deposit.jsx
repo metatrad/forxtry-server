@@ -41,13 +41,18 @@ const Editdeposit = () => {
             id: depositDisplay?.id,
           }
           dispatch(updateDepositAction(data))
-          toast("Updated")
         },
         validationSchema: formSchema,
       })
 
       const deposit = useSelector(state=>state.deposit);
       const {appErr, serverErr, depositUpdated, loading, isDepositUpdated} = deposit
+      
+      useEffect(() => {
+        if (isDepositUpdated) {
+          toast('Updated');
+        }
+      }, [dispatch, isDepositUpdated]); 
 
 
   return (

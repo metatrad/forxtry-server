@@ -4,7 +4,7 @@ import { IoMdArrowRoundUp } from "react-icons/io";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { useFormik } from "formik";
-import {tradeAction,tradebalAction } from "../redux/tradeSlice";
+import {tradeAction } from "../redux/tradeSlice";
 import { fetchAllPercAction } from "../redux/percSlice";
 import { userProfileAction } from "../redux/userSlice";
 import { Link } from 'react-router-dom' 
@@ -13,13 +13,7 @@ import { toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import { FaHistory } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
-import { updateBalance } from "../redux/userSlice";
-import io from 'socket.io-client';
-import axios from 'axios';
 import Audiop from "../audio/placed.mp3";
-import BaseUrl from "../utilities/baseURL"
-import Audiow from "../audio/won.mp3";
-import Audiol from "../audio/lost.mp3";
 import "../styles/trading.css";
 
 React.StrictMode = React.Fragment;

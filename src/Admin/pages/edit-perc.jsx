@@ -38,13 +38,20 @@ const Editperc = () => {
             id: percDisplay?._id,
           }
           dispatch(updatePercAction(data))
-          toast("Updated")
         },
         validationSchema: formSchema,
       })
 
       const perc = useSelector(state=>state.perc);
       const {appErr, serverErr, percUpdated, loading, isPercUpdated } = perc
+      
+      useEffect(() => {
+        if (isPercUpdated) {
+          toast('Updated');
+        }
+      }, [dispatch, isPercUpdated]); 
+
+
 
 
   return (

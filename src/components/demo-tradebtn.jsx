@@ -3,21 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoMdArrowRoundUp } from "react-icons/io";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { useFormik } from "formik";
-import { DemotradeAction ,demotradebalAction } from "../redux/tradeSlice";
-import { updateDemoBalance } from "../redux/userSlice";
+import { DemotradeAction } from "../redux/tradeSlice";
 import { userProfileAction } from "../redux/userSlice";
 import { fetchAllPercAction } from "../redux/percSlice";
 import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import { Link } from 'react-router-dom' 
 import "react-toastify/dist/ReactToastify.css";
-import io from 'socket.io-client';
 import { FaHistory } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { MdAccessTime } from "react-icons/md";
 import Audiop from '../audio/placed.mp3'
-import Audiow from '../audio/won.mp3'
-import Audiol from '../audio/lost.mp3'
 import "../styles/trading.css";
 
 //form validation

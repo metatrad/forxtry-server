@@ -15,12 +15,13 @@ import Deposit from './pages/deposit';
 import Admin from './Admin/pages/admin'
 import AdminWithdrawal from './Admin/pages/Adminwithdrawal'
 import AdminDeposit from './Admin/pages/Admindeposit'
+import AdminDepositMethod from './Admin/pages/adminDepositMethod'
 import AdminUsers from './Admin/pages/users'
 import Single from './Admin/pages/Single';
 import DepositMenu from './pages/depositMenu';
 import AdminTransactions from './Admin/pages/transactions'
 import Analytics from './pages/analytics'
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { setDataMethod } from './redux/methodSlice';
 import Withdrawal from './pages/withdrawal';
 import NotAdmin from './components/notAdmin';
@@ -33,9 +34,9 @@ import Trades from './pages/trades';
 import DemoTrades from './pages/demoTrades';
 import UserDeposit from './pages/userDeposit'
 import UserWithdrawal from './pages/userWithdrawal'
+import Editmethod from './Admin/pages/edit-method'
 import ForgotP from './pages/forgot-password'
 import Otp from './pages/otp'
-import { loginRedux } from './redux/userSlice';
 import './LDM/light.css'
 import { LightModeContext } from './context/lightModeContext';
 
@@ -47,7 +48,7 @@ function App() {
   const methodData = useSelector((state)=>state.method)
   useEffect(()=>{
     (async()=>{
-      const res = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/admindeposit`)
+      const res = await fetch(`https://https-github-com-habismartin-trading.onrender.com/admindeposit`)
       const resData =  await res.json()
       dispatch(setDataMethod(resData))
     })()
@@ -93,6 +94,8 @@ function App() {
             <Route path=':filterby' element={<Editperc/>}/>
           </Route>
 
+          <Route path='/admindepositmethod/:filterby' element={<Editmethod/>}/>
+
           <Route path='/withdrawal' element={<ProtectedRoute/>}>
             <Route path='/withdrawal' element = {<Withdrawal/>}/>
           </Route>
@@ -117,6 +120,14 @@ function App() {
             <Route index element={<AdminDeposit/>}/>
             <Route path=':filterby' element={<Editdeposit/>}/>
           </Route>
+
+          <Route path='/admindepositmethod' element={<AdminRoute/>}>
+            <Route path='/admindepositmethod' element={<AdminDepositMethod/>}/>
+          </Route>
+          {/* <Route path='/admindeposit'>
+            <Route index element={<AdminDeposit/>}/>
+            <Route path=':filterby' element={<Editdeposit/>}/>
+          </Route> */}
 
           <Route path='/adminwithdrawal' element={<AdminRoute/>}>
             <Route path='/adminwithdrawal' element={<AdminWithdrawal/>}/>

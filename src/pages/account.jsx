@@ -71,8 +71,6 @@ const Account = () => {
     const [imagePreview, setImagePreview] = useState(userAuth?.image || accountImage)
     const [imageVPreview, setImageVPreview] = useState(userAuth?.verification || <span><ImFolderUpload/></span>)
 
-    console.log(imagePreview)
-
 const uploadImage = async (e) => {
   const file = e.target.files[0];
 

@@ -35,20 +35,6 @@ const Demo = () => {
   const navigate = useNavigate()
 
 
-  const [prediction, setPrediction] = useState(null);
-  const [result, setResult] = useState(null);
-
-  const handlePrediction = (value) => {
-    setPrediction(value);
-    setResult(null); 
-  };
-
-  const handleTrade = () => {
-    const randomResult = Math.random() < 0.5 ? 'even' : 'odd';
-    setResult(randomResult);
-  };
-
-
   //topnav
 
   const [showAccountSwitch, setShowAccountSwitch] = useState(false)

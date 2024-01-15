@@ -9,7 +9,10 @@ import '../adminStyles/admin.css'
 const Admin = () => {
   return (
     <div className='admin'>
-      <Sidebar/>
+      <div className="side-bar-admin">
+              <Sidebar/>
+
+      </div>
       <div className="home-component">
         <TopNav/>
         <div className='widgets'>

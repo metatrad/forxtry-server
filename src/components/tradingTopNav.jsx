@@ -25,14 +25,7 @@ const TradingTopNav = () => {
 
 
     const userInf = useSelector((state) => state.user);
-
-    const [userInfo, setUserInfo] = useState(null);
-
-    useEffect(() => {
-      const storedValue = localStorage.getItem('userInfo');
-      const parsedValue = storedValue ? JSON.parse(storedValue) : null;
-      setUserInfo(parsedValue);
-    }, []); 
+    console.log(userInf)
   
   const balance = useSelector((state) => state?.user?.userAuth?.balance);
   const demoBalance = useSelector((state) => state?.user?.userAuth?.demoBalance);

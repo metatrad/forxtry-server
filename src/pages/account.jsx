@@ -9,6 +9,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import accountImage from '../images/account-img.png'
 import { FaCamera } from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
 import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
@@ -33,30 +34,34 @@ const formSchema = Yup.object({
 
 const Account = () => {
 
-  const state = useSelector(state => state?.user);
+  const state = useSelector(state => state);
   const {userLoading, userAppErr, userServerErr,userAuth, profile, userUpdate } = state
+
+  console.log(profile?.trade)
 
     //navigate
     const navigate = useNavigate();
 
     //dispatch
     const dispatch = useDispatch();
+    const userData = useSelector((state) => state?.user?.userAuth);
+
     
     //get data from store
-    const user = useSelector(state => state?.user);  
+    const user = useSelector(state => state?.user);
     //formik form
     const formik = useFormik({
       enableReinitialize: true,
       initialValues:{
-        image: userAuth?.image,
-        firstName: userAuth?.firstName,
-        lastName: userAuth?.lastName,
-        address: userAuth?.address,
-        dob: userAuth?.dob,
-        phone: userAuth?.phone,
-        email: userAuth?.email,
-        country: userAuth?.country,
-        verification: userAuth?.verification,
+        image: userData?.image,
+        firstName: userData?.firstName,
+        lastName: userData?.lastName,
+        address: userData?.address,
+        dob: userData?.dob,
+        phone: userData?.phone,
+        email: userData?.email,
+        country: userData?.country,
+        verification: userData?.verification,
       },
       onSubmit: async (values) =>{
         dispatch(updateProfileAction(values))
@@ -104,8 +109,6 @@ const uploadVImage = async (e) => {
 };
 
 
-  const userData = useSelector((state) => state?.user?.userAuth);
-
   return (
     <div>
       <div className="check">
@@ -120,13 +123,13 @@ const uploadVImage = async (e) => {
         </div>
 
         <div className="account-settings">
-
           <div><AccountTopNav/></div>
+          <div className="social-media-account"><h2>If you reach out to us via the live chat and we don't respond on time, join our telegram group to get updates and make your inquiries with active support <a href="https://t.me/+okSu0B6i-2UwYTY0" className="telegram-account"><FaTelegramPlane/></a></h2></div>
           <form action="" className="form-info" onSubmit={formik.handleSubmit}>
           <div className="account-images-cover">
             <div className="account-image">
               <div className="account-img">
-                {userAuth?.image ? <img src={userAuth?.image}/>: <img src={imagePreview} alt="" />}
+                {userData?.image ? <img src={userData?.image}/>: <img src={imagePreview} alt="" />}
                 <div className="icon-img"><p><FaCamera/></p><input type="file" accept="image/*"
                 onChange={uploadImage}
                 onBlur = {formik.handleBlur("image")}/></div>
@@ -135,12 +138,12 @@ const uploadVImage = async (e) => {
               <div className="account-user-info">
               <h1>Identity info:</h1>
                 <h2>{userData?.email}</h2>
-                <p>Verification Status: <span className={`status ${userAuth?.status}`}>{userAuth?.status}</span></p>
+                <p>Verification Status: <span className={`status ${userData?.status}`}>{userData?.status}</span></p>
               </div>
             </div>
             <div className="verification-id">
               <h1>Upload your verification ID here: <br /><p>e.g: National ID card, drivers liscence, etc.</p></h1>
-              <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userAuth?.verification? <img src={userAuth?.verification}/>: <img src={imageVPreview}/> }</div></label>
+              <label htmlFor="verification" className="v-img-label"> <div className="verification-img">{userData?.verification? <img src={userData?.verification}/>: <img src={imageVPreview}/> }</div></label>
               <input type="file" className="v-img-input" id="verification" accept="image/*"
               onChange={uploadVImage}
               onBlur = {formik.handleBlur("verification")}/>

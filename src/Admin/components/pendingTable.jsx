@@ -12,7 +12,7 @@ import '../adminStyles/table.css';
 import Pagination from './pagination';
 import currencyFormatter from '../../utilities/currencyFormatter';
 
-const DataTable = () => {
+const PendingDataTable = () => {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -28,9 +28,9 @@ const DataTable = () => {
   const { userAppErr, userServerErr, userList, userLoading, isUserUpdated } = allUsers;
 
   const userListCard = userList?.docs?.filter(
-    (el) => el.status.toLowerCase() === "unverified"
+    (el) => el.status.toLowerCase() === "pending"
   );
-  
+
   // Filter users based on search term
   const filteredUserList = userListCard?.filter((user) =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -97,4 +97,4 @@ const DataTable = () => {
   );
 };
 
-export default DataTable;
+export default PendingDataTable;

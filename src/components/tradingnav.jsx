@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate,NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GiNetworkBars } from "react-icons/gi";
-import { MdContactSupport } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { BiMoneyWithdraw } from "react-icons/bi";
@@ -16,17 +15,12 @@ import { MdLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 import { PiChartLineFill } from "react-icons/pi";
 import { LightModeContext } from '../context/lightModeContext';
-import { Divide as Hamburger } from 'hamburger-react'
 import { FaAngleRight } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { useContext } from 'react';
 import { logout } from "../redux/userSlice";
 import { toast } from 'react-hot-toast';
-import { updateBalance, updateDemoBalance } from "../redux/userSlice";
-import io from 'socket.io-client';
-import Audiow from "../audio/won.mp3";
-import Audiol from "../audio/lost.mp3";
 import '../LDM/light.css'
 import '../styles/tradingNav.css'
 
@@ -42,7 +36,6 @@ const TradingNav = () => {
   };
 
   const userData = useSelector(state => state?.user?.userAuth);
-
 
   const {dispatch} = useContext(LightModeContext)
 
@@ -62,34 +55,32 @@ const TradingNav = () => {
   const handleShowMb = () =>{
     setShowMb( !showMb )
   }
-
   const [expiredDemoTradeId, setExpiredDemoTradeId] = useState(null);
   const userInfoLS = JSON.parse(localStorage.getItem('userInfo')) || {};
 
+  // useEffect(() => {
+  //   const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
 
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
+  //   // Listen for the expirationTimeReached event
+  //   socket.on('expirationDemoTimeReached', (data) => {
+  //     setExpiredDemoTradeId(data);
+  //     if(data.tradeResult==="Won"){
+  //       dispatch(updateDemoBalance( data.updateprofile.demoBalance ));
+  //       userInfoLS.demoBalance =  data.updateprofile.demoBalance 
+  //       localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
+  //       new Audio(Audiow).play();
+  //       toast.success("Trade won")
+  //     }
+  //     if(data.tradeResult==="Lost"){
+  //       new Audio(Audiol).play();
+  //       toast.failure("Trade Lost")
+  //     }
+  //   });
 
-    // Listen for the expirationTimeReached event
-    socket.on('expirationDemoTimeReached', (data) => {
-      setExpiredDemoTradeId(data);
-      if(data.tradeResult==="Won"){
-        dispatch(updateDemoBalance( data.updateprofile.demoBalance ));
-        userInfoLS.demoBalance =  data.updateprofile.demoBalance 
-        localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
-        new Audio(Audiow).play();
-        toast.success("Trade won")
-      }
-      if(data.tradeResult==="Lost"){
-        new Audio(Audiol).play();
-        toast.failure("Trade Lost")
-      }
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [dispatch]);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [dispatch]);
 
   return (
 

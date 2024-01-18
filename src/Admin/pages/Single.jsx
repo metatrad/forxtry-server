@@ -42,6 +42,8 @@ const Edituser = () => {
             ...values,
             id: userDisplay?._id,
           }
+          console.log('Dispatching updateUserAction with data:', data);
+
           dispatch(updateUserAction(data))
         },
         validationSchema: formSchema,

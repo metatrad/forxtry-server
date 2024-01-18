@@ -17,6 +17,8 @@ import AdminWithdrawal from './Admin/pages/Adminwithdrawal'
 import AdminDeposit from './Admin/pages/Admindeposit'
 import AdminDepositMethod from './Admin/pages/adminDepositMethod'
 import AdminUsers from './Admin/pages/users'
+import AdminPendingUsers from './Admin/pages/pendingusers'
+import AdminVerifiedUsers from './Admin/pages/verifiedusers'
 import Single from './Admin/pages/Single';
 import DepositMenu from './pages/depositMenu';
 import AdminTransactions from './Admin/pages/transactions'
@@ -48,7 +50,7 @@ function App() {
   const methodData = useSelector((state)=>state.method)
   useEffect(()=>{
     (async()=>{
-      const res = await fetch(`https://https-github-com-habismartin-trading.onrender.com/admindeposit`)
+      const res = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/admindeposit`)
       const resData =  await res.json()
       dispatch(setDataMethod(resData))
     })()
@@ -110,6 +112,22 @@ function App() {
           </Route>
           <Route path='/adminusers'>
             <Route index element={<AdminUsers/>}/>
+            <Route path=':filterby' element={<Single/>}/>
+          </Route>
+
+          <Route path='/pendingusers' element={<AdminRoute/>}>
+            <Route path='/pendingusers' element={<AdminPendingUsers/>}/>
+          </Route>
+          <Route path='/pendingusers'>
+            <Route index element={<AdminPendingUsers/>}/>
+            <Route path=':filterby' element={<Single/>}/>
+          </Route>
+
+          <Route path='/verifiedusers' element={<AdminRoute/>}>
+            <Route path='/verifiedusers' element={<AdminVerifiedUsers/>}/>
+          </Route>
+          <Route path='/verifiedusers'>
+            <Route index element={<AdminVerifiedUsers/>}/>
             <Route path=':filterby' element={<Single/>}/>
           </Route>
 

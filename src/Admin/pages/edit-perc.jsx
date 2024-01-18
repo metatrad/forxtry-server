@@ -17,6 +17,7 @@ import { useEffect } from "react";
   //form validation
   const formSchema = Yup.object({
     perc: Yup.number(),
+    demoperc: Yup.number(),
   })
 
 const Editperc = () => {
@@ -31,6 +32,7 @@ const Editperc = () => {
       const formik = useFormik({
         initialValues:{
           perc: percDisplay?.perc,
+          demoperc: percDisplay?.demoperc,
         },
         onSubmit: values =>{
           const data = {
@@ -70,6 +72,7 @@ const Editperc = () => {
                 <form action="" onSubmit={formik.handleSubmit}>
                   {appErr || serverErr? <div>{appErr}{serverErr}</div>:null}
                   <input type="number" placeholder="%" value={formik.values.perc} onChange={formik.handleChange("perc")} onBlur = {formik.handleBlur("perc")}/>
+                  <input type="number" placeholder="%" value={formik.values.demoperc} onChange={formik.handleChange("demoperc")} onBlur = {formik.handleBlur("demoperc")}/>
                   {
                     loading?<Disabled/>: <button>Update</button>
                   }

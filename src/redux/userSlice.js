@@ -123,7 +123,6 @@ export const fetchAllUserAction = createAsyncThunk("/adminusers/fetch", async (p
         //http call
         const { data } = await axios.get(`${baseURL}/adminusers?page=${payload}`,config);
         return data;
-        
     } catch (error) {
         if(!error?.response){
             throw error;
@@ -431,22 +430,6 @@ const userSlice = createSlice({
             state.userLoading = false;
             state.userAppErr = undefined;
             state.userServerErr = undefined;
-            localStorage.setItem('userInfo', JSON.stringify({
-                ...JSON.parse(localStorage.getItem('userInfo')),
-                balance:action?.payload?.balance,
-                email: action?.payload?.email,
-                firstName: action?.payload?.firstName,
-                status: action?.payload?.status,
-                isAdmin: action?.payload?.isAdmin,
-                lastName: action?.payload?.lastName,
-                image: action?.payload?.image,
-                verification: action?.payload?.verification,
-                phone: action?.payload?.phone,
-                country: action?.payload?.country,
-                address: action?.payload?.address,
-                dob: action?.payload?.dob,
-                currency: action?.payload?.currency,
-            }));
         })
         //handle rejected state
         builder.addCase(updateUserAction.rejected, (state, action)=>{

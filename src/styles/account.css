@@ -1,3 +1,24 @@
+.social-media-account{
+    display: flex;
+    align-items: center;
+    padding: 0em 0.2em;
+}
+.social-media-account h2{
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 300;
+    gap: 0.4em;
+}
+.social-media-account h2 a{
+    color: #4b69ff;
+}
+.telegram-account{
+    color: #3557ff;
+    background-color: #375fff3e;
+    padding: 0.4em;
+    border-radius: 5px;
+}
 .tradingNav{
     height: 4em;
 }
@@ -315,5 +336,15 @@
         padding: 1.3em 1em;
         margin-bottom: 0.4em;
         background-color: #016fd3;
+    }
+    .social-media-account{
+        padding: 0em 0.1em;
+    }
+    .social-media-account h2{
+        font-size: 0.7rem;
+        gap: 0.3em;
+    }
+    .social-media-account h2 a{
+        padding: 0.5em;
     }
 }

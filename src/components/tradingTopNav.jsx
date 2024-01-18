@@ -16,6 +16,7 @@ import '../LDM/light.css'
 import CurrencyFormatter from "../utilities/currencyFormatter";
 import { updateBalance, updateDemoBalance } from "../redux/userSlice";
 import io from 'socket.io-client';
+import { userProfileAction } from "../redux/userSlice";
 import Audiow from "../audio/won.mp3";
 import Audiol from "../audio/lost.mp3";
 import "../styles/tradingNav.css";
@@ -23,17 +24,34 @@ import "../styles/tradingNav.css";
 
 const TradingTopNav = () => {
 
+  const dispatch = useDispatch()
+  useEffect(()=>{
+      dispatch(userProfileAction())
+  },[dispatch])
+
+  const state = useSelector(state => state?.user);
+  const {userLoading, userAppErr, userServerErr, profile } = state
+
+  console.log(profile)
+
 
     const userInf = useSelector((state) => state.user);
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+      const storedValue = localStorage.getItem('userInfo');
+      const parsedValue = storedValue ? JSON.parse(storedValue) : null;
+      setUserInfo(parsedValue);
+    }, []); 
   
   const balance = useSelector((state) => state?.user?.userAuth?.balance);
   const demoBalance = useSelector((state) => state?.user?.userAuth?.demoBalance);
 
   const userData = useSelector(state => state?.user?.userAuth);
   const userstate = useSelector(state => state?.user);
-  const {userLoading, userAppErr, userServerErr, userAuth, profile, userUpdate } = userstate
+  const { userAuth, userUpdate } = userstate
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [showAccountSwitch, setShowAccountSwitch] = useState(false);
@@ -67,30 +85,30 @@ const TradingTopNav = () => {
   const userInfoLS = JSON.parse(localStorage.getItem('userInfo')) || {};
 
 
-  useEffect(() => {
-    const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
+  // useEffect(() => {
+  //   const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
 
-    // Listen for the expirationTimeReached event
-    socket.on('expirationTimeReached', (data) => {
-      setExpiredTradeId(data);
-      if(data.tradeResult==="Won"){
-        dispatch(updateBalance( data.updateprofile.balance ));
-        userInfoLS.balance =  data.updateprofile.balance 
-        localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
-        new Audio(Audiow).play();
-        toast.success("Trade won")
-      }
-      if(data.tradeResult==="Lost"){
-        new Audio(Audiol).play();
-        toast.failure("Trade Lost")
-      }
-    });
+  //   // Listen for the expirationTimeReached event
+  //   socket.on('expirationTimeReached', (data) => {
+  //     setExpiredTradeId(data);
+  //     if(data.tradeResult==="Won"){
+  //       dispatch(updateBalance( data.updateprofile.balance ));
+  //       userInfoLS.balance =  data.updateprofile.balance 
+  //       localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
+  //       new Audio(Audiow).play();
+  //       toast.success("Trade won")
+  //     }
+  //     if(data.tradeResult==="Lost"){
+  //       new Audio(Audiol).play();
+  //       toast.failure("Trade Lost")
+  //     }
+  //   });
 
-    // Clean up the socket connection on component unmount
-    return () => {
-      socket.disconnect();
-    };
-  }, [dispatch]);
+  //   // Clean up the socket connection on component unmount
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [dispatch]);
   
 
   return (
@@ -116,7 +134,7 @@ const TradingTopNav = () => {
                 <FaTelegramPlane className="plane" color="#35cb02"/>
                 <div className="live-account">
                   <h6> LIVE ACCOUNT </h6>
-                  <p>{CurrencyFormatter("USD",balance)}</p>
+                  <p>{CurrencyFormatter("USD",profile?.balance)}</p>
                 </div>
                 <FaAngleDown
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
@@ -148,7 +166,7 @@ const TradingTopNav = () => {
                           <FiCheck size={12} />
                         </div>
                         <h5>
-                          Live account <p>{CurrencyFormatter("USD",balance)}</p>
+                          Live account <p>{CurrencyFormatter("USD",profile?.balance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -156,7 +174,7 @@ const TradingTopNav = () => {
                       <div className="switch">
                         <div className="round demo"></div>
                         <h5>
-                          Demo account <p>{CurrencyFormatter("USD",demoBalance)}</p>
+                          Demo account <p>{CurrencyFormatter("USD",profile?.demoBalance)}</p>
                         </h5>
                       </div>
                     </Link>

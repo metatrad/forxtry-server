@@ -27,6 +27,8 @@
 }
 .deposit-menu-card{
     background-color: #fff;
+    width: 16.4em;
+    overflow: scroll;
     border-radius: 10px;
     color: black;
     padding: 1em;

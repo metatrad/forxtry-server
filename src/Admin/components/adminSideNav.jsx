@@ -35,7 +35,9 @@ const AdminSideNav = () => {
       <hr />
       <div className="links">
         <NavLink to = "/admin"><RiHomeLine/><p>DashBoard</p></NavLink>
-        <NavLink to = "/adminusers"><FaUsers/><p>Users management</p></NavLink>
+        <NavLink to = "/adminusers"><FaUsers/><p>New Users</p></NavLink>
+        <NavLink to = "/pendingusers"><FaUsers/><p>Pending Users</p></NavLink>
+        <NavLink to = "/verifiedusers"><FaUsers/><p>Verified Users</p></NavLink>
         <NavLink to = "/admindeposit"><TbCircleArrowUpRightFilled/><p>Deposits</p></NavLink>
         <NavLink to = "/admindepositmethod"><RiCoinsFill/><p>Deposit Method</p></NavLink>
         <NavLink to = "/adminwithdrawal"><TbCircleArrowDownLeftFilled/><p>Withdrawals</p></NavLink>

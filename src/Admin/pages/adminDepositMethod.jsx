@@ -45,7 +45,7 @@ const AdmindepositMethod = () => {
     const { image,name,number,user,description,qrcode, calc} = data
 
     if (image && name && number && user ){
-      const fetchData = await fetch(`https://https-github-com-habismartin-trading.onrender.com/admindeposit`,{
+      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN }/admindeposit`,{
         method : "POST",
         headers : {
           "content-type" : "application/json"

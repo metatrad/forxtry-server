@@ -39,7 +39,10 @@ const Transactions = () => {
       {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="black"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: percList?.map((el)=>{
             return(
               <div className="perc-data-cover" item = {el} key={el?._id}>
+                <div className="wrapper-perc">
                 <div className='perc-data-num'>{el?.perc}%</div>
+                <div className='perc-data-num-demo'>{el?.demoperc}%</div>
+                </div>
                 <div className='perc-data'><Perccard id = {el?._id}></Perccard></div>     
               </div>
         )})}

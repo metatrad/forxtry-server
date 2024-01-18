@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     password: String,
     balance: {type:Number, default: 0},
     demoBalance: {type:Number, default: 10000},
-    status: {type:String, default: "Pending"},
+    status: {type:String, default: "Unverified"},
     image: {type: String},
     firstName: { type: String},
     lastName: { type: String},

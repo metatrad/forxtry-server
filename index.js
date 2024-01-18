@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'https://earnbroker.com', 
+  origin: 'http://localhost:3000', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -49,10 +49,10 @@ const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
 let tradingPair = 'EUR-USD'; // Default trading pair
 
 io.on('connection', (socket) => {
-    // Send the last fetched data to the newly connected client
-    if (lastFetchedData) {
-      socket.emit('forexCandlesticks', [lastFetchedData]);
-    }
+  
+  if (lastFetchedData) {
+    socket.emit('forexCandlesticks', [lastFetchedData]);
+  }
 
   const polygonWsUrl = 'wss://socket.polygon.io/forex';
   const polygonWs = new WebSocket(polygonWsUrl);
@@ -125,27 +125,20 @@ app.get("/", (req, res) => {
   res.send("server is running");
 });
 
-
-
-
 //trading
 const performTradeActions = async (trading) => {
-
   try {
     const user = await User.findById(trading.user);
-  const percRecord = await Perc.findOne();
-
+    console.log(trading.user)
+    const percRecord = await Perc.findOne();
   if (!percRecord) {
     console.log('Perc record not found')
     throw new Error("Perc record not found"); 
   }
   const perc = percRecord.perc;
-
   console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
-
   const tradeResults = Math.random() < perc ? "Win" : "Loss";
-
   if (tradeResults === "Win") {
     trading.tradeResult =  "Won"
     user.balance+=trading.calculatedResult
@@ -155,11 +148,8 @@ const performTradeActions = async (trading) => {
   }
   await trading.save();
   await user.save();
-
   console.log(`Trade ${trading._id} - Actions performed`);
   console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
-  io.emit('expirationTimeReached', { tradeId: trading._id, tradeResult: trading.tradeResult, updateprofile: { balance: user.balance }, alert: true });
-    
   } catch (error) {
     console.log(error)
   }
@@ -167,11 +157,9 @@ const performTradeActions = async (trading) => {
 
 const startCountdown = (trading, calculatedResult) => {
   const durationInMinutes = trading.time;
-  const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
+  const expirationTime = new Date(Date.now() + durationInMinutes * 6000);
   trading.expirationTime = expirationTime;
   trading.save();
-  console.log("initiated")
-
   schedule.scheduleJob(expirationTime, async () => {
     await performTradeActions(trading, calculatedResult);
   });
@@ -225,18 +213,12 @@ app.post("/trading",authMiddleware,async (req, res) => {
     // Retrieve calculatedResult from the trade with the given tradeId
     const tradeId = req?.body?.tradeId;
     const trade = await Trade.findOne({});
-
-    console.log(trade)
-
     if (!trade) {
       throw new Error("Trade not found");
     }
-
     const calculatedResult = trade.calculatedResult;
     console.log('Calculated Result:', calculatedResult);
-
     user.balance += 10;
-
     await user.save();
     // await user.save();
     res.json({ balance: user.balance, alert: true });
@@ -247,7 +229,7 @@ app.post("/trading",authMiddleware,async (req, res) => {
 });
 
 app.post("/tradelost",authMiddleware , async (req, res) => {
-  const { time, tradeResult, investment, calculatedResult } = req?.body;
+  const { time } = req?.body;
   console.log("Inside tradebalctrl");
   try {
     const user = await User.findById(req?.user?._id);
@@ -272,22 +254,17 @@ app.post("/tradelost",authMiddleware , async (req, res) => {
 
 //demo trading
 const performDemoTradeActions = async (trading) => {
-
   try {
-    const user = await User.findById(trading.user);
+  const user = await User.findById(trading.user);
   const percRecord = await Perc.findOne();
-
   if (!percRecord) {
     console.log('Perc record not found')
     throw new Error("Perc record not found"); 
   }
-  const perc = percRecord.perc;
-
+  const demoperc = percRecord.demoperc;
   console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
-
-  const tradeResults = Math.random() < perc ? "Win" : "Loss";
-
+  const tradeResults = Math.random() < demoperc ? "Win" : "Loss";
   if (tradeResults === "Win") {
     trading.tradeResult =  "Won"
     user.demoBalance+=trading.calculatedResult
@@ -297,11 +274,8 @@ const performDemoTradeActions = async (trading) => {
   }
   await trading.save();
   await user.save();
-
   console.log(`Trade ${trading._id} - Actions performed`);
   console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
-  io.emit('expirationDemoTimeReached', { tradeId: trading._id, tradeResult: trading.tradeResult, updateprofile: { demoBalance: user.demoBalance }, alert: true });
-    
   } catch (error) {
     console.log(error)
   }
@@ -311,8 +285,6 @@ const startDemoCountdown = (trading, calculatedResult) => {
   const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
   trading.expirationTime = expirationTime;
   trading.save();
-  console.log("initiated")
-
   schedule.scheduleJob(expirationTime, async () => {
     await performDemoTradeActions(trading, calculatedResult);
   });
@@ -338,7 +310,6 @@ app.post("/democreate",authMiddleware, async (req, res) => {
     });
     // Start the countdown
     startDemoCountdown(trading, calculatedResult);
-
     const updateprofile = await User.findByIdAndUpdate(
       id,
       {
@@ -363,7 +334,6 @@ app.post("/perc",authMiddleware, percctrl);
 app.get("/admintransaction",authMiddleware, fetchpercctrl);
 app.get("/trading",authMiddleware, fetchpercctrl);
 app.put("/admintransactions/:id",authMiddleware, updatepercctrl);
-
 
 app.get("/chartdata",authMiddleware, updatepercctrl);
 

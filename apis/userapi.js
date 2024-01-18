@@ -278,7 +278,7 @@ const fetchUsersctrl = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.paginate(
       {},
-      { limit: 10, page: Number(page), sort: { createdAt: -1 } }
+      { limit: 150, page: Number(page), sort: { createdAt: -1 } }
     );
     res.json(users);
   } catch (error) {
@@ -286,8 +286,7 @@ const fetchUsersctrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update
-//update user profile
+//update user
 const updateUsersctrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   try {
@@ -348,36 +347,44 @@ const userProfilectrl = expressAsyncHandler(async (req, res) => {
 });
 
 
-//update user profile
 const updateProfilectrl = expressAsyncHandler(async (req, res) => {
   try {
-    const profile = await User.findByIdAndUpdate(
+    // Destructure relevant fields from req.body
+    const { email, isAdmin, image, balance, demoBalance, firstName, lastName, country, phone, address, dob, verification } = req?.body;
+
+    // Check if verification image is present and user status is "Unverified"
+    const updatedFields = {
+      email,
+      isAdmin,
+      image,
+      balance,
+      demoBalance,
+      firstName,
+      lastName,
+      country,
+      phone,
+      address,
+      dob,
+      verification,
+    };
+    // Check if verification image is present and update status to "Pending"
+    if (verification && req?.user?.status === "Unverified") {
+      updatedFields.status = "Pending";
+    }
+    const updatedProfile = await User.findByIdAndUpdate(
       req?.user?._id,
-      {
-        email: req?.body?.email,
-        isAdmin: req?.body?.isAdmin,
-        image: req?.body?.image,
-        balance: req?.body?.balance,
-        demoBalance: req?.body?.demoBalance,
-        firstName: req?.body?.firstName,
-        lastName: req?.body?.lastName,
-        country: req?.body?.country,
-        status: req?.body?.status,
-        phone: req?.body?.phone,
-        address: req?.body?.address,
-        dob: req?.body?.dob,
-        verification: req?.body?.verification,
-      },
+      updatedFields,
       {
         new: true,
         runValidators: true,
       }
     );
-    res.json(profile);
+    res.json(updatedProfile);
   } catch (error) {
     res.json(error);
   }
 });
+
 
 
 module.exports = {

@@ -4,11 +4,12 @@ const {Perc} = require('../schema/percentageSchema')
 
 const percctrl = expressAsyncHandler(async (req, res) => {
 
-  const { perc } = req.body;
+  const { perc, demoperc } = req.body;
 
   try {
       const percs = await Perc.create({
         perc,
+        demoperc,
       });
   
       res.json({percs, message: "updated", alert: true})
@@ -31,26 +32,15 @@ const fetchpercctrl = expressAsyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error", alert: false });
   }
 });
-//fetch all users
-const fetchUsersctrl = expressAsyncHandler(async(req, res)=>{
-  const {page} = req?.query;
-  try {
-    const users = await User.paginate({}, {limit: 10, page: Number(page)})
-    res.json(users);
-  } catch (error) {
-    res.json(error)
-  }
-});
- 
 
-//update
-//update user profile
+//update perc profile
 const updatepercctrl = expressAsyncHandler( async (req,res)=>{
   const {id} = req?.params;
 
   try {
     const updateperc = await Perc.findByIdAndUpdate(id, {
       perc: req?.body?.perc,
+      demoperc: req?.body?.demoperc,
     },
     {
       new: true,

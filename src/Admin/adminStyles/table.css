@@ -90,26 +90,35 @@
     width: 100%;
     background-color: #51596c;
 }
+.actives button{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 1.2em;
+}  
 .pagination, .page-item{
     display: flex;
+    margin-top: 0.5em;
 }
 .page-item button{
-    font-size: 0.9em;
-    border: 1px solid white;
-    border-radius: 3px;
-    width: 35px;
-    height: 28px;
+    font-size: 0.88em;
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 1000px;
+    height: 30px;
+    width: 30px;
+    font-weight: 200;
 }
 .admin-deposit-card{
     display: flex;
     align-items: center;
-    padding: 1em;
+    padding: 0.7em;
     margin-bottom: 0.6em;
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
-    color: black;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.812);
+    background-color: rgba(0, 0, 0, 0.215);
+    color: rgb(255, 255, 255);
     font-weight: 500;
     gap: 0.4em;
+    cursor: pointer;
 }
 .admin-deposit-card img{
     height: 2em;

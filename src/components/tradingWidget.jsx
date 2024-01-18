@@ -103,6 +103,7 @@ const ForexCandlestickChart = () => {
     );
   };
   
+  
   const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
 
     useEffect(() => {
@@ -114,10 +115,10 @@ const ForexCandlestickChart = () => {
             if (!loading){
             candlestickSeries.update({
               time: realTimeData.timestamp - 300,
-              open: realTimeData.open,
-              high: realTimeData.high,
-              low: realTimeData.low,
-              close: realTimeData.close,
+              open: realTimeData.open - 0.001,
+              high: realTimeData.high - 0.001,
+              low: realTimeData.low - 0.001,
+              close: realTimeData.close - 0.001,
             })};
           } catch (error) {
             console.error(error)

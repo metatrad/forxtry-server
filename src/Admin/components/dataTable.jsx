@@ -27,9 +27,13 @@ const DataTable = () => {
   const allUsers = useSelector((state) => state?.user);
   const { userAppErr, userServerErr, userList, userLoading, isUserUpdated } = allUsers;
 
+  console.log(userList)
+
   const userListCard = userList?.docs?.filter(
     (el) => el.status.toLowerCase() === "unverified"
   );
+  
+  console.log(userListCard)
   
   // Filter users based on search term
   const filteredUserList = userListCard?.filter((user) =>
@@ -89,7 +93,7 @@ const DataTable = () => {
                 </TableRow>
               ))
             )}
-            <Pagination setPage={setPage} pageNumber={userList?.totalPages} />
+            <Pagination setPage={setPage} currentPage={page} pageNumber={userList?.totalPages} />
           </TableBody>
         </Table>
       </TableContainer>

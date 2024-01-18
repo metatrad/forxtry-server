@@ -63,7 +63,7 @@ const dispatch = useDispatch();
                         <TableCell className='tableCell'><Withdrawalcard id = {el?._id}></Withdrawalcard></TableCell>     
                       </TableRow>
         )})}
-                      <Pagination setPage=  {setPage} pageNumber = {withdrawalList?.totalPages}/>
+                      <Pagination setPage={setPage} currentPage={page} pageNumber = {withdrawalList?.totalPages}/>
         </TableBody>
       </Table>
     </TableContainer>

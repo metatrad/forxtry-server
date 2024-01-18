@@ -90,7 +90,7 @@ const VerifiedDataTable = () => {
                 </TableRow>
               ))
             )}
-            <Pagination setPage={setPage} pageNumber={userList?.totalPages} />
+            <Pagination setPage={setPage} currentPage={page} pageNumber={userList?.totalPages} />
           </TableBody>
         </Table>
       </TableContainer>

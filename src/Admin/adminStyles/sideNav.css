@@ -26,7 +26,7 @@ hr{
     color: #ffff;
     font-weight: 500;
 }
-.adminSideNav .links a{
+.adminSideNav .links a, .nav-div-user{
     padding: 0em 0.3em;
     font-size: 0.88rem;
     display: flex;
@@ -37,11 +37,27 @@ hr{
     padding-left: 0.8em;
     transition: .2s ease;
 }
-.adminSideNav .links a:hover{
+.nav-div-user p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3em;
+}
+.user-admin-side{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .open {
+    max-height: 200px; 
+  }
+.adminSideNav .links a:hover, .nav-div-user:hover{
+    cursor: pointer;
     color: #ffff;
     background-color: rgba(255, 255, 255, 0.102);
 }
-.adminSideNav .links a p:hover{
+.adminSideNav .links a p:hover, .nav-div-user p:hover{
     color: #ffff;
 }
 .themes{

@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
 import { ImFolderUpload } from "react-icons/im";
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import { userProfileAction } from "../redux/userSlice";
 import "../styles/account.css";
 import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
@@ -35,9 +36,7 @@ const formSchema = Yup.object({
 const Account = () => {
 
   const state = useSelector(state => state);
-  const {userLoading, userAppErr, userServerErr,userAuth, profile, userUpdate } = state
-
-  console.log(profile?.trade)
+  const {userLoading, userAppErr, userServerErr,userAuth, userUpdate } = state
 
     //navigate
     const navigate = useNavigate();
@@ -46,6 +45,12 @@ const Account = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state?.user?.userAuth);
 
+    useEffect(()=>{
+      dispatch(userProfileAction())
+  },[dispatch])
+
+  const states = useSelector(state => state?.user);
+  const { profile } = states
     
     //get data from store
     const user = useSelector(state => state?.user);
@@ -138,7 +143,7 @@ const uploadVImage = async (e) => {
               <div className="account-user-info">
               <h1>Identity info:</h1>
                 <h2>{userData?.email}</h2>
-                <p>Verification Status: <span className={`status ${userData?.status}`}>{userData?.status}</span></p>
+                <p>Verification Status: <span className={`status ${profile?.status}`}>{profile?.status}</span></p>
               </div>
             </div>
             <div className="verification-id">

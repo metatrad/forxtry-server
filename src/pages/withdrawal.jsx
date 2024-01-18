@@ -112,7 +112,7 @@ const Withdrawal = () => {
                     type="number"
                     name="amount"
                     id="amount"
-                    placeholder="NGN"
+                    placeholder="$"
                     vvalue={formik.values.amount}
                     onChange={formik.handleChange("amount")}
                     onBlur={formik.handleBlur("amount")}

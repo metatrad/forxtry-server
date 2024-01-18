@@ -278,7 +278,7 @@ const fetchUsersctrl = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.paginate(
       {},
-      { limit: 150, page: Number(page), sort: { createdAt: -1 } }
+      { limit: 10, page: Number(page), sort: { createdAt: -1 }}
     );
     res.json(users);
   } catch (error) {

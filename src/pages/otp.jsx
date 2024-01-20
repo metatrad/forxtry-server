@@ -12,15 +12,12 @@ import { FcGoogle } from "react-icons/fc";
 import { BsArrowRightShort } from "react-icons/bs";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import toast from "react-hot-toast";
-
 
 //form validation
 const formSchema = Yup.object({
   email: Yup.string(),
   otp: Yup.string(),
 })
-
 
 const Otp = () => {
   //navigate

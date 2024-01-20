@@ -32,9 +32,6 @@ const TradingTopNav = () => {
   const state = useSelector(state => state?.user);
   const {userLoading, userAppErr, userServerErr, profile } = state
 
-  console.log(profile)
-
-
     const userInf = useSelector((state) => state.user);
 
     const [userInfo, setUserInfo] = useState(null);

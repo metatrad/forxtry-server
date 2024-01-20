@@ -27,13 +27,9 @@ const DataTable = () => {
   const allUsers = useSelector((state) => state?.user);
   const { userAppErr, userServerErr, userList, userLoading, isUserUpdated } = allUsers;
 
-  console.log(userList)
-
   const userListCard = userList?.docs?.filter(
     (el) => el.status.toLowerCase() === "unverified"
   );
-  
-  console.log(userListCard)
   
   // Filter users based on search term
   const filteredUserList = userListCard?.filter((user) =>

@@ -24,8 +24,6 @@ const dispatch = useDispatch();
   const {loading, appErr, serverErr, depositList} = allMethod;
 
   const depositData = useSelector((state) => state.method.methodList);
-  console.log(depositData)
-  // const depositCardList = depositData.slice();
 
   //categories depositmethods
   const depositCardListCryptocurrencies = depositData.filter(el => el,[]) 

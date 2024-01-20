@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllDepositAction } from '../../redux/depositSlice';
-import AdminDepositCard from '../components/adminDepositcard'
+import AdminDepositCard from './adminDepositcard'
+import AdminUserCard from './adminUsercard';
 import '../adminStyles/table.css'
 import Pagination from './pagination';
 import currencyFormatter from '../../utilities/currencyFormatter';
@@ -17,7 +18,7 @@ import { mirage } from 'ldrs'
 
 mirage.register()
 
-const AdminDepositTable = () => {
+const AdminPDepositTable = () => {
 
   const [ page, setPage ] = useState(1)
 
@@ -32,9 +33,9 @@ const dispatch = useDispatch();
   const {loading, appErr, serverErr, depositList} = allDeposit;
 
 
-      //filter only deposits
-      const depositListCard = depositList?.docs?.filter(el => el.status === "Pending",[]) 
-      const loadingArray = new Array(1).fill(null)
+  //filter only deposits
+  const depositListCard = depositList?.docs?.filter(el => el.status === "approved",[]) 
+  const loadingArray = new Array(1).fill(null)
 
   return (
     <TableContainer className = "admin-table">
@@ -74,5 +75,5 @@ const dispatch = useDispatch();
   )
 }
 
-export default AdminDepositTable;
+export default AdminPDepositTable;
 

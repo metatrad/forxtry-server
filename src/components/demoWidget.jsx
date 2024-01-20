@@ -138,7 +138,7 @@ const ForexCandlestickChart = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://api.polygon.io/v2/aggs/ticker/C:${historicalTradingPair}/range/5/minute/2023-12-09/2024-01-30?adjusted=true&sort=desc&limit=50000&apiKey=rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW`
+          `https://api.polygon.io/v2/aggs/ticker/C:${historicalTradingPair}/range/1/hour/2023-12-20/2024-01-30?adjusted=true&sort=desc&limit=50000&apiKey=rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW`
         );
         const data = response.data.results.map((item) => ({
           time: ((item.t/1000)-300),

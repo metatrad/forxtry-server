@@ -10,10 +10,11 @@ import { MdCurrencyExchange } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { PiArrowsClockwiseBold } from "react-icons/pi";
-import { RiCoinsFill } from "react-icons/ri";
 import { LightModeContext } from '../../context/lightModeContext';
 import { LuUserCheck } from "react-icons/lu";
 import { LuUserX } from "react-icons/lu";
+import { MdOutlinePendingActions } from "react-icons/md";
+import { LuCheckCircle } from "react-icons/lu";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { useContext } from 'react';
 import { logout } from '../../redux/userSlice'
@@ -23,9 +24,20 @@ import { useDispatch } from "react-redux";;
 const AdminSideNav = () => {
 
   const [showUsers, setShowUsers] = useState()
-
   const toggleOptions = () => {
     setShowUsers(!showUsers);
+  };
+
+  //dep
+  const [showDUsers, setShowDUsers] = useState()
+  const toggleDOptions = () => {
+    setShowDUsers(!showDUsers);
+  };
+
+  //with
+  const [showWUsers, setShowWUsers] = useState()
+  const toggleWOptions = () => {
+    setShowWUsers(!showWUsers);
   };
 
   const {dispatch} = useContext(LightModeContext)
@@ -53,17 +65,25 @@ const AdminSideNav = () => {
         <NavLink to = "/verifiedusers"><LuUserCheck/><p>Verified Users</p></NavLink>
         </div>
 
-        <NavLink to = "/admindeposit"><RiLuggageDepositLine/><p>Deposits</p></NavLink>
+        <div className='nav-div-user' onClick={toggleDOptions}><RiLuggageDepositLine/><p>Deposits<span className={`icon ${showDUsers ? "expanded" : ""}`}><FaCaretDown/></span></p></div>
+        <div className={`user-admin-side ${showDUsers ? 'open' : 'closed'}`}>
+        <NavLink to = "/admindeposit"><MdOutlinePendingActions/><p>Pending deposits</p></NavLink>
+        <NavLink to = "/approveddeposit"><LuCheckCircle/><p>Approved deposits</p></NavLink>
+        </div>
+
         <NavLink to = "/admindepositmethod"><MdCurrencyExchange/><p>Deposit Methods</p></NavLink>
-        <NavLink to = "/adminwithdrawal"><GrAtm/><p>Withdrawals</p></NavLink>
+
+        <div className='nav-div-user' onClick={toggleWOptions}><GrAtm/><p>Withdrawals<span className={`icon ${showWUsers ? "expanded" : ""}`}><FaCaretDown/></span></p></div>
+        <div className={`user-admin-side ${showWUsers ? 'open' : 'closed'}`}>
+        <NavLink to = "/adminwithdrawal"><MdOutlinePendingActions/><p>Peding withdrawals</p></NavLink>
+        <NavLink to = "/approvedwithdrawal"><LuCheckCircle/><p>Approved withdrawals</p></NavLink>
+        </div>
+
         <NavLink to = "/admintransactions"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
+
         <NavLink onClick={handleLogout}><MdOutlineLogout/><p>Logout</p></NavLink>
       </div>
-      <h5>THEMES</h5>
-      <div className="themes">
-        <div className="dark" onClick={()=> dispatch({type:"DARK"}) }></div>
-        <div className="light" onClick={()=> dispatch({type:"LIGHT"}) }></div>
-      </div>
+
     </div>
   )
 }

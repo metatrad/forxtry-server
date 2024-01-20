@@ -34,7 +34,7 @@ const dispatch = useDispatch();
   const {loading, appErr, serverErr, withdrawalList} = allWithdrawal;
 
       //filter only withdrawals
-      const withdrawalListCard = withdrawalList?.docs?.filter(el => el.status === "Pending",[])
+      const withdrawalListCard = withdrawalList?.docs?.filter(el => el.status === "approved",[])
       const loadingArray = new Array(1).fill(null)
 
   return (
@@ -52,7 +52,7 @@ const dispatch = useDispatch();
         </TableHead>
 
         <TableBody className='table-body'>
-        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: withdrawalList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No withdrawals found.</h1>: withdrawalListCard?.map((el)=>{
+        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: withdrawalListCard?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No withdrawals found.</h1>: withdrawalListCard?.map((el)=>{
             return(
                         <TableRow item = {el} key={el?._id}>
                         <TableCell className='tableCell'>{el?.user?.email}</TableCell>

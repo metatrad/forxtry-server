@@ -19,6 +19,8 @@ import AdminDepositMethod from './Admin/pages/adminDepositMethod'
 import AdminUsers from './Admin/pages/users'
 import AdminPendingUsers from './Admin/pages/pendingusers'
 import AdminVerifiedUsers from './Admin/pages/verifiedusers'
+import AdminVdeposit from './Admin/pages/verifiedDeposits';
+import AdmindVwithdrawal from './Admin/pages/verifiedWithdrawals';
 import Single from './Admin/pages/Single';
 import DepositMenu from './pages/depositMenu';
 import AdminTransactions from './Admin/pages/transactions'
@@ -139,6 +141,14 @@ function App() {
             <Route path=':filterby' element={<Editdeposit/>}/>
           </Route>
 
+          <Route path='/approveddeposit' element={<AdminRoute/>}>
+            <Route path='/approveddeposit' element={<AdminVdeposit/>}/>
+          </Route>
+          <Route path='/approveddeposit'>
+            <Route index element={<AdminVdeposit/>}/>
+            <Route path=':filterby' element={<Editdeposit/>}/>
+          </Route>
+
           <Route path='/admindepositmethod' element={<AdminRoute/>}>
             <Route path='/admindepositmethod' element={<AdminDepositMethod/>}/>
           </Route>
@@ -152,6 +162,14 @@ function App() {
           </Route>
           <Route path='/adminwithdrawal'>
             <Route index element={<AdminWithdrawal/>}/>
+            <Route path=':filterby' element={<Editwithdrawal/>}/>
+          </Route>
+
+          <Route path='/approvedwithdrawal' element={<AdminRoute/>}>
+            <Route path='/approvedwithdrawal' element={<AdmindVwithdrawal/>}/>
+          </Route>
+          <Route path='/approvedwithdrawal'>
+            <Route index element={<AdmindVwithdrawal/>}/>
             <Route path=':filterby' element={<Editwithdrawal/>}/>
           </Route>
 

@@ -32,7 +32,6 @@ const Editmethod = () => {
   const { filterby } = useParams();
   const methodData = useSelector((state) => state?.method?.methodList);
   const methodDisplay = methodData?.filter((el) => el.id === filterby)[0];
-  console.log(methodDisplay)
 
   const method = useSelector(state=>state?.method);
   const { appErr, serverErr, methodUpdated, loading, methodallList,ismethodUpdated } = method

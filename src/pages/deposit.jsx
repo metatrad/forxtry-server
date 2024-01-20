@@ -11,7 +11,6 @@ import "../styles/deposit.css";
 
 const Deposit = () => {
   const depositData = useSelector((state) => state.method.methodList);
-  console.log(depositData)
   const depositCardList = depositData.slice();
 
   //categories depositmethods

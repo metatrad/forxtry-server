@@ -32,7 +32,6 @@ const Demo = () => {
 
   const state = useSelector(state => state?.user);
   const {userLoading, userAppErr, userServerErr, profile } = state
-  console.log(profile)
 
   //topnav
   const [showAccountSwitch, setShowAccountSwitch] = useState(false)

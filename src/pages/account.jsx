@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect } from "react";
 import * as Yup from "yup"
@@ -16,6 +16,7 @@ import Disabledbutton from "../components/disabledbutton";
 import { ImFolderUpload } from "react-icons/im";
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import { userProfileAction } from "../redux/userSlice";
+import { spiral } from "ldrs";
 import "../styles/account.css";
 import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
@@ -35,8 +36,10 @@ const formSchema = Yup.object({
 
 const Account = () => {
 
-  const state = useSelector(state => state);
+  const state = useSelector(state => state.user);
   const {userLoading, userAppErr, userServerErr,userAuth, userUpdate } = state
+
+  console.log(state)
 
     //navigate
     const navigate = useNavigate();
@@ -45,7 +48,7 @@ const Account = () => {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state?.user?.userAuth);
 
-    useEffect(()=>{
+  useEffect(()=>{
       dispatch(userProfileAction())
   },[dispatch])
 
@@ -199,9 +202,7 @@ const uploadVImage = async (e) => {
               onBlur = {formik.handleBlur("dob")}/>
             </div>
 
-            {
-              userLoading? <Disabledbutton/>:<button>Save</button>
-            }
+          <button>{userLoading?<l-spiral size="35" speed="0.9" color="white"></l-spiral>:"Save"}</button>
 
             </div>
 

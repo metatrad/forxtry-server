@@ -1,6 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
+const { User } = require('../schema/userSchema')
 const { Deposit } = require("../schema/depositSchema");
-
+ 
 //create deposit
 const depositctrl = expressAsyncHandler(async (req, res) => {
   const { type, method, amount, status } = req.body;
@@ -51,14 +52,21 @@ const singledepositctrl = expressAsyncHandler(async (req, res) => {
 //update
 const updateDepositctrl = expressAsyncHandler(async(req,res)=>{
   const {id} = req?.params;
-  const { amount } = req.body;
-  const { method } = req.body;
-  const { status } = req.body;
+  const { amount, method, status } = req.body;
   try {
-    const deposit = await Deposit.findByIdAndUpdate(id, {
+
+    const deposit = await Deposit.findById(id);
+
+    if (deposit.status === 'Pending' && status === 'approved') {
+      const user = await User.findById(deposit.user);
+      user.balance += parseFloat(amount);
+      await user.save();
+    }
+ 
+    const updatedDeposit = await Deposit.findByIdAndUpdate(id, {
       amount, method, status
     }, {new: true})
-    res.json(deposit)
+    res.json(updatedDeposit)
   } catch (error) {
     res.json(error)
   }

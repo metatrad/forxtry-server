@@ -9,7 +9,7 @@ const withdrawalSchema = mongoose.Schema({
     number: { type: String},
     account: { type: String},
     name: { type: String},
-    status: { type: String, default: "pending"},
+    status: { type: String, default: "Pending"},
 },{
     timestamps: true,
     toJSON: {

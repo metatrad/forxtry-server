@@ -87,7 +87,7 @@ const DepositMenu = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     // Perform the calculation (double the input value)
-    const calculatedResult = Math.floor(value ? parseFloat(value) / methodDisplay?.calc : '');
+    const calculatedResult = value ? (parseFloat(value) / methodDisplay?.calc).toFixed(3) : '';
     // Update the formik values and trigger re-render
     formik.setFieldValue(name, value);
     formik.setFieldValue('calculatedResult', calculatedResult);
@@ -122,7 +122,7 @@ const DepositMenu = () => {
               <p className="deposit-description"><span>{methodDisplay?.description}</span></p>
 
               <p>
-                Min amount: <span>$10.00</span>
+                Min amount: <span>$30.00</span>
               </p>
               <p>
                 Max amount: <span>$60,000.00</span>
@@ -144,8 +144,8 @@ const DepositMenu = () => {
 
               <input type="text" name="status" id="status" placeholder={"status"} value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
 
-              <label htmlFor="method">Deposit Method</label>
-              <input type="text" name="method" id="method" placeholder={"Type your deposit method here"} value={formik.values.method} onChange={formik.handleChange("method")} onBlur = {formik.handleBlur("method")}/>
+              <label htmlFor="method">Text ID</label>
+              <input type="text" name="method" id="method" placeholder={"Type your text id here"} value={formik.values.method} onChange={formik.handleChange("method")} onBlur = {formik.handleBlur("method")}/>
               <div className="show-error">
               {formik.touched.method && formik.errors.method}
               </div>

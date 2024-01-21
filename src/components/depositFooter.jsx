@@ -15,7 +15,7 @@ const DepositFooter = () => {
     <div>
       <div className="deposit-footer">
         <div className="amounts">
-          <p><AiFillBank color="#10a959"/> Minimum deposit amount: <span>$10.00</span></p>
+          <p><AiFillBank color="#10a959"/> Minimum deposit amount: <span>$30.00</span></p>
           <p><FaCreditCard color="#10a959"/> Maximum withdrawal amount: <span>$60,000.00</span></p>
           <p><FaAngleDoubleRight color="#10a959"/> Quick withdrawal from your account</p>
           <p><PiPercentBold color="#10a959"/> No hidden charges</p>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Tradebtns from './trade-btns';
 import '../styles/trading.css';
-import { createChart, LineStyle } from 'lightweight-charts';
+import { createChart, LineStyle, addMovingAverage } from 'lightweight-charts';
 import io from 'socket.io-client';
 import Select from 'react-select';
 import Exchange from '../images/exchange.png'

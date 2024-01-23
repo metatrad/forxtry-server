@@ -13,7 +13,7 @@ const Admindwithdrawal = () => {
         </div>
         <div className="admin-withdrawal-page">
             <TopNav/>
-            <div className="admin-withdrawal-body">
+            <div className="admin-withdrawal-body admin-tables-body">
               <AdminWithdrawalTable/>
             </div>
         </div>

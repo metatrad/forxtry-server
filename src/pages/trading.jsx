@@ -2,6 +2,7 @@ import React from 'react'
 import TradingNav from '../components/tradingnav';
 import TradingTopNav from '../components/tradingTopNav';
 import TradingWidget from '../components/tradingWidget';
+import Tradebtns from '../components/trade-btns';
 import "../styles/trading.css"
 
 
@@ -19,6 +20,7 @@ const Trading = () => {
       </div>
       <div className='widget'>
         <TradingWidget/>
+        <Tradebtns/>
       </div>
       </div>
     </div>

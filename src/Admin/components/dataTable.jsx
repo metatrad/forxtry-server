@@ -30,9 +30,9 @@ const DataTable = () => {
   const userListCard = userList?.docs?.filter(
     (el) => el.status.toLowerCase() === "unverified"
   );
-  
+    
   // Filter users based on search term
-  const filteredUserList = userListCard?.filter((user) =>
+  const filteredUserList = userList?.docs?.filter((user) =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -75,7 +75,7 @@ const DataTable = () => {
               </h1>
             ) : (
               filteredUserList?.map((user) => (
-                <TableRow item={user} key={user?._id}>
+                <TableRow className='tableRow' item={user} key={user?._id}>
                   <TableCell className="tableCell">{user?.email}</TableCell>
                   <TableCell className="tableCell">
                     {currencyFormatter('USD', user?.balance)}

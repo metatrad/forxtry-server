@@ -1,6 +1,12 @@
 .admin-deposit-body{
     padding: 0em 2em;
 }
+.admin-tables-body{
+    padding: 0em 2em;
+    margin-top: 5em;
+    width: 1000px;
+    height: 80vh;
+}
 .deposit-list{
     margin-top: 50px;
 }
@@ -13,6 +19,7 @@
 .admin-deposit .admin-deposit-page{
     position: relative;
     flex: 8.1;
+    margin-left: 14em;
 }
 .add-method-btn{
     position: absolute;

@@ -13,7 +13,7 @@ const Admindeposit = () => {
       </div>
       <div className="admin-deposit-page">
         <TopNav />        
-        <div className="admin-deposit-body">
+        <div className="admin-deposit-body admin-tables-body">
         <div className="deposit-list">
         <AdminDepositTable/>
         </div>

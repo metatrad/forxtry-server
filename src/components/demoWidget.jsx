@@ -329,9 +329,7 @@ const ForexCandlestickChart = () => {
             </div>}<div id="chart"></div>
       </main>
       </header>
- 
-      <Demotradebtns/>
-    </div>
+     </div>
   );
 };
 

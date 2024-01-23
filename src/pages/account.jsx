@@ -14,7 +14,6 @@ import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
 import { ImFolderUpload } from "react-icons/im";
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import { userProfileAction } from "../redux/userSlice";
 import { spiral } from "ldrs";
 import "../styles/account.css";
@@ -132,7 +131,7 @@ const uploadVImage = async (e) => {
 
         <div className="account-settings">
           <div><AccountTopNav/></div>
-          <div className="social-media-account"><h2>If you reach out to us via the live chat and we don't respond on time, join our telegram group to get updates and make your inquiries with active support <a href="https://t.me/+okSu0B6i-2UwYTY0" className="telegram-account"><FaTelegramPlane/></a></h2></div>
+          <div className="social-media-account"><h2>Reach out to us on Telegram<a href="https://t.me/+okSu0B6i-2UwYTY0" className="telegram-account"><FaTelegramPlane/></a></h2></div>
           <form action="" className="form-info" onSubmit={formik.handleSubmit}>
           <div className="account-images-cover">
             <div className="account-image">
@@ -213,7 +212,6 @@ const uploadVImage = async (e) => {
           </h6>
         </div>
       </div>
-     <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

@@ -1,8 +1,12 @@
 .admin{
     display: flex;
 }
+.widgets{
+    margin-top: 4em;
+}
 .home-component{
     flex: 5;
+    margin-left: 14em;
 }
 .home-component .widgets, .home-component .charts{
     padding: 1em;

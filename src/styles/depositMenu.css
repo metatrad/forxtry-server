@@ -21,6 +21,7 @@
     box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
     padding: 1em;
     padding-bottom: 3.4em;
+    margin-left: 4em;
 }
 .deposit-menu-body{
     display: flex;
@@ -249,6 +250,9 @@
     .deposit-menu-card-wrapper{
         display: flex;
         flex-direction: column;
+    }
+    .depositmenu-body-cover{
+        margin-left: 0em;
     }
     .deposit-menu-card-wrapper .left-wrapper{
         padding: 1em;

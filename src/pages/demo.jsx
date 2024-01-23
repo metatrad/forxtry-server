@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect,useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import TradingNav from '../components/tradingnav';
-import DemoTradingViewWidget from '../components/demoWidget';
+import TradingWidget from '../components/tradingWidget';
 import { MdRocketLaunch } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
@@ -15,6 +15,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { logout } from '../redux/userSlice';
 import { userProfileAction } from '../redux/userSlice';
+import Demotradebtns from '../components/demo-tradebtn';
 import CurrencyFormatter from '../utilities/currencyFormatter'
 import '../styles/tradingNav.css'
 import '../styles/demo.css'
@@ -103,7 +104,8 @@ const Demo = () => {
         <TradingNav/>
       </div>
       <div className='widget'>
-      <DemoTradingViewWidget/>
+      <TradingWidget/>
+      <Demotradebtns/>
       </div>
       </div>
     </div>

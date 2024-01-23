@@ -55,32 +55,6 @@ const TradingNav = () => {
   const handleShowMb = () =>{
     setShowMb( !showMb )
   }
-  const [expiredDemoTradeId, setExpiredDemoTradeId] = useState(null);
-  const userInfoLS = JSON.parse(localStorage.getItem('userInfo')) || {};
-
-  // useEffect(() => {
-  //   const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
-
-  //   // Listen for the expirationTimeReached event
-  //   socket.on('expirationDemoTimeReached', (data) => {
-  //     setExpiredDemoTradeId(data);
-  //     if(data.tradeResult==="Won"){
-  //       dispatch(updateDemoBalance( data.updateprofile.demoBalance ));
-  //       userInfoLS.demoBalance =  data.updateprofile.demoBalance 
-  //       localStorage.setItem('userInfo', JSON.stringify(userInfoLS));
-  //       new Audio(Audiow).play();
-  //       toast.success("Trade won")
-  //     }
-  //     if(data.tradeResult==="Lost"){
-  //       new Audio(Audiol).play();
-  //       toast.failure("Trade Lost")
-  //     }
-  //   });
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [dispatch]);
 
   return (
 

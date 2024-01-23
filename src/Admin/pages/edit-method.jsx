@@ -114,7 +114,7 @@ const Editmethod = () => {
       </div>
       <div className="single-container">
         <TopNav />
-        <div className="single-content">
+        <div className="single-content admin-tables-body">
           <div className="single-top">
             <div className="left">
               <Link to="/admindepositmethod"><IoIosArrowBack className="icon"/>All wthdrawals</Link>

@@ -18,7 +18,7 @@ import "../adminStyles/single.css";
   const formSchema = Yup.object({
     amount: Yup.number(),
     account: Yup.string(),
-    number: Yup.number(),
+    number: Yup.string(),
     name: Yup.string(),
     status: Yup.string(),
   })
@@ -54,10 +54,10 @@ const Editwithdrawal = () => {
       const {appErr, serverErr, withdrawalUpdated, loading, isWithdrawalUpdated} = withdrawal
 
       useEffect(() => {
-        if (isWithdrawalUpdated) {
+        if (withdrawalUpdated) {
           toast('Updated');
         }
-      }, [dispatch, isWithdrawalUpdated]); 
+      }, [dispatch, withdrawalUpdated]); 
 
 
 
@@ -69,7 +69,7 @@ const Editwithdrawal = () => {
       </div>
       <div className="single-container">
         <TopNav />
-        <div className="single-content">
+        <div className="single-content admin-tables-body">
           <div className="single-top">
             <div className="left">
               <Link to="/adminwithdrawal"><IoIosArrowBack className="icon"/>All wthdrawals</Link>

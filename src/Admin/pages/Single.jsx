@@ -67,7 +67,7 @@ const Edituser = () => {
       </div>
       <div className="single-container">
         <TopNav />
-        <div className="single-content">
+        <div className="single-content admin-tables-body">
           <div className="single-top">
             <div className="left">
               <Link to="/adminusers"><IoIosArrowBack className="icon"/>All users</Link>

@@ -32,7 +32,7 @@ const Transactions = () => {
       </div>
       <div className="list">
       <TopNav/>
-      <div className="padding">
+      <div className="padding admin-tables-body">
       <div className="list-wrapper">
       <div className="list-title">Winning percentage</div>
 

@@ -102,7 +102,7 @@ const AdmindepositMethod = () => {
 
         <button className="add-method-btn" onClick={handleShowAddmethod}>ADD NEW DEPOSIT METHOD</button>
         
-        <div className="admin-deposit-body">
+        <div className="admin-deposit-body admin-tables-body">
   
         {showAddmethod && (
           <div className="method-position">

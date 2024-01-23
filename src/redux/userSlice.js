@@ -130,6 +130,48 @@ export const fetchAllUserAction = createAsyncThunk("/adminusers/fetch", async (p
         return rejectWithValue(error?.response?.data)
     }
 });
+//fetch pending action
+export const fetchPendingUserAction = createAsyncThunk("/adminuserspending/fetch", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.get(`${baseURL}/adminuserspending?page=${payload}`,config);
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
+//fetch verified action
+export const fetchVerifiedUserAction = createAsyncThunk("/adminusersverified/fetch", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.get(`${baseURL}/adminusersverified?page=${payload}`,config);
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
 
 
   //update user action
@@ -350,6 +392,49 @@ const userSlice = createSlice({
         })
         //handle rejected state
         builder.addCase(fetchAllUserAction.rejected, (state, action)=>{
+            state.userLoading = false;
+            state.userAppErr = action?.payload?.msg;
+            state.userServerErr = action?.error?.msg;
+
+        })
+
+        //fetch pending action
+        //handle pending state
+        builder.addCase(fetchPendingUserAction.pending,(state,action)=>{
+            state.userLoading = true;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        });
+        //handle success state
+        builder.addCase(fetchPendingUserAction.fulfilled, (state, action)=>{
+            state.userLoading = false;
+            state.userList = action?.payload;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        })
+        //handle rejected state
+        builder.addCase(fetchPendingUserAction.rejected, (state, action)=>{
+            state.userLoading = false;
+            state.userAppErr = action?.payload?.msg;
+            state.userServerErr = action?.error?.msg;
+
+        })
+        //fetch verified action
+        //handle pending state
+        builder.addCase(fetchVerifiedUserAction.pending,(state,action)=>{
+            state.userLoading = true;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        });
+        //handle success state
+        builder.addCase(fetchVerifiedUserAction.fulfilled, (state, action)=>{
+            state.userLoading = false;
+            state.userList = action?.payload;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        })
+        //handle rejected state
+        builder.addCase(fetchVerifiedUserAction.rejected, (state, action)=>{
             state.userLoading = false;
             state.userAppErr = action?.payload?.msg;
             state.userServerErr = action?.error?.msg;

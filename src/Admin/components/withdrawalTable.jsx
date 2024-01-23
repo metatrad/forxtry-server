@@ -27,15 +27,13 @@ const dispatch = useDispatch();
         dispatch(fetchAllWithdrawalAction(+page))
     },[dispatch, page, setPage])
 
-    const userData = useSelector(state => state.user.userAuth);
-
+const userData = useSelector(state => state.user.userAuth);
  
   const allWithdrawal = useSelector(state => state?.withdrawal) 
-  const {loading, appErr, serverErr, withdrawalList} = allWithdrawal;
+  const { loading, appErr, serverErr, withdrawalList } = allWithdrawal;
 
-      //filter only withdrawals
-      const withdrawalListCard = withdrawalList?.docs?.filter(el => el.status === "Pending",[])
-      const loadingArray = new Array(1).fill(null)
+  //filter only withdrawals
+  const withdrawalListCard = withdrawalList?.docs?.filter(el => el.status === "Pending",[])
 
   return (
     <TableContainer className = "admin-table">

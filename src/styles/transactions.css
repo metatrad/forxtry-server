@@ -10,6 +10,7 @@
 }
 .transactions-body{
     width: 100%;
+    margin-left: 4em;
 }
 
 /* trades */
@@ -23,5 +24,15 @@
     display: flex;
 }
 .trades-body{
-    width: 100%;
+    width: 100%;    
+    margin-left: 4em;
+}
+@media only screen and (max-width:550px){
+    .transactions-body{
+        margin-left: 0em;
+    }
+
+    .trades-body{
+        margin-left: 0em;
+    }
 }

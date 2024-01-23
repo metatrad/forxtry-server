@@ -3,6 +3,7 @@
 }
 .widget{
     height: min-content;
+    margin-left: 4em;
 }
 .trading-widget-select-mb{
     display: none;
@@ -66,7 +67,6 @@
 .trade-btns-cover-wrapper{
     display: flex;
     height: 88.5vh;
-    width: 12.5em;
     flex-direction: column;
     gap: 0.35em;
 }
@@ -300,6 +300,10 @@
 
 
 @media only screen and (max-width:1050px){
+    .widget{
+        display: flex;
+        flex-direction: column;
+    }
 
     .trade-btns-cover-wrapper{
         height: 37vh;
@@ -491,5 +495,10 @@
         position: absolute;
         z-index: 9;
         font-size: 0.8rem;
+    }
+}
+@media only screen and (max-width:550px){
+    .widget{
+        margin-left: 0em;
     }
 }

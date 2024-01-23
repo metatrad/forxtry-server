@@ -63,7 +63,7 @@ const Editperc = () => {
       </div>
       <div className="single-container">
         <TopNav />
-        <div className="single-content">
+        <div className="single-content admin-tables-body">
           <div className="single-top">
             <div className="left">
               <Link to="/admintransactions"><IoIosArrowBack className="icon"/>Back</Link>

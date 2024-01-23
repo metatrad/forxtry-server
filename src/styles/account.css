@@ -26,6 +26,7 @@
     width: fit-content;
 }
 .account-settings{
+    margin-left: 4.2em;
     -webkit-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
     box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.75);
@@ -105,7 +106,7 @@
     width: 7em;
     height: 7em;
     display: flex;
-
+    z-index: 0;
 }
 .account-image .account-img img{
     height: 5em;
@@ -306,7 +307,7 @@
         width: 90%;
     }
     .account-settings{
-    margin-top: -4em;
+        margin-top: -4em;
     }
     .account-user-info h2{
         font-size: 0.9rem;
@@ -346,5 +347,10 @@
     }
     .social-media-account h2 a{
         padding: 0.5em;
+    }
+}
+@media only screen and (max-width:550px){
+    .account-settings{
+        margin-left: 0em;
     }
 }

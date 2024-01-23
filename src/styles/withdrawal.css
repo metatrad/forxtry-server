@@ -5,14 +5,12 @@
 .top-nav{
     height: 4em;
 }
-.withdrawal-wrapper{
-    /* margin-top: 1em; */
-}
 .withdrawal-body-container{
     padding: 0.8em;
     width: 100%;
     border-radius: 5px;
     display: flex;
+    margin-left: 4em;
 }
 .withdrawal-verified{
     border-radius: 5px;
@@ -137,6 +135,11 @@
 @media only screen and (max-width:1050px){
     .withdrawal-container{
         width: 100%;
+    }
+}
+@media only screen and (max-width:550px){
+    .withdrawal-body-container{
+        margin-left: 0em;
     }
 }
 @media only screen and (max-width:650px){

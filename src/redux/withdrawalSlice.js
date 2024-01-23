@@ -68,7 +68,6 @@ export const updateWithdrawalAction = createAsyncThunk("/adminwithdrawal/update"
     try {
         //http call
         const { data } = await axios.put(`${baseURL}/adminwithdrawal/${payload?.id}`, payload, config);
-        dispatch(resetWithdrawalUpdated())
         return data;
         
     } catch (error) {
@@ -129,10 +128,6 @@ const withdrawalSlice = createSlice({
         //update deposit
         builder.addCase(updateWithdrawalAction.pending,(state, action)=>{
             state.loading = true;
-        })
-        //reset action
-        builder.addCase(resetWithdrawalUpdated, (state, action)=>{
-            state.isWithdrawalUpdated = true
         })
         builder.addCase(updateWithdrawalAction.fulfilled,(state, action)=>{
             state.loading = false;

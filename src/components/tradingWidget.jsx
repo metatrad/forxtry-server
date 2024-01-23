@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Tradebtns from './trade-btns';
 import '../styles/trading.css';
-import { createChart, LineStyle, addMovingAverage } from 'lightweight-charts';
+import { createChart, LineStyle } from 'lightweight-charts';
 import io from 'socket.io-client';
 import Select from 'react-select';
 import Exchange from '../images/exchange.png'
@@ -11,11 +11,12 @@ React.StrictMode = React.Fragment;
 
 const ForexCandlestickChart = () => {
   const [candlestickSeries, setCandlestickSeries] = useState(null);
+  const [barSeries, setBarSeries] = useState(null); 
   const [userTradingPair, setUserTradingPair] = useState('EUR-USD');
+
   const [loading, setLoading] = useState(false);
 
   const historicalTradingPair = userTradingPair.slice(0, 3)+ userTradingPair.slice(4, 7); 
-
 
   const chartRef = useRef(null);
 
@@ -74,10 +75,17 @@ const ForexCandlestickChart = () => {
       });
   
       const candlestick = chart.addCandlestickSeries();
+      var volumeSeries = chart.addHistogramSeries({
+        color: '#26a69a',
+        priceFormat: {
+          type: 'volume',
+        },
+        priceScaleId: '',
+      });
+      setBarSeries(volumeSeries)
       setCandlestickSeries(candlestick);
       chartRef.current = chart;
 
-        // Make Chart Responsive with screen resize
       new ResizeObserver(entries => {
         if (entries.length === 0 || entries[0].target !== chartContainer) { return; }
         const newRect = entries[0].contentRect;
@@ -103,11 +111,8 @@ const ForexCandlestickChart = () => {
     );
   };
   
-  
   const socket = io(process.env.REACT_APP_SERVER_DOMAIN, { transports: ['websocket'] }); 
-
     useEffect(() => {
-
       if (socket || socket.connected) {
         socket.on('forexData', (realTimeData) => {
           try {
@@ -147,9 +152,10 @@ const ForexCandlestickChart = () => {
           low: item.l,
           close: item.c,
         })).sort((a, b) => a.time - b.time);
-        
+
         candlestickSeries.setData(data);
-        
+        barSeries.setData(data)
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }finally{
@@ -160,11 +166,10 @@ const ForexCandlestickChart = () => {
     };
 
     fetchData();
-  }, [userTradingPair, candlestickSeries]);
+  }, [userTradingPair, candlestickSeries, barSeries]);
 
   const handleTradingPairChange = (newTradingPair) => {
     setUserTradingPair(newTradingPair);
-    // // Notify the server about the updated trading pair
     socket.emit('updateTradingPair', newTradingPair);
   };
 
@@ -328,9 +333,7 @@ const ForexCandlestickChart = () => {
             </div>}<div id="chart"></div>
       </main>
       </div>
- 
-      <Tradebtns/>
-    </div>
+     </div>
   );
 };
 

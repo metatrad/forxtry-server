@@ -12,7 +12,7 @@ const VerifiedUsers = () => {
         </div>
         <div className="admin-list">
             <TopNav/>
-            <div className='users-table'>
+            <div className='users-table admin-tables-body'>
             <VerifiedDataTable/>
             </div> 
         </div>

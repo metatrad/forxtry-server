@@ -5,7 +5,8 @@
     border-radius: 0px 7px 7px 0px;
     flex: 1;
     width: 11em;
-    position: sticky;
+    position: fixed;
+    z-index: 50;
 }
 hr{
     height: 0;

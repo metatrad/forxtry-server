@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllUserAction } from '../../redux/userSlice';
+import { fetchPendingUserAction } from '../../redux/userSlice';
 import AdminUserCard from './adminUsercard';
 import '../adminStyles/table.css';
 import Pagination from './pagination';
@@ -19,7 +19,7 @@ const PendingDataTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllUserAction(+page));
+    dispatch(fetchPendingUserAction(+page));
   }, [dispatch, page, setPage]);
 
   const userData = useSelector((state) => state?.user?.userAuth);
@@ -32,7 +32,7 @@ const PendingDataTable = () => {
   );
 
   // Filter users based on search term
-  const filteredUserList = userListCard?.filter((user) =>
+  const filteredUserList = userList?.docs?.filter((user) =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

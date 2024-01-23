@@ -27,6 +27,7 @@
 }
 .trading-nav{
     display: flex;
+    position: fixed;
 }
 .change-currency-show{
     width: 100%;
@@ -67,6 +68,7 @@
 }
 .settings{
     gap: 0.88em;
+    z-index: 10000000;
 }
 .support input, select{
     background-color: transparent;

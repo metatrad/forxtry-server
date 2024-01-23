@@ -44,8 +44,8 @@ const UserWithdrawalTable = () => {
             return(
                         <TableRow item = {exp} key={exp?._id}>
                         <TableCell className='tableCell'>{dateFormatter(exp?.createdAt)}</TableCell>
-                        <TableCell className='tableCell row-cell'><div className='table-cell-div'><span className={`status ${exp?.status}`}>{exp?.status}</span> {exp?.type}</div></TableCell>
-                        <TableCell className='tableCell row-cell'><div className='table-cell-div'><span>{currencyFormatter("usd",exp?.amount)} </span>{exp?.method}</div></TableCell>        
+                        <TableCell className='tableCell row-cell'><div className='table-cell-div'><span className={`status ${exp?.status}`}>{exp?.status}</span></div></TableCell>
+                        <TableCell className='tableCell row-cell'><div className='table-cell-div'><span>{currencyFormatter("usd",exp?.amount)} </span>{exp?.account}</div></TableCell>        
                       </TableRow>
         )})}
         </TableBody>

@@ -6,7 +6,6 @@ import { PiCurrencyBtcFill } from "react-icons/pi";
 import Depositcard from "../components/depositcard";
 import DepositFooter from "../components/depositFooter";
 import AccountTopNav from "../components/accountTopNav";
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 import "../styles/deposit.css";
 
 const Deposit = () => {
@@ -62,7 +61,6 @@ const Deposit = () => {
         </div>
         </div>
       </div>
-      <TawkMessengerReact propertyId="6596407f0ff6374032bbfebd" widgetId="1hj9ensqv"/>
     </div>
   );
 };

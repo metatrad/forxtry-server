@@ -11,7 +11,7 @@ const { Demo } = require("./schema/demoTradeSchema");
 const { User } = require("./schema/userSchema");
 const { Perc } = require('./schema/percentageSchema')
 const schedule = require("node-schedule");
-const {createUserctrl, fetchUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
+const {createUserctrl, fetchUsersctrl,  fetchPendingUsersctrl, fetchVerifiedUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
 const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const { postdepositMethodctrl, fetchdepositMethodctrl,fetchmethodctrl,updatemethodctrl,deletemethodctrl  } = require("./apis/depositmethodapi")
@@ -347,6 +347,8 @@ app.post("/reset-password/:id/:token",postfpctrl);
 
 //handle users
 app.get("/adminusers",authMiddleware, fetchUsersctrl);
+app.get("/adminuserspending",authMiddleware, fetchPendingUsersctrl);
+app.get("/adminusersverified",authMiddleware, fetchVerifiedUsersctrl);
 app.get("/profile",authMiddleware, userProfilectrl);
 app.put("/account",authMiddleware, updateProfilectrl);
 app.put("/adminusers/:id",authMiddleware, updateUsersctrl);

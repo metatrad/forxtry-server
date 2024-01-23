@@ -277,7 +277,33 @@ const fetchUsersctrl = expressAsyncHandler(async (req, res) => {
   const { page } = req?.query;
   try {
     const users = await User.paginate(
-      {},
+      { status: { $regex: new RegExp("Unverified", "i") } },
+      { limit: 10, page: Number(page), sort: { createdAt: -1 }}
+    );
+    res.json(users);
+  } catch (error) {
+    res.json(error);
+  }
+});
+//fetch pending users
+const fetchPendingUsersctrl = expressAsyncHandler(async (req, res) => {
+  const { page } = req?.query;
+  try {
+    const users = await User.paginate(
+      { status: { $regex: new RegExp("Pending", "i") } },
+      { limit: 10, page: Number(page), sort: { createdAt: -1 }}
+    );
+    res.json(users);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+const fetchVerifiedUsersctrl = expressAsyncHandler(async (req, res) => {
+  const { page } = req?.query;
+  try {
+    const users = await User.paginate(
+      { status: { $regex: new RegExp("^Verified$", "i") } }, 
       { limit: 10, page: Number(page), sort: { createdAt: -1 }}
     );
     res.json(users);
@@ -398,4 +424,6 @@ module.exports = {
   forgotPasswordctrl,
   getfpctrl,
   postfpctrl,
+  fetchPendingUsersctrl,
+  fetchVerifiedUsersctrl,
 };

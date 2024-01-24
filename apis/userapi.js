@@ -183,6 +183,21 @@ const verifyOtpCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const deleteUserCtrl = expressAsyncHandler(async (req, res) => {
+  const userId = req.user._id; 
+
+  const userFound = await User.findById(userId);
+
+  if (!userFound) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Delete the user account
+  await userFound.remove();
+  res.json({ message: "Account deleted successfully", alert: true });
+});
+
 //forgot password
 const forgotPasswordctrl = expressAsyncHandler(async(req, res)=>{
   const { email } = req?.body;
@@ -426,4 +441,5 @@ module.exports = {
   postfpctrl,
   fetchPendingUsersctrl,
   fetchVerifiedUsersctrl,
+  deleteUserCtrl,
 };

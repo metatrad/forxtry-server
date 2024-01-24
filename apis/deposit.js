@@ -4,7 +4,7 @@ const { Deposit } = require("../schema/depositSchema");
  
 //create deposit
 const depositctrl = expressAsyncHandler(async (req, res) => {
-  const { type, method, amount, status } = req.body;
+  const { type, method, amount,screenshot, status } = req.body;
 
   try { 
     const deposit = await Deposit.create({
@@ -12,6 +12,7 @@ const depositctrl = expressAsyncHandler(async (req, res) => {
       type,
       method,
       amount,
+      screenshot,
       status,
     });
 
@@ -29,7 +30,20 @@ const depositctrl = expressAsyncHandler(async (req, res) => {
 const fetchdepositctrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const deposit = await Deposit.paginate({}, {limit: 10, page: Number(page), populate: ["user", "method"],sort: { createdAt: -1 },});
+    const deposit = await Deposit.paginate({ status: { $regex: new RegExp("Pending", "i") } },
+    {limit: 10, page: Number(page), populate: ["user", "method"],sort: { createdAt: -1 },});
+    res.json(deposit)
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+
+const fetchVerifiedDepositctrl = expressAsyncHandler(async (req, res) => {
+  const {page} = req?.query;
+  try {
+    const deposit = await Deposit.paginate({ status: { $regex: new RegExp("Approved", "i") } }, 
+    {limit: 10, page: Number(page), populate: ["user", "method"],sort: { createdAt: -1 },});
     res.json(deposit)
 
   } catch (error) {
@@ -85,4 +99,4 @@ const deleteDepositctrl = expressAsyncHandler(async (req, res) => {
 });
 
 
-module.exports = { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl };
+module.exports = { depositctrl, fetchdepositctrl,fetchVerifiedDepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl };

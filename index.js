@@ -11,9 +11,9 @@ const { Demo } = require("./schema/demoTradeSchema");
 const { User } = require("./schema/userSchema");
 const { Perc } = require('./schema/percentageSchema')
 const schedule = require("node-schedule");
-const {createUserctrl, fetchUsersctrl,  fetchPendingUsersctrl, fetchVerifiedUsersctrl, loginUserctrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
-const { depositctrl, fetchdepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
-const { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
+const {createUserctrl, fetchUsersctrl,  fetchPendingUsersctrl, fetchVerifiedUsersctrl, loginUserctrl,deleteUserCtrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
+const { depositctrl, fetchdepositctrl,fetchVerifiedDepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
+const { withdrawalctrl, fetchwithdrawalctrl,fetchVerifiedwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const { postdepositMethodctrl, fetchdepositMethodctrl,fetchmethodctrl,updatemethodctrl,deletemethodctrl  } = require("./apis/depositmethodapi")
 const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
@@ -341,6 +341,7 @@ app.get("/chartdata",authMiddleware, updatepercctrl);
 app.post("/signup", createUserctrl);
 app.post("/login",loginUserctrl);
 app.post("/otp",verifyOtpCtrl);
+app.delete("/deleteuser",authMiddleware, deleteUserCtrl);
 app.post("/forgot-password",  forgotPasswordctrl);
 app.get("/reset-password/:id/:token",getfpctrl);
 app.post("/reset-password/:id/:token",postfpctrl);
@@ -356,6 +357,7 @@ app.put("/adminusers/:id",authMiddleware, updateUsersctrl);
 //deposit
 app.post("/depositmenu",authMiddleware,depositctrl);
 app.get("/depositmenu",authMiddleware,fetchdepositctrl);
+app.get("/depositmenuverified",authMiddleware,fetchVerifiedDepositctrl);
 app.get("/depositmenu/:id",authMiddleware,singledepositctrl);
 app.put("/admindeposit/:id",authMiddleware,updateDepositctrl);
 app.delete("/depositmenu/:id",authMiddleware,deleteDepositctrl);
@@ -363,6 +365,7 @@ app.delete("/depositmenu/:id",authMiddleware,deleteDepositctrl);
 //withdrawal
 app.post("/withdrawal",authMiddleware,withdrawalctrl);
 app.get("/withdrawal",authMiddleware,fetchwithdrawalctrl);
+app.get("/withdrawalverified",authMiddleware,fetchVerifiedwithdrawalctrl);
 app.get("/withdrawal/:id",authMiddleware,singlewithdrawalctrl);
 app.put("/adminwithdrawal/:id",authMiddleware,updatewithdrawalctrl);
 app.delete("/withdrawal/:id",authMiddleware,deletewithdrawalctrl);

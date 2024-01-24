@@ -6,6 +6,7 @@ const depositSchema = mongoose.Schema({
     type: {type: String, default: "Deposit"},
     method: { type: String},
     amount: { type: Number},
+    screenshot: {type: String},
     status: {type: String,}
 },{
     timestamps: true,

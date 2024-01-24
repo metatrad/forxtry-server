@@ -41,7 +41,17 @@ const withdrawalctrl = expressAsyncHandler(async (req, res) => {
 const fetchwithdrawalctrl = expressAsyncHandler(async (req, res) => {
   const {page} = req?.query;
   try {
-    const withdrawal = await Withdrawal.paginate({}, {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 }});
+    const withdrawal = await Withdrawal.paginate({ status: { $regex: new RegExp("Pending", "i") } }, {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 }});
+    res.json(withdrawal)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error", alert: false });
+  }
+});
+const fetchVerifiedwithdrawalctrl = expressAsyncHandler(async (req, res) => {
+  const {page} = req?.query;
+  try {
+    const withdrawal = await Withdrawal.paginate({ status: { $regex: new RegExp("Approved", "i") } },  {limit: 10, page: Number(page), populate: "user",sort: { createdAt: -1 }});
     res.json(withdrawal)
   } catch (error) {
     console.error(error);
@@ -95,4 +105,4 @@ const deletewithdrawalctrl = expressAsyncHandler(async (req, res) => {
 });
 
 
-module.exports = { withdrawalctrl, fetchwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl };
+module.exports = { withdrawalctrl, fetchwithdrawalctrl,fetchVerifiedwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl };

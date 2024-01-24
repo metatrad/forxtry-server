@@ -89,8 +89,8 @@ const DataTable = () => {
                 </TableRow>
               ))
             )}
-            <Pagination setPage={setPage} currentPage={page} pageNumber={userList?.totalPages} />
           </TableBody>
+          <Pagination setPage={setPage} currentPage={page} pageNumber={userList?.totalPages} />
         </Table>
       </TableContainer>
     </div>

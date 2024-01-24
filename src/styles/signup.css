@@ -1,5 +1,4 @@
 .signup{
-    background-image: url(../images/pngwing.com\ \(9\).png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -52,7 +51,6 @@ button{
     background-color: #353a4d;
 }
 .signup-form{
-    /* gap: 0.8em; */
     display: flex;
     flex-direction: column;
     padding-bottom: 4em;
@@ -90,11 +88,12 @@ label{
     padding: 0em 0.8em;
     margin-bottom: 1em;
 }
+
 .check{
     display: flex;
+    align-items: center;
     margin: 0.8em 0em;
     text-align: left;
-    align-items: center;
     margin-bottom: 1em;
 }
 .check label{

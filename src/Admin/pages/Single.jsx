@@ -48,6 +48,14 @@ const Edituser = () => {
         validationSchema: formSchema,
       })
 
+      const handleStatusUpdate = () => {
+        // Update the formik values for the status field
+        formik.setValues({
+          ...formik.values,
+          status: "verified",
+        });
+      };
+
       const user = useSelector(state=>state.user);
       const {userAppErr, userServerErr, userUpdated, userLoading } = user
 
@@ -93,10 +101,10 @@ const Edituser = () => {
 
                   <div className="single-inputs">
                     <p>Verification Status</p>
-                    <input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
+                    <div className="status-update"><input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/><button className="status-btn" type="button" onClick={handleStatusUpdate}>Verify</button></div>
                   </div>
                   {
-                    userLoading?<Disabledbutton/>: <button type="submit">Update</button>
+                    userLoading?<Disabledbutton/>: <button className="update-single" type="submit">Update</button>
                   }
                 </form>
                 </div>

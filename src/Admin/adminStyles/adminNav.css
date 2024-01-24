@@ -3,7 +3,7 @@
     padding: 0em 1em;
     border-bottom: 1px solid rgba(255, 255, 255, 0.275);
     position: fixed;
-    width: 77%;
+    width: 80%;
     backdrop-filter: blur(10px);
 }
 .adminNav, .adminNav .wrapper, .adminNav div, .adminNav .right-items{

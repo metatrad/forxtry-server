@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import { withdrawalAction } from "../redux/withdrawalSlice";
 import * as Yup from "yup";
 import Disabledbutton from "../components/disabledbutton";
+import { userProfileAction } from "../redux/userSlice";
 import AccountTopNav from "../components/accountTopNav";
 import { toast } from "react-hot-toast";
 import currencyFormatter from "../utilities/currencyFormatter";
@@ -28,7 +29,7 @@ const formSchema = Yup.object({
 const Withdrawal = () => {
 
   const stateUser = useSelector(state => state?.user);
-  const {userLoading, userAppErr, userServerErr,userAuth, profile, userUpdate } = stateUser
+  const {userLoading, userAppErr, userServerErr,userAuth, userUpdate } = stateUser
 
   //get deposit methods
   const { filterby } = useParams();
@@ -53,6 +54,12 @@ const Withdrawal = () => {
     validationSchema: formSchema,
   });
 
+  useEffect(()=>{
+    dispatch(userProfileAction())
+},[dispatch])
+
+const states = useSelector(state => state?.user);
+const { profile } = states
   //get deposit created from store
   const state = useSelector((state) => state?.withdrawal);
   const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated } = state;
@@ -95,7 +102,7 @@ const Withdrawal = () => {
               </div>
             </div>
             {
-          userAuth?.status === "Pending"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> :
+          profile?.status === "Pending" || profile?.status === "Unverified"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> :
             <div className="withdrawal-body-right">
               <h1>Withdrawal:</h1>
               <div className="withdrawal-amount">

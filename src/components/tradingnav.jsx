@@ -62,12 +62,12 @@ const TradingNav = () => {
 
       <div className='dt-nav'>
         <div className="trading-navbar">
+            <NavLink to = "/trades"><BiMoneyWithdraw /><p>TRADES</p></NavLink>
             <NavLink to = "/trading"><GiNetworkBars /><p>TRADE</p></NavLink>
             <NavLink to = "/demo"><RiGraduationCapFill /><p>DEMO</p></NavLink>
             <NavLink to = "/account"><FaUser /><p>ACCOUNT</p></NavLink>
             <NavLink to = "/deposit"><RiLuggageDepositFill /><p>DEPOSIT</p></NavLink>
             <NavLink to = "/withdrawal"><BiMoneyWithdraw /><p>WITHDRAW</p></NavLink>
-            <NavLink to = "/trades"><BiMoneyWithdraw /><p>TRADES</p></NavLink>
             <div onClick={handleShowSettings}><IoSettings /><p>SETTINGS</p></div>
         </div>
 

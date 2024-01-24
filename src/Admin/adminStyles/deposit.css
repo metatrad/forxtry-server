@@ -30,6 +30,8 @@
     font-size: 0.8rem;
     right: 0;
     margin: 1em;
+    margin-top: 6em;
+    margin-right: 2em;
     transition: .2s ease;
     border-radius: 5px
 }

@@ -74,7 +74,7 @@ const Editperc = () => {
                   <input type="number" placeholder="%" value={formik.values.perc} onChange={formik.handleChange("perc")} onBlur = {formik.handleBlur("perc")}/>
                   <input type="number" placeholder="%" value={formik.values.demoperc} onChange={formik.handleChange("demoperc")} onBlur = {formik.handleBlur("demoperc")}/>
                   {
-                    loading?<Disabled/>: <button>Update</button>
+                    loading?<Disabled/>: <button className="update-single">Update</button>
                   }
                 </form>
               </div>

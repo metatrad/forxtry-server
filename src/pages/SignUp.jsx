@@ -119,7 +119,7 @@ const SignUp = () => {
 
           </form>
 
-          <div className="signin-bottom">
+          {/* <div className="signin-bottom">
             <h4>Sign in via</h4>
 
             <div className="signin-media">
@@ -131,7 +131,7 @@ const SignUp = () => {
                 <FcGoogle />
               </h2>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

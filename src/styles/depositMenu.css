@@ -1,4 +1,11 @@
-
+.verification-id-deposit{
+    margin-top: -1em;
+    margin-bottom: 0.8em;
+}
+.checks{
+    margin-top: -2em;
+    margin-left: -0.1em;
+}
 .toast-message-deposit{
     background-color: rgb(23, 255, 23);
     box-shadow: 1px 0px 77px -2px rgba(254, 255, 254, 0.202);
@@ -247,6 +254,7 @@
     }
 }
 @media only screen and (max-width:600px){
+
     .deposit-menu-card-wrapper{
         display: flex;
         flex-direction: column;

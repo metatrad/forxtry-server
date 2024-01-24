@@ -45,6 +45,14 @@ const Editdeposit = () => {
         validationSchema: formSchema,
       })
 
+      const handleStatusUpdate = () => {
+        // Update the formik values for the status field
+        formik.setValues({
+          ...formik.values,
+          status: "approved",
+        });
+      };
+
       const deposit = useSelector(state=>state.deposit);
       const {appErr, serverErr, depositUpdated, loading, isDepositUpdated} = deposit
       
@@ -68,15 +76,24 @@ const Editdeposit = () => {
               <Link to="/admindeposit"><IoIosArrowBack className="icon"/>All deposits</Link>
               <h1>Deposit details</h1>
               <div className="item">
+              <div className="admin-users-left">
                 <form action="" onSubmit={formik.handleSubmit}>
                   {appErr || serverErr? <div>{appErr}{serverErr}</div>:null}
                   <input type="number" value={formik.values.amount} onChange={formik.handleChange("amount")} onBlur = {formik.handleBlur("amount")}/>
                   <input type="text" value={formik.values.method} onChange={formik.handleChange("method")} onBlur = {formik.handleBlur("method")}/>
-                  <input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
+                  <div className="status-update"><input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/><button className="status-btn" type="button" onClick={handleStatusUpdate}>Approve</button></div>
+ 
                   {
-                    loading?<Disabled/>: <button>Update</button>
+                    loading?<Disabled/>: <button className="update-single">Update</button>
                   }
                 </form>
+                </div>
+
+                <div className="admin-users-right">
+                <h6>Deposit screenshot</h6>
+                <div className="verification-img-admin">{depositDisplay?.screenshot? <img src={depositDisplay?.screenshot} alt="" />: <h3>No screenshot was uploaded for this deposit</h3>}</div>
+                </div>
+
               </div>
             </div>
           </div>

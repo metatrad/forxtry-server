@@ -50,7 +50,7 @@ const userData = useSelector(state => state.user.userAuth);
         </TableHead>
 
         <TableBody className='table-body'>
-        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: withdrawalList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No withdrawals found.</h1>: withdrawalListCard?.map((el)=>{
+        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: withdrawalList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No withdrawals found.</h1>: withdrawalList?.docs?.map((el)=>{
             return(
                         <TableRow item = {el} key={el?._id}>
                         <TableCell className='tableCell'>{el?.user?.email}</TableCell>

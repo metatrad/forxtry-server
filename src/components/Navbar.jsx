@@ -71,7 +71,7 @@ const Navbar = () => {
     <div className="nav-container">
       <div className='navbar'>
       <div className="nav-left">
-        <Link to="/"><div className="logo"></div></Link>
+        <Link to="/"><div className="logo top-nav-logo"></div></Link>
         <div className="navlinks">
         <NavLink to="/faq">FAQ</NavLink>
         <NavLink to="/about">About us</NavLink>

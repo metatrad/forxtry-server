@@ -52,6 +52,28 @@ export const fetchAllDepositAction = createAsyncThunk("/depositmenu/fetch", asyn
         return rejectWithValue(error?.response?.data)
     }
 });
+//fetch v action
+export const fetchVerifiedDepositAction = createAsyncThunk("/depositmenuverified/fetch", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.get(`${baseURL}/depositmenuverified?page=${payload}`,config);
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
 
 //update deposit action
 export const updateDepositAction = createAsyncThunk("/admindeposit/update", async (payload, { rejectWithValue, getState, dispatch })=>{
@@ -113,6 +135,22 @@ const depositSlice = createSlice({
             state.serverErr = undefined; 
         })
         builder.addCase(fetchAllDepositAction.rejected,(state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.msg;
+            state.serverErr = action?.error?.msg; 
+        })
+
+        //fetch v deposit
+        builder.addCase(fetchVerifiedDepositAction.pending,(state, action)=>{
+            state.loading = true;
+        })
+        builder.addCase(fetchVerifiedDepositAction.fulfilled,(state, action)=>{
+            state.loading = false;
+            state.depositList = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined; 
+        })
+        builder.addCase(fetchVerifiedDepositAction.rejected,(state, action)=>{
             state.loading = false;
             state.appErr = action?.payload?.msg;
             state.serverErr = action?.error?.msg; 

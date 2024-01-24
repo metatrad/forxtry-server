@@ -54,6 +54,28 @@ export const fetchAllWithdrawalAction = createAsyncThunk("/withdrawal/fetch", as
         return rejectWithValue(error?.response?.data)
     }
 });
+//fetch v action
+export const fetchVerifiedWithdrawalAction = createAsyncThunk("/withdrawalverified/fetch", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.get(`${baseURL}/withdrawalverified?page=${payload}`,config);
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
 
 //update withdrawal action
 export const updateWithdrawalAction = createAsyncThunk("/adminwithdrawal/update", async (payload, { rejectWithValue, getState, dispatch })=>{
@@ -120,6 +142,22 @@ const withdrawalSlice = createSlice({
             state.serverErr = undefined; 
         })
         builder.addCase(fetchAllWithdrawalAction.rejected,(state, action)=>{
+            state.loading = false;
+            state.appErr = action?.payload?.msg;
+            state.serverErr = action?.error?.msg; 
+        })
+
+        //fetch v withdrawal
+        builder.addCase(fetchVerifiedWithdrawalAction.pending,(state, action)=>{
+            state.loading = true;
+        })
+        builder.addCase(fetchVerifiedWithdrawalAction.fulfilled,(state, action)=>{
+            state.loading = false;
+            state.withdrawalList = action?.payload;
+            state.appErr = undefined;
+            state.serverErr = undefined; 
+        })
+        builder.addCase(fetchVerifiedWithdrawalAction.rejected,(state, action)=>{
             state.loading = false;
             state.appErr = action?.payload?.msg;
             state.serverErr = action?.error?.msg; 

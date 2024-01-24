@@ -64,8 +64,6 @@ button{
     align-items: center;
     gap: 10px;
 }
-.language-container{
-}
 .language{
     color: #fff;
     font-weight: 700;
@@ -135,6 +133,7 @@ button{
     background-color: #1c1f2d;
     color: #fff;
     justify-content: center;
+    z-index: 1;
 }
 .responsive-menu a{
     display: flex;
@@ -262,6 +261,9 @@ button{
             background-image: url(../images/earnbroker.png);
             background-position: left;
             background-size: cover;
+        }
+        .top-nav-logo{
+            background-image: url(../images/ICON.png);
         }
         .login-btn{
             font-size: 1rem;

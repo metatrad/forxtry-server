@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useEffect } from "react";
+import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import * as Yup from "yup"
 import { useSelector, useDispatch } from "react-redux";
 import TradingNav from "../components/tradingnav";
@@ -11,7 +12,8 @@ import { FaCircleChevronLeft } from "react-icons/fa6";
 import { IoAlertOutline } from "react-icons/io5";
 import { FaCopy } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom' 
-import AccountTopNav from "../components/accountTopNav";
+import { userProfileAction } from "../redux/userSlice";
+import { ImFolderUpload } from "react-icons/im";
 import Disabledbutton from "../components/disabledbutton";
 import "../styles/depositMenu.css";
 import DepositFooter from "../components/depositFooter";
@@ -22,6 +24,7 @@ import toast from "react-hot-toast";
   const formSchema = Yup.object({
     amount: Yup.number().required("Amount is required"),
     method: Yup.string().required("Deposit method is required"),
+    screenshot: Yup.string(),
     status: Yup.string(),
   })
 
@@ -41,6 +44,7 @@ const DepositMenu = () => {
       initialValues:{
         amount: "",
         method: "",
+        screenshot: "",
         status:"Pending",
       },
       onSubmit: (values, {resetForm}) =>{
@@ -50,9 +54,37 @@ const DepositMenu = () => {
       validationSchema: formSchema,
     })
 
+    useEffect(()=>{
+      dispatch(userProfileAction())
+  },[dispatch])
+
+  const states = useSelector(state => state?.user);
+  const { profile } = states
+
+  const deposits = profile?.deposit
+  console.log(states)
+
     //get deposit created from store
     const state = useSelector(state => state?.deposit)
     const {appErr, loading, serverErr, depositCreated, isDepositCreated} = state;
+
+    const [imageVPreview, setImageVPreview] = useState( deposits?.screenshot ||  <span><ImFolderUpload/></span>)
+
+    const uploadVImage = async (e) => {
+      const file = e.target.files[0];
+    
+      if (file) {
+        const data = await ImagetoBase64(file);
+        formik.setFieldValue('screenshot', data);
+    
+        // Set image preview for immediate display
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageVPreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
 
     //redirect
     useEffect(()=>{
@@ -144,11 +176,19 @@ const DepositMenu = () => {
 
               <input type="text" name="status" id="status" placeholder={"status"} value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
 
-              <label htmlFor="method">Text ID</label>
+              <label htmlFor="method">Transaction ID</label>
               <input type="text" name="method" id="method" placeholder={"Type your text id here"} value={formik.values.method} onChange={formik.handleChange("method")} onBlur = {formik.handleBlur("method")}/>
               <div className="show-error">
               {formik.touched.method && formik.errors.method}
               </div>
+
+            <div className="verification-id verification-id-deposit">
+              <h1 className="screenshot-text">Upload a screenshot of your deposit here:</h1>
+              <label htmlFor="screenshot" className="v-img-label checks"> <div className="verification-img">{deposits?.screenshot? <img src={deposits?.screenshot}/>: <img src={imageVPreview}/> }</div></label>
+              <input type="file" className="v-img-input" id="screenshot" accept="image/*"
+              onChange={uploadVImage}
+              onBlur = {formik.handleBlur("screenshot")}/>
+            </div>
 
               {loading? <Disabledbutton/>:<button>Deposit<BsArrowRightCircleFill color = "rgba(255, 255, 255, 0.195)" size={20}/></button>}
 

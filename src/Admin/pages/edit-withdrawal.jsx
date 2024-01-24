@@ -50,6 +50,14 @@ const Editwithdrawal = () => {
         validationSchema: formSchema,
       })
 
+      const handleStatusUpdate = () => {
+        // Update the formik values for the status field
+        formik.setValues({
+          ...formik.values,
+          status: "approved",
+        });
+      };
+
       const withdrawal = useSelector(state=>state.withdrawal);
       const {appErr, serverErr, withdrawalUpdated, loading, isWithdrawalUpdated} = withdrawal
 
@@ -81,9 +89,8 @@ const Editwithdrawal = () => {
                   <input type="text" value={formik.values.account} onChange={formik.handleChange("account")} onBlur = {formik.handleBlur("account")}/>
                   <input type="text" value={formik.values.number} onChange={formik.handleChange("number")} onBlur = {formik.handleBlur("number")}/>
                   <input type="text" value={formik.values.name} onChange={formik.handleChange("name")} onBlur = {formik.handleBlur("name")}/>
-                  <input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/>
-                  {
-                    loading?<Disabled/>: <button>Update</button>
+                  <div className="status-update"><input type="text" value={formik.values.status} onChange={formik.handleChange("status")} onBlur = {formik.handleBlur("status")}/><button className="status-btn" type="button" onClick={handleStatusUpdate}>Approve</button></div>                  {
+                    loading?<Disabled/>: <button className="update-single">Update</button>
                   }
                 </form>
               </div>

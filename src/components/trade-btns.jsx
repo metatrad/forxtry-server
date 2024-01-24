@@ -85,7 +85,7 @@ const Tradebtns = () => {
 
   const handleIChange = (event) => {
     const { name, value } = event.target;
-    const calculatedResult = Math.floor(value ? parseFloat(value) * 1.3 : "");
+    const calculatedResult = Math.floor(value ? parseFloat(value) * 1.1 : "");
     formik.setFieldValue(name, value);
     formik.setFieldValue("calculatedResult", calculatedResult);
   };

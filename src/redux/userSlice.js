@@ -92,6 +92,26 @@ export const forgotPAction = createAsyncThunk("/forgot-password", async (payload
         return rejectWithValue(error?.response?.data)
     }
 });
+//delete account
+  export const deleteAccount = createAsyncThunk("/user/delete", async (payload, { rejectWithValue, getState, dispatch })=>{
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.delete(`${baseURL}/deleteuser`, payload, config);
+
+        return data;
+        
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
 
 //update localstorage
 export const updateStorage = createAsyncThunk()
@@ -343,6 +363,28 @@ const userSlice = createSlice({
         })
         //handle rejected state
         builder.addCase(loginWithOTP.rejected, (state, action)=>{
+            state.userLoading = false;
+            state.userAppErr = action?.payload?.msg;
+            state.userServerErr = action?.error?.msg;
+
+        })
+
+        //delete account
+        //handle pending state
+        builder.addCase(deleteAccount.pending,(state, action)=>{
+            state.userLoading = true;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        });
+        //handle success state
+        builder.addCase(deleteAccount.fulfilled, (state, action)=>{
+            state.userDeleted = action?.payload;
+            state.userLoading = false;
+            state.userAppErr = undefined;
+            state.userServerErr = undefined;
+        })
+        //handle rejected state
+        builder.addCase(deleteAccount.rejected, (state, action)=>{
             state.userLoading = false;
             state.userAppErr = action?.payload?.msg;
             state.userServerErr = action?.error?.msg;

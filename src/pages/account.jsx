@@ -14,8 +14,7 @@ import AccountTopNav from "../components/accountTopNav";
 import toast from "react-hot-toast";
 import Disabledbutton from "../components/disabledbutton";
 import { ImFolderUpload } from "react-icons/im";
-import { userProfileAction } from "../redux/userSlice";
-import { spiral } from "ldrs";
+import { userProfileAction , deleteAccount } from "../redux/userSlice";
 import "../styles/account.css";
 import { ImagetoBase64 } from "../Admin/utility/ImagetoBase64";
 import { updateProfileAction } from "../redux/userSlice";
@@ -115,6 +114,25 @@ const uploadVImage = async (e) => {
   }
 };
 
+//delete account button
+const [confirmationModalVisible, setConfirmationModalVisible] = useState(false);
+
+const handleDeleteClick = () => {
+  setConfirmationModalVisible(true);
+};
+
+const handleConfirmDelete = async () => {
+  
+  await dispatch(deleteAccount())
+  
+  setConfirmationModalVisible(false);
+};
+
+const handleCancelDelete = () => {
+  setConfirmationModalVisible(false);
+};
+
+
 
   return (
     <div>
@@ -206,10 +224,22 @@ const uploadVImage = async (e) => {
             </div>
 
           </form>
-          <h6>
+          <button onClick={handleDeleteClick} className="delete-account">
             <MdOutlineClose />
             Delete Account
-          </h6>
+          </button>
+
+                
+      {confirmationModalVisible && (
+        <div className="confirm-delete-account">
+          <p>Are you sure you want to delete your account?</p>
+          <div className="buttons-confirm">
+          <button className="yes-delete" onClick={handleConfirmDelete}>Yes</button>
+          <button className="no-delete" onClick={handleCancelDelete}>No</button>
+          </div>
+        </div>
+      )}
+
         </div>
       </div>
     </div>

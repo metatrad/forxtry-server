@@ -18,11 +18,7 @@ const AdminNav = () => {
     <div className='adminNav'>
       <div className="wrapper">
         <div className="right-items">
-            <div className="admin-language"><MdLanguage/>Eng</div>
             <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>
-            <div className="expand"><FaExpand/></div>
-            <div className="notfication"><FaRegBell/><div className='num'></div></div>
-            <div className="chat"><MdChatBubbleOutline/><div className='num'></div></div>
             <div className="menu"><Hamburger size={20}/></div>
         </div>
       </div>

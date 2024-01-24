@@ -11,7 +11,6 @@ React.StrictMode = React.Fragment;
 
 const ForexCandlestickChart = () => {
   const [candlestickSeries, setCandlestickSeries] = useState(null);
-  const [barSeries, setBarSeries] = useState(null); 
   const [userTradingPair, setUserTradingPair] = useState('EUR-USD');
 
   const [loading, setLoading] = useState(false);
@@ -75,14 +74,7 @@ const ForexCandlestickChart = () => {
       });
   
       const candlestick = chart.addCandlestickSeries();
-      var volumeSeries = chart.addHistogramSeries({
-        color: '#26a69a',
-        priceFormat: {
-          type: 'volume',
-        },
-        priceScaleId: '',
-      });
-      setBarSeries(volumeSeries)
+
       setCandlestickSeries(candlestick);
       chartRef.current = chart;
 
@@ -154,7 +146,6 @@ const ForexCandlestickChart = () => {
         })).sort((a, b) => a.time - b.time);
 
         candlestickSeries.setData(data);
-        barSeries.setData(data)
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -166,7 +157,18 @@ const ForexCandlestickChart = () => {
     };
 
     fetchData();
-  }, [userTradingPair, candlestickSeries, barSeries]);
+  }, [userTradingPair, candlestickSeries ]);
+
+  // Function to calculate Simple Moving Average
+  const calculateSMA = (data, period) => {
+    const smaValues = [];
+    for (let i = period - 1; i < data.length; i++) {
+      const sum = data.slice(i - period + 1, i + 1).reduce((acc, item) => acc + item.close, 0);
+      const average = sum / period;
+      smaValues.push({ time: data[i].time, value: average });
+    }
+    return smaValues;
+  };
 
   const handleTradingPairChange = (newTradingPair) => {
     setUserTradingPair(newTradingPair);

@@ -104,6 +104,7 @@ const Demo = () => {
         <TradingNav/>
       </div>
       <div className='widget'>
+      <div className="market-closed">Market closed</div>
       <TradingWidget/>
       <Demotradebtns/>
       </div>

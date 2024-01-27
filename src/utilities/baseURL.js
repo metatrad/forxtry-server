@@ -1,3 +1,3 @@
-const baseURL = "http://localhost:5000"
+const baseURL = "https://https-github-com-habismartin-trading.onrender.com"
 
 export default baseURL

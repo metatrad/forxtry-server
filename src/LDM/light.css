@@ -14,7 +14,7 @@
     color: black;
 }
 .light .trading-navbar , .light .trading-topnav,.light .account-options-cover, .light .mb-trading-nav, .light .info-icons .button,.light .infos, .light .steps button, .light .faq .show, .light .faq .questions-cover, .light .faq .all-questions,.light .social-media h6{
-    background-color: rgb(153, 154, 177);
+    background-color: rgb(167, 153, 177);
 }
 .light .social-media h6, .light .web-text,.inputs-trade-wrapper label{
     color: white;

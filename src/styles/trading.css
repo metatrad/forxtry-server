@@ -1,8 +1,96 @@
+.market-closed{
+    position: absolute;
+    /* background-color: rgba(0, 0, 0, 0.235); */
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    height: 90%;
+    z-index: 20;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+
+/* indicators */
+.App-header button{
+    background-color: #2b3040;
+    width: 2.3em;
+    height: 2.3em;
+    position: absolute;
+    margin-top: 6em;
+    margin-left: 0.77em;
+    z-index: 10;
+}
+.indicators{
+    padding: 0em 1em;
+    width: 10em;
+    height: 18em;
+    transition: .2s ease-in-out;
+}
+.indicators-text{
+    align-items: center;
+    display: flex;
+    gap: 40%;
+}
+.indicators h5{
+    font-size: 0.8rem;
+    font-weight: 900;
+    margin-bottom: 0.5em;
+}
+.indicators ul li{
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    padding: 0.8em;
+    margin-bottom: 0.3em;
+    align-items: center;
+    font-size: 0.8rem;
+    justify-content: space-between;
+}
+.indicators ul li:hover{
+    background-color: #ffffff0f;
+}
+.closed-indicators{
+    width: 0em;
+}
+.closed-indicators .indicators-text, .closed-indicators ul li{
+    display: none;
+}
+
+
+.display-values{
+    display: flex;
+    position: absolute;
+    margin-left: 20em;
+    margin-top: 0.8em;
+    gap: 1.5em;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+.values-displayed{
+    display: flex;
+    align-items: center;
+}
+.values-displayed span{
+    color: #2b99ff;
+}
+
+
+
+.App-header{
+    width: 100%;
+}
+.App-header button:hover{
+    background-color: #ffffff;
+    color: black;
+}
 .chartContainer #chartContainer{
     height: min-content;
 }
 .widget{
-    height: min-content;
+    width: 100%;
     margin-left: 4em;
 }
 .trading-widget-select-mb{
@@ -24,14 +112,22 @@
 .box-chart-loading{
     position: absolute;
     display: flex;
+    backdrop-filter: blur(10px);
+    border-radius: 7px;
     align-items: center;
     justify-content: center;
     z-index: 5;
-    width: 990px;
-    height: 60vh;
+    width: 100%;
+    height: 100%;
+}
+.CirclesWithBar{
+    background-color: white;
+    border-radius: 50px;
+    padding: 1.5em;
 }
 .tradingview-widget-container main{
-    height: 350px;
+    height: 90%;
+    width: 100%;
     position: relative;
 }
 .App-header h1{
@@ -42,6 +138,8 @@
 }
 .trading-widget-select{
     padding: 0.7em;
+    position: absolute;
+    z-index: 20;
 }
 .tradingview-widget-container h1{
     font-size: 1.5rem;
@@ -50,7 +148,7 @@
 }
 #chart{
     width: 990px;
-    height: 60vh;
+    height: 100%;
     border-bottom: 1px solid rgba(128, 128, 128, 0.263);
     border-top: none;
     border-radius: 2px;
@@ -70,7 +168,9 @@
     flex-direction: column;
     gap: 0.35em;
 }
-
+.trade-btns-cover-wrapper a{
+    color: #2b99ff;
+}
 
 .tradingview-widget-container{
     display: flex;
@@ -87,15 +187,6 @@
 }
 
 
-.switch-trade-option{
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    padding: 0.3em 0.5em;
-    background-color: rgba(255, 255, 255, 0.176);
-    border-radius: 5px;
-    margin-right: 1em;
-}
 .trade-btn{
     display: flex;
     align-items: center;
@@ -240,7 +331,7 @@
     width: 100%;
 }
 .tradingNav{
-    z-index: 100;
+    z-index: 22;
     width: 100%;
     position: absolute;
 }
@@ -250,11 +341,14 @@
 .tradingnav{
     width: 6em;
     height: 80vh;
+    z-index: 100;
 }
 .widget{
     display: flex;
     width: 100%;
 }
+
+
 .place-trades form .payout-text-mb{
     display: none;
 }
@@ -300,6 +394,22 @@
 
 
 @media only screen and (max-width:1050px){
+    /* indicators */
+    .indicators{
+        position: absolute;
+        width: 90%;
+        z-index: 16;
+        background-color: #1c1f2d;
+    }
+    .indicators-text{
+        align-items: center;
+        display: flex;
+        gap: 74%;
+    }
+    .closed-indicators{
+        height: 0em;
+    }
+
     .widget{
         display: flex;
         flex-direction: column;
@@ -374,10 +484,20 @@
     }
 }
 @media only screen and (max-width:650px){
+    .display-values{
+        margin-left: 15.2em;
+        font-size: 0.7rem;
+        z-index: 5;
+    }
+    /* indicators */
+    .App-header button{
+        margin-top: 3em;
+        margin-left: 0.7em;
+    }
     .trading-widget-select-mb{
         display: block;
         position: absolute;
-        z-index: 50;
+        z-index: 15;
         top: 0;
         margin-left: 0.5em;
     }
@@ -389,13 +509,15 @@
         height: max-content;
         border: none;
     }
-    .chartContainer #chartContainer{
-        width: 500px;
-        height: 60vh;
+    .tradingview-widget-container main{
+        height: 57vh;
+        width: 100%;
+        position: relative;
     }
+
     .box-chart-loading{
         width: 100%;
-        height: 48vh
+        height: 100%;
     }
     #chart{
         width: 98%;
@@ -498,7 +620,18 @@
     }
 }
 @media only screen and (max-width:550px){
+    .market-closed{
+        width: 100%;
+        height: 84%;
+    }
     .widget{
         margin-left: 0em;
+    }
+    .display-values{
+        margin-left: 16em;
+        gap: 0.7em;
+        margin-top: 1.5em;
+        font-size: 0.65rem;
+        z-index: 5;
     }
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Tradebtns from './trade-btns';
+import { RiPencilFill } from "react-icons/ri";
+import { LuChevronRight } from "react-icons/lu";
+import { IoCloseOutline } from "react-icons/io5";
 import '../styles/trading.css';
 import { createChart, LineStyle } from 'lightweight-charts';
 import io from 'socket.io-client';
@@ -11,7 +13,18 @@ React.StrictMode = React.Fragment;
 
 const ForexCandlestickChart = () => {
   const [candlestickSeries, setCandlestickSeries] = useState(null);
+  const [display, setDisplay] = useState(null);
+  const [c, setc] = useState(null);
+  const chartContainerRef = useRef(null);
+  const tooltipRef = useRef(null);
+  const [crosshairData, setCrosshairData] = useState({ time: '', seriesPrices: [] });
   const [userTradingPair, setUserTradingPair] = useState('EUR-USD');
+
+  //indicators
+  const[ showIndicators, setShowIndicators] = useState(false)
+  const toggleIndicators = () => {
+    setShowIndicators(!showIndicators);
+  };
 
   const [loading, setLoading] = useState(false);
 
@@ -25,8 +38,8 @@ const ForexCandlestickChart = () => {
 
     if(!loading){
       const chart = createChart(document.getElementById('chart'), {
-        width: '1050px', 
-        height: 500, 
+        width: '100%', 
+        height: '100%', 
       });
 
       window.onresize = function() {
@@ -41,18 +54,20 @@ const ForexCandlestickChart = () => {
           textColor: "white",
         },
         grid: {
-          vertLines: { color: "#444" },
-          horzLines: { color: "#444" },
+          vertLines: { color: "#2e3342" },
+          horzLines: { color: "#2e3342" },
         },
         crosshair: {
           vertLine: {
-            width: 1,
+            width: 0.3,
             style: LineStyle.Solid,
-            color: "#C3BCDB44",
+            color: "#ffffffa0",
             labelBackgroundColour: "#9B7DFF",
           },
           horzLine: {
-            color: "#C3BCDB44",
+            width: 0.3,
+            style: LineStyle.Solid,
+            color: "#ffffffa0",
           },
         },
                                   
@@ -70,12 +85,13 @@ const ForexCandlestickChart = () => {
               else return parseFloat(price).toFixed(4)
           }
         },
-
       });
+
+      setc(chart)
   
       const candlestick = chart.addCandlestickSeries();
-
       setCandlestickSeries(candlestick);
+
       chartRef.current = chart;
 
       new ResizeObserver(entries => {
@@ -95,6 +111,7 @@ const ForexCandlestickChart = () => {
       };
 
   }, []);
+
   const handleResize = () => {
     // re-layout the chart on window resize
     chartRef.current.resize(
@@ -116,7 +133,16 @@ const ForexCandlestickChart = () => {
               high: realTimeData.high - 0.001,
               low: realTimeData.low - 0.001,
               close: realTimeData.close - 0.001,
-            })};
+            })
+            setDisplay({
+              time: realTimeData.timestamp - 300,
+              open: realTimeData.open - 0.001,
+              high: realTimeData.high - 0.001,
+              low: realTimeData.low - 0.001,
+              close: realTimeData.close - 0.001,
+            })
+
+          };
           } catch (error) {
             console.error(error)
           } 
@@ -144,31 +170,39 @@ const ForexCandlestickChart = () => {
           low: item.l,
           close: item.c,
         })).sort((a, b) => a.time - b.time);
-
+        
         candlestickSeries.setData(data);
 
+            // Subscribe to crosshair move event
+
+        c.subscribeCrosshairMove((param) => {
+          
+          if(param.time){
+            const dog = param.time
+
+            // const ohlc = param.seriesPrices.get(candlestickSeries)
+
+            // const ohlc = candlestickSeries.getPriceAtTime(param.time);
+
+            setCrosshairData({
+              time: dog,
+              seriesPrices: 5 || [],
+            });
+          }
+          
+        });
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }finally{
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 1000);
       }
     };
 
     fetchData();
   }, [userTradingPair, candlestickSeries ]);
-
-  // Function to calculate Simple Moving Average
-  const calculateSMA = (data, period) => {
-    const smaValues = [];
-    for (let i = period - 1; i < data.length; i++) {
-      const sum = data.slice(i - period + 1, i + 1).reduce((acc, item) => acc + item.close, 0);
-      const average = sum / period;
-      smaValues.push({ time: data[i].time, value: average });
-    }
-    return smaValues;
-  };
 
   const handleTradingPairChange = (newTradingPair) => {
     setUserTradingPair(newTradingPair);
@@ -296,9 +330,44 @@ const ForexCandlestickChart = () => {
     }),
   };
 
+
+  const vopen = display?.open !== undefined ? Number(display?.open).toFixed(4) : '';
+  const vhigh = display?.high !== undefined ? Number(display?.open).toFixed(4) : '';
+  const vlow = display?.low !== undefined ? Number(display?.open).toFixed(4) : '';
+  const vclose = display?.close !== undefined ? Number(display?.open).toFixed(4) : '';
+
+  console.log(crosshairData)
+
   return (
     <div className="tradingview-widget-container">
+{/* 
+        <p>Time: {crosshairData.time}</p>
+        <p>Prices: {crosshairData.seriesPrices.join(', ')}</p> */}
+
+      <div className="display-values">
+        <p className="values-displayed">T <span>{crosshairData.time}</span></p>
+        <p className="values-displayed">V <span>{crosshairData.seriesPrices}</span></p>
+        <p className="values-displayed">O <span>{vopen}</span></p>
+        <p className="values-displayed">H <span>{vhigh}</span></p>
+        <p className="values-displayed">L <span>{vlow}</span></p>
+        <p className="values-displayed">C <span>{vclose}</span></p>
+      </div>
+        <div className={`indicators ${showIndicators ? 'open-indicators' : 'closed-indicators'}`}>
+          <div className="indicators-text"><h5>INDICATORS</h5><span onClick={toggleIndicators}><IoCloseOutline size={25} color="gray"/></span></div>
+          
+          <ul>
+            <li onClick={toggleIndicators}>Moving average<LuChevronRight/></li>
+            <li onClick={toggleIndicators}>Bollinger Bands<LuChevronRight/></li>
+            <li onClick={toggleIndicators}>RSI<LuChevronRight/></li>
+            <li onClick={toggleIndicators}>Stochastic Oscillator<LuChevronRight/></li>
+            <li onClick={toggleIndicators}>ATR<LuChevronRight/></li>
+            <li onClick={toggleIndicators}>Ichimoku Cloud<LuChevronRight/></li>
+          </ul>
+
+        </div>
+
       <div className="App-header">
+        <button type='button' onClick={toggleIndicators}><RiPencilFill/></button>
         <h1><img src={Exchange} />{userTradingPair} Chart</h1>
         <div className='trading-widget-select'>
         <Select
@@ -317,22 +386,26 @@ const ForexCandlestickChart = () => {
         />
         </div>
         <main id='chartContainer' className='chartContainer'>
-        {loading &&<div className='box-chart-loading'>
 
-        <CirclesWithBar
-             height="100"
-             width="100"
-             color="#4fa94d"
-             outerCircleColor="#4fa94d"
-             innerCircleColor="#4fa94d"
-             barColor="#4fa94d"
-             ariaLabel="circles-with-bar-loading"
-             wrapperStyle={{}}
-             wrapperClass=""
-             visible={true}
-        />
-           
-            </div>}<div id="chart"></div>
+          {loading &&
+                  <div className='box-chart-loading'>
+                  <div className="CirclesWithBar">
+                  <CirclesWithBar
+                       height="50"
+                       width="50"
+                       color="#4fa94d"
+                       outerCircleColor="#4fa94d"
+                       innerCircleColor="#4fa94d"
+                       barColor="#4fa94d"
+                       ariaLabel="circles-with-bar-loading"
+                       wrapperStyle={{}}
+                       wrapperClass=""
+                       visible={true}
+                  />
+                  </div>   
+                  </div>
+          }
+            <div id="chart"></div>
       </main>
       </div>
      </div>

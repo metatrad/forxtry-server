@@ -69,11 +69,11 @@
     font-size: 0.88rem;
     font-weight: 700;
 }
-.values-displayed{
+.display-values{
     display: flex;
     align-items: center;
 }
-.values-displayed span{
+.display-values span{
     color: #2b99ff;
 }
 

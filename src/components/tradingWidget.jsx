@@ -15,8 +15,6 @@ const ForexCandlestickChart = () => {
   const [candlestickSeries, setCandlestickSeries] = useState(null);
   const [display, setDisplay] = useState(null);
   const [c, setc] = useState(null);
-  const chartContainerRef = useRef(null);
-  const tooltipRef = useRef(null);
   const [crosshairData, setCrosshairData] = useState({ time: '', seriesPrices: [] });
   const [userTradingPair, setUserTradingPair] = useState('EUR-USD');
 
@@ -173,20 +171,23 @@ const ForexCandlestickChart = () => {
         
         candlestickSeries.setData(data);
 
-            // Subscribe to crosshair move event
-
         c.subscribeCrosshairMove((param) => {
           
           if(param.time){
-            const dog = param.time
+            const time = param?.time
 
-            // const ohlc = param.seriesPrices.get(candlestickSeries)
-
-            // const ohlc = candlestickSeries.getPriceAtTime(param.time);
+          // Extracting open, high, low, and close values from seriesData
+          const seriesData = param?.seriesData;
+          const seriesPrices = seriesData ? {
+            open: seriesData.get(seriesData.keys().next().value).open,
+            high: seriesData.get(seriesData.keys().next().value).high,
+            low: seriesData.get(seriesData.keys().next().value).low,
+            close: seriesData.get(seriesData.keys().next().value).close,
+          } : {};
 
             setCrosshairData({
-              time: dog,
-              seriesPrices: 5 || [],
+              time: time,
+              seriesPrices: seriesPrices || [],
             });
           }
           
@@ -330,28 +331,21 @@ const ForexCandlestickChart = () => {
     }),
   };
 
-
-  const vopen = display?.open !== undefined ? Number(display?.open).toFixed(4) : '';
-  const vhigh = display?.high !== undefined ? Number(display?.open).toFixed(4) : '';
-  const vlow = display?.low !== undefined ? Number(display?.open).toFixed(4) : '';
-  const vclose = display?.close !== undefined ? Number(display?.open).toFixed(4) : '';
-
-  console.log(crosshairData)
+  const open = display?.open.toFixed(4)
+  const high = display?.open.toFixed(4)
+  const low = display?.open.toFixed(4)
+  const close = display?.open.toFixed(4)
 
   return (
     <div className="tradingview-widget-container">
-{/* 
-        <p>Time: {crosshairData.time}</p>
-        <p>Prices: {crosshairData.seriesPrices.join(', ')}</p> */}
 
       <div className="display-values">
-        <p className="values-displayed">T <span>{crosshairData.time}</span></p>
-        <p className="values-displayed">V <span>{crosshairData.seriesPrices}</span></p>
-        <p className="values-displayed">O <span>{vopen}</span></p>
-        <p className="values-displayed">H <span>{vhigh}</span></p>
-        <p className="values-displayed">L <span>{vlow}</span></p>
-        <p className="values-displayed">C <span>{vclose}</span></p>
+        <p>O <span>{crosshairData.seriesPrices.open ? crosshairData.seriesPrices.open : open}</span></p>
+        <p>H <span>{crosshairData.seriesPrices.high ? crosshairData.seriesPrices.high : high}</span></p>
+        <p>L <span>{crosshairData.seriesPrices.low ? crosshairData.seriesPrices.low : low}</span></p>
+        <p>C <span>{crosshairData.seriesPrices.close ? crosshairData.seriesPrices.close : close}</span></p>
       </div>
+      
         <div className={`indicators ${showIndicators ? 'open-indicators' : 'closed-indicators'}`}>
           <div className="indicators-text"><h5>INDICATORS</h5><span onClick={toggleIndicators}><IoCloseOutline size={25} color="gray"/></span></div>
           
@@ -367,7 +361,7 @@ const ForexCandlestickChart = () => {
         </div>
 
       <div className="App-header">
-        <button type='button' onClick={toggleIndicators}><RiPencilFill/></button>
+        {/* <button type='button' onClick={toggleIndicators}><RiPencilFill/></button> */}
         <h1><img src={Exchange} />{userTradingPair} Chart</h1>
         <div className='trading-widget-select'>
         <Select

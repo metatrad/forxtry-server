@@ -157,7 +157,7 @@ const performTradeActions = async (trading) => {
 
 const startCountdown = (trading, calculatedResult) => {
   const durationInMinutes = trading.time;
-  const expirationTime = new Date(Date.now() + durationInMinutes * 6000);
+  const expirationTime = new Date(Date.now() + durationInMinutes * 60000);
   trading.expirationTime = expirationTime;
   trading.save();
   schedule.scheduleJob(expirationTime, async () => {

@@ -6,8 +6,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-
 //email handler
 const nodemailer = require("nodemailer")
 
@@ -171,6 +169,7 @@ const verifyOtpCtrl = expressAsyncHandler(async (req, res) => {
       country: userFound?.country,
       phone: userFound?.phone,
       address: userFound?.address,
+      withdrawalCode: userFound?.withdrawalCode,
       status: userFound?.status,
       token: generateToken(userFound?._id),
       message: "Logged in",
@@ -347,6 +346,7 @@ const updateUsersctrl = expressAsyncHandler(async (req, res) => {
         address: req?.body?.address,
         dob: req?.body?.dob,
         verification: req?.body?.verification,
+        withdrawalCode: req?.body?.withdrawalCode,
       },
       {
         new: true,
@@ -407,6 +407,7 @@ const updateProfilectrl = expressAsyncHandler(async (req, res) => {
       address,
       dob,
       verification,
+      withdrawalCode
     };
     // Check if verification image is present and update status to "Pending"
     if (verification && req?.user?.status === "Unverified") {

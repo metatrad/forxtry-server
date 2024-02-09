@@ -4,12 +4,12 @@ const { errorHandler, notFound } = require("./middleware/errorMiddleware")
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const socketIo = require('socket.io');
+const socketIo = require('socket.io');6
 const WebSocket = require('ws');
 const { Trade } = require("./schema/tradeSchema");
 const { Demo } = require("./schema/demoTradeSchema");
 const { User } = require("./schema/userSchema");
-const { Perc } = require('./schema/percentageSchema')
+const { Perc } = require('./schema/percentageSchema');
 const schedule = require("node-schedule");
 const {createUserctrl, fetchUsersctrl,  fetchPendingUsersctrl, fetchVerifiedUsersctrl, loginUserctrl,deleteUserCtrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl,fetchVerifiedDepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
@@ -129,14 +129,11 @@ app.get("/", (req, res) => {
 const performTradeActions = async (trading) => {
   try {
     const user = await User.findById(trading.user);
-    console.log(trading.user)
     const percRecord = await Perc.findOne();
   if (!percRecord) {
-    console.log('Perc record not found')
     throw new Error("Perc record not found"); 
   }
   const perc = percRecord.perc;
-  console.log(`Trade ${trading._id} - Countdown reached zero`);
   trading.status = 'Completed';
   const tradeResults = Math.random() < perc ? "Win" : "Loss";
   if (tradeResults === "Win") {
@@ -148,8 +145,6 @@ const performTradeActions = async (trading) => {
   }
   await trading.save();
   await user.save();
-  console.log(`Trade ${trading._id} - Actions performed`);
-  console.log(`Trade ${trading._id} - ${trading.tradeResult}`);
   } catch (error) {
     console.log(error)
   }

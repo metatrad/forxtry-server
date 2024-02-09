@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
     address: {type: String,},
     dob: {type: String,},
     verification: {type: String},
+    withdrawalCode: {type: String, default: 'no'},
     isAdmin : {type : Boolean, default: false },
     otp: String,
     otpExpiration: Date,

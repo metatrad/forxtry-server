@@ -19,7 +19,7 @@ const Trading = () => {
         <TradingNav/>
       </div>
       <div className='widget'>
-        {/* <div className="market-closed">Market closed</div> */}
+        <div className="market-closed">Market closed</div>
         <TradingWidget/>
         <Tradebtns/>
       </div>

@@ -44,6 +44,7 @@ const Demo = () => {
       let handler = (e)=> {
           if(!accountRef.current.contains(e.target)){
             setShowAccountSwitch(false);
+            setNotification(false);
           }
       }
       document.addEventListener("mousedown", handler);
@@ -57,6 +58,12 @@ const Demo = () => {
     toast("Logged out successfully")
   }
 
+    //notifications
+    const [notification, setNotification] = useState()
+    const handleNotification = ()=>{
+      setNotification(!notification)
+    }
+
   return (
     <div>
       <div className='check'>
@@ -66,14 +73,20 @@ const Demo = () => {
                 <h5 className="web-text">WEB TRADING PLATFORM</h5>
                 <Link to = "/deposit"><div className="bonus"><MdRocketLaunch color='#3b405b' size={30}/> <p>Get a 30% bonus on your first deposit</p> <h2>30%</h2></div></Link>
                 <div className="right-top-nav">
-                <div className="notification"><IoIosNotificationsOutline size={23}/></div>
+          
+          <div ref={accountRef} onClick={handleNotification} className="notification">
+            <IoIosNotificationsOutline size={23} />
+            <div className={`no-notifications ${notification? 'open-notification':'close-notification'}`}>
+              <p>No notifications.</p>
+            </div>
+          </div>
+
                 <div className="account-switch-container">
                 <div ref={accountRef}>                
                      <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD", profile?.demoBalance ?profile?.demoBalance: "0")}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>  
-                     {
-                      showAccountSwitch&&
-                      <div className="account-swicthbox">
-                        <div className="account-switchbox-coat">
+
+                      <div className={`account-swicthbox ${showAccountSwitch?'open-account-swicthbox': ''}`}>
+                        <div className={`account-switchbox-coat ${showAccountSwitch?'open-account-switchbox-coat': ''}`}>
                       <div className="see">
                         <div className="standard-profit"><FaTelegramPlane color='#35cb02' size={20}/> <h5>STANDARD: <p>+0% profit</p></h5> </div>
                         <div className="eye"><IoEye size={15}/></div>
@@ -88,7 +101,7 @@ const Demo = () => {
                       <p className='logout' onClick={handleLogout}><MdOutlineLogout/>Logout</p>
                       </div>
                       </div>
-                     }
+                     
                      </div>
                 </div>
                 <div className="buttons">
@@ -104,7 +117,7 @@ const Demo = () => {
         <TradingNav/>
       </div>
       <div className='widget'>
-      {/* <div className="market-closed">Market closed</div> */}
+      <div className="market-closed">Market closed</div>
       <TradingWidget/>
       <Demotradebtns/>
       </div>

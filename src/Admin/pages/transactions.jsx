@@ -43,7 +43,11 @@ const Transactions = () => {
                 <div className='perc-data-num'>{el?.perc}%</div>
                 <div className='perc-data-num-demo'>{el?.demoperc}%</div>
                 </div>
-                <div className='perc-data'><Perccard id = {el?._id}></Perccard></div>     
+                {/* <TableCell className="tableCell id-cell">
+                            */}
+                <div className='perc-data'>
+                  <div className="view-btn">View</div>
+                  <Perccard id = {el?._id}></Perccard></div>     
               </div>
         )})}
             

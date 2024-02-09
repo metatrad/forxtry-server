@@ -64,7 +64,9 @@ const dispatch = useDispatch();
                             <span className={`status ${el?.status}`}>{el?.status}</span>
                           </div>
                         </TableCell>     
-                        <TableCell className='tableCell'><AdminDepositCard id = {el?._id}></AdminDepositCard>
+                        <TableCell className="tableCell id-cell">
+                           <div className="view-btn">View</div>
+                           <AdminDepositCard id = {el?._id}></AdminDepositCard>
                         </TableCell>     
                       </TableRow>
         )})}

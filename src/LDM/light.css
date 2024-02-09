@@ -16,9 +16,6 @@
 .light .trading-navbar , .light .trading-topnav,.light .account-options-cover, .light .mb-trading-nav, .light .info-icons .button,.light .infos, .light .steps button, .light .faq .show, .light .faq .questions-cover, .light .faq .all-questions,.light .social-media h6{
     background-color: #ffffff;
 }
-/* .light .social-media h6, .light .web-text,.inputs-trade-wrapper label{
-    color: #ffffff;
-} */
 .light .gray-icons{
     display: none;
 }
@@ -208,8 +205,38 @@
 .light .confirm-delete-account p{
     color: #353a4d;
 }
+.light .cover-whole-top-nav{
+    background-color: #fff;
+}
+.light .place-trades, .light .time-history{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .place-trades label, .light .trade-under-text{
+    color: #353a4d;
+    background-color: #00000000;
+}
+.light .place-trades input{
+    color: #353a4d;
+}
+.light .App-header button{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .open-indicators{
+    color: #353a4d;
+    background-color: #d3d4db;
+}
+.light .security{
+    color: #353a4d;
+}
+.light .view-btn{
+    color: #353a4d;
+    background-color: #00000014;
+}
 @media only screen and (max-width:650px){
     .light .place-trades{
-        background-color: #1c1f2d;
+        color: #353a4d;
+        background-color: #00000014;
     }
 }

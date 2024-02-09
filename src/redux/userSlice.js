@@ -263,6 +263,7 @@ export const updateProfileAction = createAsyncThunk("/account", async (payload, 
             address: payload?. address,
             dob: payload?. dob,
             country: payload?.country ,
+            withdrawalCode: payload?.withdrawalCode ,
         }, config);
         return data;
         
@@ -534,6 +535,7 @@ const userSlice = createSlice({
             address: action?.payload?.address,
             dob: action?.payload?.dob,
             currency: action?.payload?.currency,
+            withdrawalCode: action?.payload?.withdrawalCode,
         }));
         })
         //handle rejected state

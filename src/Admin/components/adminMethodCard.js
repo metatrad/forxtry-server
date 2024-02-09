@@ -16,7 +16,7 @@ const Methodcard = ({name,image,qrcode,number,user, calc, description, id }) => 
     <div>
       <div className="admin-deposit-card-wrapper">
       <Link to={`/admindepositmethod/${id}`}>
-        <div className="admin-deposit-card wrapper-method">
+        <div className="wrapper-method">
             <img src={image} alt="" />
             <p>{name}</p>
         </div>

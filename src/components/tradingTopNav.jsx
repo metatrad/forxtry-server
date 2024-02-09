@@ -55,6 +55,7 @@ const TradingTopNav = () => {
     let handler = (e) => {
       if (!accountRef.current.contains(e.target)) {
         setShowAccountSwitch(false);
+        setNotification(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -70,6 +71,12 @@ const TradingTopNav = () => {
     toast("Logged out");
   };
 
+  //notifications
+  const [notification, setNotification] = useState()
+  const handleNotification = ()=>{
+    setNotification(!notification)
+  }
+
   return (
     <div className="cover-whole-top-nav">
       <div className="chart-container">
@@ -84,9 +91,14 @@ const TradingTopNav = () => {
             </div>
           </Link>
           <div className="right-top-nav">
-          <div className="notification">
+
+          <div ref={accountRef} onClick={handleNotification} className="notification">
             <IoIosNotificationsOutline size={23} />
+            <div className={`no-notifications ${notification? 'open-notification':'close-notification'}`}>
+              <p>No notifications.</p>
+            </div>
           </div>
+
           <div className="account-switch-container">
             <div ref={accountRef}>
               <div className="account-switch" onClick={handleShowAccountSwitch}>
@@ -99,9 +111,9 @@ const TradingTopNav = () => {
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
                 />
               </div>
-              {showAccountSwitch && (
-                <div className="account-swicthbox">
-                  <div className="account-switchbox-coat">
+              
+                <div className={`account-swicthbox ${showAccountSwitch?'open-account-swicthbox': ''}`}>
+                  <div className={`account-switchbox-coat ${showAccountSwitch?'open-account-switchbox-coat': ''}`}>
                   <div className="see">
                     <div className="standard-profit">
                       <FaTelegramPlane color="#35cb02" size={20} />{" "}
@@ -144,7 +156,7 @@ const TradingTopNav = () => {
                   </p>
                   </div>
                 </div>
-              )}
+              
             </div>
           </div>
 

@@ -36,6 +36,9 @@ const dispatch = useDispatch();
       const depositListCard = depositList?.docs?.filter(el => el.status === "Pending",[]) 
       const loadingArray = new Array(1).fill(null)
 
+      console.log(depositListCard)
+
+
   return (
     <TableContainer className = "admin-table">
       <Table sx={{ minWidth: 350 }} aria-label="simple table">
@@ -43,7 +46,7 @@ const dispatch = useDispatch();
           <TableRow>
             <TableCell className='tableCell'>Email</TableCell>
             <TableCell className='tableCell'>Date</TableCell>
-            <TableCell className='tableCell'>Method</TableCell>
+            <TableCell className='tableCell'>Address/account</TableCell>
             <TableCell className='tableCell'>Amount</TableCell>
             <TableCell className='tableCell'>Transaction ID</TableCell>
           </TableRow>
@@ -56,14 +59,16 @@ const dispatch = useDispatch();
                         <TableRow item = {el} key={el?._id}>
                         <TableCell className='tableCell'>{el?.user?.email}</TableCell>
                         <TableCell className='tableCell'>{dateFormatter(el?.createdAt)}</TableCell>
-                        <TableCell className='tableCell'>{el?.method}</TableCell>
+                        <TableCell className='tableCell method-cell'>{el?.method}</TableCell>
                         <TableCell className='tableCell'>
                           <div  className='table-cell-div'>
                             {currencyFormatter("USD",el?.amount)}
                             <span className={`status ${el?.status}`}>{el?.status}</span>
                           </div>
                         </TableCell>     
-                        <TableCell className='tableCell'><AdminDepositCard id = {el?._id}></AdminDepositCard>
+                        <TableCell className="tableCell id-cell">
+                           <div className="view-btn">View</div>
+                           <AdminDepositCard id = {el?._id}></AdminDepositCard>
                         </TableCell>     
                       </TableRow>
         )})}

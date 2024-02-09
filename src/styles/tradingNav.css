@@ -237,11 +237,37 @@
     padding: 0.6em 0.7em;
 }
 .notification{
+    position: relative;
     background-color: #3b405ba6;
     padding: 0.3em;
     border-radius: 5px;
     cursor: pointer;
     transition: .2s ease;
+}
+.notification .no-notifications{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-left: -1em;
+    background-color: #3b405b;
+    border-radius: 7px;
+    width: 8em;
+    transition: .2s ease;
+}
+.notification .no-notifications p{
+    font-size: 0.8rem;
+}
+.open-notification{
+    height: 10em;
+    opacity: 1;
+    /* display: block; */
+}
+.close-notification{
+    /* display: none; */
+    height: 0em;
+    opacity: 0;
 }
 .notification:hover{
     background-color: #1c1f2ad3;
@@ -287,11 +313,16 @@
     position: absolute;
     border-radius: 10px;
     width: 16em;
-    height: 19.5em;
+    height: 0em;
     background-color: #191919;
     margin-top: 4.3em;
-    transition: .3s ease;
+    transition: .2s ease;
     padding: 0.5em;
+    visibility: hidden;
+}
+.open-account-swicthbox{
+    height: 19.5em;
+    visibility: visible;
 }
 .account-switchbox-coat{
     gap: 0.5em;
@@ -300,6 +331,11 @@
     padding: 0.9em 1.2em;
     border-radius: 5px;
     background-color: #353a4d;
+    opacity: 0;
+    transition: .2s ease;
+}
+.open-account-switchbox-coat{
+    opacity: 1;
 }
 .account-swicthbox h3{
     font-size: 0.88rem;
@@ -414,7 +450,7 @@
 }
 .visible {
     display: block;
-    height: 62vh;
+    height: 60vh;
 }
 .not-visible{
     height: 0vh;
@@ -424,7 +460,7 @@
 }
 
 .mb-menu h4{
-    margin-top: 0.5rem;
+    margin-top: 0rem;
     margin-bottom: -1.5em;
     width: 93%;
     align-items: center;
@@ -446,7 +482,7 @@
     cursor: pointer;
     bottom: 0;
     margin-left: 1em;
-    margin-top: -0.7em;
+    margin-top: -2em;
 }
 .mb-menu-links{
     display: flex;
@@ -457,8 +493,8 @@
 }
 .mb-menu-links a{
     border-radius: 5px;
-    background-color: #4347532d;
-    padding: 0.8em;
+    background-color: #4347536e;
+    padding: 0.7em;
     font-weight: 800;
     font-size: 0.8rem;
     display: flex;

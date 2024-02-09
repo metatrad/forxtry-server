@@ -78,10 +78,8 @@ const TradingNav = () => {
             <NavLink to = "/trades"><MdHistory /><p>TRADES</p></NavLink>
             <NavLink to = "/demotrades"><ImHistory /><p>DEMO TRADES</p></NavLink>
             <NavLink to = "/account"><FaUser /><p>ACCOUNT</p></NavLink>
-            <NavLink to = "/deposit"><RiLuggageDepositFill /><p>DEPOSIT</p></NavLink>
-            <NavLink to = "/userdeposit"><TbHistory /><p>DEPOSIT HISTORY</p></NavLink>
-            <NavLink to = "/withdrawal"><BiMoneyWithdraw /><p>WITHDRAW</p></NavLink>
-            <NavLink to = "/userwithdrawal"><AiOutlineHistory /><p>WITHDRAWAL HISTORY</p></NavLink>
+            <NavLink to = "/userdeposit"><RiLuggageDepositFill /><p>DEPOSIT HISTORY</p></NavLink>
+            <NavLink to = "/userwithdrawal"><BiMoneyWithdraw /><p>WITHDRAWAL HISTORY</p></NavLink>
             <div onClick={handleShowSettings}><IoSettings /><p>SETTINGS</p></div>
         </div>
 

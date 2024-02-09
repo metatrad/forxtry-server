@@ -58,7 +58,9 @@ const userData = useSelector(state => state.user.userAuth);
                         <TableCell className='tableCell'>{dateFormatter(el?.createdAt)}</TableCell>
                         <TableCell className='tableCell'>{el?.account}</TableCell>
                         <TableCell className='tableCell'><span className={`status ${el?.status}`}>{el?.status}</span></TableCell>     
-                        <TableCell className='tableCell'><Withdrawalcard id = {el?._id}></Withdrawalcard></TableCell>     
+                        <TableCell className="tableCell id-cell">
+                           <div className="view-btn">View</div>
+                           <Withdrawalcard id = {el?._id}></Withdrawalcard></TableCell>     
                       </TableRow>
         )})}
                       <Pagination setPage={setPage} currentPage={page} pageNumber = {withdrawalList?.totalPages}/>

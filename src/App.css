@@ -19,6 +19,7 @@ html, body {
     background-color: #1c1f2d;
     height: 100vh;
     overflow: auto;
+    transition: .2s ease;
 }
 button,input,a{
     transition: .2s ease-in-out;

@@ -79,7 +79,8 @@ const VerifiedDataTable = () => {
                   <TableCell className="tableCell">
                     <span className={`status ${user?.status}`}>{user?.status}</span>
                   </TableCell>
-                  <TableCell className="tableCell">
+                  <TableCell className="tableCell id-cell">
+                    <div className="view-btn">View</div>
                     <AdminUserCard id={user?._id}></AdminUserCard>
                   </TableCell>
                 </TableRow>

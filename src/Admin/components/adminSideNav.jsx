@@ -88,7 +88,7 @@ const AdminSideNav = () => {
 
         <NavLink to = "/admintransactions"><PiArrowsClockwiseBold/><p>Transactions</p></NavLink>
 
-        <NavLink onClick={handleLogout}><MdOutlineLogout/><p>Logout</p></NavLink>
+        <NavLink to = "/" onClick={handleLogout}><MdOutlineLogout/><p>Logout</p></NavLink>
       </div>
 
     </div>

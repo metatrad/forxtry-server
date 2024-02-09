@@ -1,3 +1,93 @@
+.security{
+    position: relative;
+    padding: 2em 0em;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dotted grey;
+}
+.check-withdraw{
+    background-color: #0eaf59;
+    border-radius: 50%;
+    padding: 0.5em;
+    font-size: 0.7rem;
+    color: #fff;
+}
+.security h5{
+    font-size: 0.96rem;
+    margin-bottom: 1em;
+}
+.security label{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+    margin-left: 0em;
+    cursor: pointer;
+}
+.security label .check-withdraw-btn{
+    background-color: #8895a2;
+    padding: 0.4em;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 2.3em;
+    height: 1.11em;
+    border-radius: 20px;
+}
+.check-click{
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+.check-click input{
+    position: absolute;
+    z-index: -1;
+}
+.security label .check-withdraw-btn-on{
+    background-color: #016fd3;
+    padding: 0.4em;
+    box-shadow: 1px 1px 7px 1px #7ec1ff58;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 2.3em;
+    height: 1.11em;
+    border-radius: 20px;
+}
+.security label .check-withdraw-btn-ball{
+    background-color: #ffffff;
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    transition: .2s ease;
+}
+.security label .shift-ball{
+    background-color: #ffffff;
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    transition: .2s ease;
+    margin-left: 1.1em;
+}
+.security h3{
+    display: flex;
+    align-items: center;
+    font-size: 0.92rem;
+    margin-bottom: 0.2em;
+    gap: 0.3em;
+}
+.security p{
+    font-size: 0.8rem;
+    color: gray;
+    margin-left: 2.1em;
+    margin-bottom: 0.2em;
+    gap: 0.3em;
+}
+
+
 .social-media-account{
     display: flex;
     align-items: center;
@@ -333,6 +423,14 @@
     }
 }
 @media only screen and (max-width:650px){
+    .security{
+        position: relative;
+        padding: 2em 0em;
+        margin-top: -3em;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px dotted grey;
+    }
     .confirm-delete-account{
         width: 91.7%;
         height: 90vh;

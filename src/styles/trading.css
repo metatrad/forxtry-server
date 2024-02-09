@@ -24,10 +24,15 @@
     z-index: 10;
 }
 .indicators{
-    padding: 0em 1em;
-    width: 10em;
-    height: 18em;
+    padding: 2em 1em;
+    position: absolute;
     transition: .2s ease-in-out;
+    border-radius: 7px;
+}
+.open-indicators{
+    background-color: #1c1f2d;
+    width: 12em;
+    z-index: 50;
 }
 .indicators-text{
     align-items: center;
@@ -399,8 +404,10 @@
     .indicators{
         position: absolute;
         width: 90%;
-        z-index: 16;
+    }
+    .open-indicators{
         background-color: #1c1f2d;
+        width: 12em;
     }
     .indicators-text{
         align-items: center;
@@ -507,12 +514,12 @@
         width: 98.5%;
         flex-direction: column;
         justify-content: space-between;
-        height: max-content;
+        height: 60vh;
         border: none;
     }
     .tradingview-widget-container main{
         height: 57vh;
-        width: 100%;
+        width: 98%;
         position: relative;
     }
 
@@ -535,7 +542,7 @@
     }
     .trade-btns-cover-wrapper{
         height: min-content;
-        width: 100%;
+        width: 98.1%;
         margin-top: 0.7em;
     }
     .place-trades{

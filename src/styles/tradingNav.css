@@ -1,8 +1,9 @@
 .cover-whole-top-nav{
     position: fixed;
     width: 100%;
-    backdrop-filter: blur(20px);
+    background-color: #1c1f2d;
     top: 0;
+    margin-top: -0.2em;
     z-index: 20;
 }
 .dt-nav{
@@ -44,6 +45,9 @@
     align-items: center;
     padding: 0.7em 0em;
 }
+.trading-navbar p{ 
+    font-size: 0.5rem;
+}
 .support{
     width: 12em;
     height: 100vh;
@@ -70,6 +74,11 @@
 .settings{
     gap: 0.88em;
     z-index: 1000;
+}
+.support-t{
+    background-color: #2b62ba;
+    border-radius: 7px;
+    padding: 0.3em;
 }
 .support input, select{
     background-color: transparent;
@@ -104,12 +113,11 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 7em;
+    height: 12em;
     font-size: 2.5rem;
-    border-bottom: 1px solid #54565d;
 }
 .support div p{
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 800;
     margin-top: 0.5em;
 }
@@ -137,8 +145,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    width: 2.5em;
-    height: 2em;
+    width: 1.5em;
+    height: 1.2em;
     cursor: pointer;
     transition: .2s ease;
 }
@@ -147,12 +155,24 @@
     font-weight: 900;
     background-color: #2b62ba;
 }
+.trading-navbar a:hover p, .trading-navbar div:hover p{
+    display: block;
+}
 .trading-navbar .active{
     color: #fff;
     font-weight: 900;
     background-color: #2b62ba;
 }
 .trading-navbar a p, .trading-navbar div p{
+    position: absolute;
+    background-color: #ffffff;
+    color: rgb(19, 19, 21);
+    margin-left: 11em;
+    padding: 0.7em;
+    border-radius: 5px;
+    width: max-content;
+    display: none;
+    z-index: 50;
     font-size: 0.61rem;
     font-weight: 700;
 }
@@ -385,21 +405,21 @@
     display: none;
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(10px);
+    background-color: #1c1f2d;
     border-radius: 7px;
     position: absolute;
     width: 100%;
-    z-index: 20;
+    z-index: 50;
     transition: all 0.3s ease-in-out;
 }
 .visible {
     display: block;
-    height: 55vh;
+    height: 62vh;
 }
 .not-visible{
     height: 0vh;
 }
-.not-visible h4, .not-visible .mb-menu-links, .not-visible p{
+.not-visible h4, .not-visible .mb-menu-links, .not-visible p, .not-visible div{
     display: none;
 }
 
@@ -446,6 +466,21 @@
     justify-content: space-between;
     cursor: pointer;
 }
+.support-mb{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.support-mb h1{
+    font-size: 0.9rem;
+}
+.support-mb-t{
+    background-color: #2b62ba;
+    padding: 0.4em;
+    border-radius: 7px;
+}
 
 @media only screen and (max-width: 1050px){
     .trading-navbar{
@@ -477,6 +512,7 @@
         display: flex;
         align-items: center;
         width: 90%;
+        height: 2em;
         justify-content: space-between;
     }
     .mb-trading-nav .active{

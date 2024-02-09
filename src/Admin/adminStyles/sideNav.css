@@ -1,3 +1,16 @@
+.admin-side-nav-menu{
+    position: absolute;
+    margin-left: 13em;
+    margin-top: 0.4em;
+    background-color: transparent;
+    padding: 0em;
+    top: 0;
+}
+
+.admin-side-not-visible{
+    width: 0em;
+}
+
 .adminSideNav{
     min-height: 92.8vh;
     background-color: #444b5d;

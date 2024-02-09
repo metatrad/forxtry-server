@@ -32,6 +32,7 @@
     /* width: 50em; */
 }
 .table-body{
+    z-index: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -88,9 +89,10 @@
     font-size: 0.8rem;
 }
 .pagination{
-    width: 100%;
+    width: 72vw;
     align-items: center;
-    position: fixed;
+    overflow: scroll;
+    position: absolute;
     bottom: 0;
 }
 .Page{

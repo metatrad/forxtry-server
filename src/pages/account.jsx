@@ -37,8 +37,6 @@ const Account = () => {
   const state = useSelector(state => state.user);
   const {userLoading, userAppErr, userServerErr,userAuth, userUpdate } = state
 
-  console.log(state)
-
     //navigate
     const navigate = useNavigate();
 

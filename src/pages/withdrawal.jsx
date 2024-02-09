@@ -7,6 +7,7 @@ import TradingTopNav from "../components/tradingTopNav";
 import DepositFooter from "../components/depositFooter";
 import { IoChevronUpOutline } from "react-icons/io5";
 import { IoAlertOutline } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa6";
 import { useFormik } from "formik";
 import { withdrawalAction } from "../redux/withdrawalSlice";
 import * as Yup from "yup";
@@ -64,6 +65,8 @@ const { profile } = states
   const state = useSelector((state) => state?.withdrawal);
   const { appErr, loading, serverErr, withdrawalCreated, isWithdrawalCreated } = state;
 
+  console.log(states?.profile?.country)
+
   //redirect
   useEffect(() => {
     if (isWithdrawalCreated) {
@@ -74,6 +77,23 @@ const { profile } = states
   const userBalance = useSelector((state) => state.deposit);
 
   const userData = useSelector((state) => state.user);
+
+  const [selected, setSelected] = useState(true)
+  const handleSelected = ()=>{
+    setSelected(!selected)
+    test = 'no'
+  }
+
+  let test = 'yes'
+
+  useEffect(()=>{
+    if ( test === 'yes' && selected === false ){
+      setSelected(true)
+    }
+    if ( test === 'no' && selected === true ){
+      setSelected(false)
+    }
+  },[setSelected])
 
   return (
     <div className="trade-withdrawal">
@@ -88,7 +108,9 @@ const { profile } = states
        <div className="withdrawal-container">
           <AccountTopNav />
           <div className="withdrawal-body">
+
             <div className="withdrawal-body-left">
+          
               <h1>Account:</h1>
               <div className="withdrawal-balance">
                 <div>
@@ -100,6 +122,20 @@ const { profile } = states
                   <h4>{currencyFormatter("USD", userAuth?.balance)}</h4>
                 </div>
               </div>
+
+              {/* <div className="security">
+                <h5>Security:</h5>
+                <h3><FaCheck className="check-withdraw"/> Two-step verification</h3>
+                <p>Receieve code via email</p>
+                <div className="check-click" >
+                <label htmlFor="yes"> 
+                <div onClick={handleSelected} className={`check-withdraw-btn ${selected? 'check-withdraw-btn-on': ''}`}><div className={`check-withdraw-btn-ball ${selected? 'shift-ball': ''}`}></div></div>
+                <input type="checkbox" name="yes" id="yes" />  
+                </label>
+                To withdraw funds
+                </div>
+              </div> */}
+
             </div>
             {
           profile?.status === "Pending" || profile?.status === "Unverified"? <div className="withdrawal-verified">! You need to be verified to make a withdrawal. <br /> Please go to the account section and verify your account.</div> :

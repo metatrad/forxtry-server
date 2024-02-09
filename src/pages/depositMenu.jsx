@@ -62,8 +62,7 @@ const DepositMenu = () => {
   const { profile } = states
 
   const deposits = profile?.deposit
-  console.log(states)
-
+  
     //get deposit created from store
     const state = useSelector(state => state?.deposit)
     const {appErr, loading, serverErr, depositCreated, isDepositCreated} = state;

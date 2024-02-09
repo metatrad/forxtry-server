@@ -15,7 +15,7 @@ root.render(
     <Provider store = {store}>
       <App />
     </Provider>
-    </LightModeContextProvider>
+  </LightModeContextProvider>     
   </React.StrictMode>
 );
 

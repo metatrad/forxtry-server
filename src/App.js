@@ -1,6 +1,6 @@
 import './App.css';
-import {BrowserRouter as Router,Routes,Route,Switch,RouterProvider} from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react';
+import {BrowserRouter as Router,Routes,Route,RouterProvider} from 'react-router-dom'
+import { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoute from './components/protectedRoute'
 import Home from './pages/home'

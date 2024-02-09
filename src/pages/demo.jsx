@@ -69,7 +69,7 @@ const Demo = () => {
                 <div className="notification"><IoIosNotificationsOutline size={23}/></div>
                 <div className="account-switch-container">
                 <div ref={accountRef}>                
-                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD", profile?.demoBalance)}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>  
+                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{CurrencyFormatter("USD", profile?.demoBalance ?profile?.demoBalance: "0")}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>  
                      {
                       showAccountSwitch&&
                       <div className="account-swicthbox">

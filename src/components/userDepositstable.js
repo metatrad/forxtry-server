@@ -43,7 +43,7 @@ const UserDepositTable = () => {
           </TableRow>
         </TableHead>
         <TableBody className='table-body'>
-        {userLoading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: transactions?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>You haven't made any deposits yet.</h1>: transactions?.map(exp =>{
+        {userLoading? <h1 className='deposit-loading'>Loading...</h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: transactions?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>You haven't made any deposits yet.</h1>: transactions?.map(exp =>{
             return(
                         <TableRow item = {exp} key={exp?._id}>
                         <TableCell className='tableCell'>{dateFormatter(exp?.createdAt)}</TableCell>

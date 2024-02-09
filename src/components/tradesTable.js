@@ -38,7 +38,7 @@ const Tradestable = () => {
           </TableRow>
         </TableHead>
         <TableBody className='table-body'>
-        {userLoading? <h1 className='deposit-loading' style={{color: "white"}}>Loading...</h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: trades?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No trade history</h1>: transactions?.map(exp =>{
+        {userLoading? <h1 className='deposit-loading'>Loading...</h1>: userAppErr || userServerErr? <div>{userAppErr}{userServerErr}</div>: trades?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No trade history</h1>: transactions?.map(exp =>{
             return(
                         <TableRow item = {exp} key={exp?._id}>
                         <TableCell className='tableCell'>

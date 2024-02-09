@@ -1,5 +1,5 @@
 .light{
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
 }
 .light .innovative-right h2, .light .steps h1, .light .faq h1{
     color: rgb(0, 0, 0);
@@ -14,16 +14,16 @@
     color: black;
 }
 .light .trading-navbar , .light .trading-topnav,.light .account-options-cover, .light .mb-trading-nav, .light .info-icons .button,.light .infos, .light .steps button, .light .faq .show, .light .faq .questions-cover, .light .faq .all-questions,.light .social-media h6{
-    background-color: rgb(167, 153, 177);
+    background-color: #ffffff;
 }
-.light .social-media h6, .light .web-text,.inputs-trade-wrapper label{
-    color: white;
-}
+/* .light .social-media h6, .light .web-text,.inputs-trade-wrapper label{
+    color: #ffffff;
+} */
 .light .gray-icons{
     display: none;
 }
 .light .steps button ,.light .faq .all-questions,.light .trade-under-text,.light .trade-btns-cover-wrapper a{
-    color: blue;
+    color: #353a4d;
 }
 .light .nav-left a, .light .bottom h1, .light .account-user-info h1,.light .account-user-info h2,.light .account-user-info p, .light .inputs-cover .input, .light .inputs-cover .input input{
     color: black;
@@ -32,15 +32,184 @@
     border: 1px solid black;
 }
 .light .language-container{
-    border: 1px solid black;
-    border-radius: 5px;
-    color: black;
-    background-color: rgba(0, 0, 0, 0.361);
+    border-radius: 8px;
+    color: #353a4d;
+    background-color: #00000014;
 }
-.light .reslanguage-container, .light .responsive-menu, .light .place-trades,.light .time-history,.light .trade-under-text,.light .inputs-trade-wrapper label{
-    background-color: rgb(153, 154, 177);
+.light .language-container .language{
+    color: #353a4d;
+}
+.light .right-top-nav .notification,.light .right-top-nav .account-switch, .light .buttons .withdrawal{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .account-options-cover{
+    background-color: #00000014;
+}
+.light .account-options-cover .account-options a{
+    color: #353a4d;
+}
+.light .account-options-cover .account-options a:hover{
+    color: #353a4d;
+    background-color: #1e1d2b48;
+}
+.light .account-options-cover .account-options .active{
+    color: #353a4d;
+    background-color: #1e1d2b48;
+}
+.light .trading-nav .trading-navbar a, .light .trading-nav .trading-navbar div{
+    color: #a0002a;
+}
+.light .deposit-menu-card-options input{
+    color: #353a4d;
+}
+.light .mb-trading-nav, .light .mb-menu{
+    background-color: #e7e7e7;
+}
+.light .mb-menu h4{
+    color: #353a4d;
+}
+.light .mb-menu-links a{
+    color: #a0002a;
+    background-color: #a0002b22;
+}
+.light .mb-trading-nav a, .light .mb-trading-nav div{
+    color: #a0002a;
+}
+.light .mb-trading-nav .active{
+    color: #200009;
+}
+.light .admin-table .tableCell, .light .table-body .deposit-loading{
+    color: #353a4d;
+}
+.light .withdrawal-body, .light .withdrawal-amount form input{
+    color: #353a4d;
+}
+.light .warning{
+    color: #353a4d;
+}
+.light .support p, .light .deposit-select-text{
+    color: #353a4d;
+}
+.light .payment-methods-card{
+    background-color: #00000014;
+}
+.light .deposit-menu-card-wrapper .left-wrapper h1{
+    color: #353a4d;
+}
+.light .deposit-menu-card{
+    background-color: #00000014;
+}
+.light .support .dark{
+    color: #ffffff;
+    background-color: #1c1f2d;
+}
+.light .settings select{
+    color: #353a4d;
+    border: 1px solid #353a4d;
+}
+.light .deposit-footer{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .trading-nav .trading-navbar a:hover,  .light .trading-nav .trading-navbar div:hover{
+    color: #a0002a;
+    background-color: #a0002b2f;
+}
+.light .inputs-cover button{
+    background-color: #a0002a;
+}
+.light .registration-btn, .light .signin-btn{
+    background-color: #a0002a;
+}
+.light .trading-nav .trading-navbar .active{
+    background-color: #a0002b2a;
+}
+.light .live-account h6{
+    color: #353a4d;
+}
+.light .social-media-account h2{
+    color: #353a4d;
+}
+.light .verification-id h1{
+    color: #353a4d;
+}
+.light .inputs-cover .inputs input{
+    color: #353a4d;
+}
+.light .reslanguage-container, .light .responsive-menu{
+    background-color: #00000014;
+}
+.light .language-select, .reslanguage-select{
+    color: #353a4d;
+    background-color: #e2e2e2;
+}
+.light .language-select h4, .reslanguage-select h4{
+    color: #353a4d;
+}
+.light .faq .questions-cover .show{
+    background-color: #00000000;
+}
+.light .faq .questions-cover h2, .light .login h1, .light .signup h1{
+    color: #353a4d;
+}
+.light .login .login-box, .light .signup .signup-box{
+    background-color: #00000014;
+}
+.light .login .login-box .login-check label, .light .signup .signup-box .check label{
+    color: #353a4d;
+}
+.light .faq-main {
+    color: #353a4d;
+}
+.light .info-icons .infos h2, .light .about-us-flag .about-us-left, .light .about{
+    color: #353a4d;
+}
+.light .login-btn{
+    color: #353a4d;
+    background-color: #00000014;
 }
 .light .menu{
-    background-color: rgb(153, 154, 177);
+    background-color: #00000014;
     border-radius: 50px;
+}
+.light .App-header h1, .light .display-values p{
+    color: #353a4d;
+}
+.light .support-mb h1{
+    color: #353a4d;
+}
+
+.light .adminSideNav{
+    background-color: #a0002a;
+}
+.light .adminNav .right-items{
+    color: #a0002a;
+}
+.light .adminNav{
+    border-bottom: 1px solid #a0002a;
+}
+.light .admin-widget, .light .admin-chart, .light .featured, .light .list-wrapper, .light .single-top{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .single-top .left h1,.light .admin-side-nav-menu, .light .single-top .left input, .light .admin-users-right span{
+    color: #353a4d;
+}
+.light .single-top .left input, .light .users-search-input{
+    border: 1px solid #353a4d;
+}
+.light .update-single, .light .page-link{
+    background-color: #a0002a;
+}
+.light .trading-navbar a p, .light .trading-navbar div p{
+    background-color: #ccced6;
+}
+.light .confirm-delete-account p{
+    color: #353a4d;
+}
+@media only screen and (max-width:650px){
+    .light .place-trades{
+        background-color: #1c1f2d;
+    }
 }

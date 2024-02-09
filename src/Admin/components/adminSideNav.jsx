@@ -13,6 +13,7 @@ import { PiArrowsClockwiseBold } from "react-icons/pi";
 import { LightModeContext } from '../../context/lightModeContext';
 import { LuUserCheck } from "react-icons/lu";
 import { LuUserX } from "react-icons/lu";
+import { Spin as Hamburger } from 'hamburger-react'
 import { MdOutlinePendingActions } from "react-icons/md";
 import { LuCheckCircle } from "react-icons/lu";
 import { AiOutlineUserSwitch } from "react-icons/ai";
@@ -51,13 +52,19 @@ const AdminSideNav = () => {
     toast("Logged out successfully");
   };
 
+  const [showSide, setShowSide] = useState(false)
+
+  const handleShowSide = () =>{
+    setShowSide( !showSide )
+  }
+
   return (
-    <div className='adminSideNav'>
+    <div className={`adminSideNav ${showSide ? 'admin-side-visible' : 'admin-side-not-visible'}`}>
       <div className="logo"></div>
+      <button onClick={handleShowSide} className='admin-side-nav-menu'><Hamburger size={20}/></button>
       <hr />
       <div className="links">
         <NavLink to = "/admin"><RiHomeLine/><p>DashBoard</p></NavLink>
-
         <div className='nav-div-user' onClick={toggleOptions}><GrUserSettings/><p>Users <span className={`icon ${showUsers ? "expanded" : ""}`}><FaCaretDown/></span></p></div>
         <div className={`user-admin-side ${showUsers ? 'open' : 'closed'}`}>
         <NavLink to = "/adminusers"><LuUserX/><p>New Users</p></NavLink>

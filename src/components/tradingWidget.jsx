@@ -361,7 +361,7 @@ const ForexCandlestickChart = () => {
         </div>
 
       <div className="App-header">
-        <button type='button'><RiPencilFill/></button>
+        <button type='button' onClick={toggleIndicators}><RiPencilFill/></button>
         <h1><img src={Exchange} />{userTradingPair} Chart</h1>
         <div className='trading-widget-select'>
         <Select

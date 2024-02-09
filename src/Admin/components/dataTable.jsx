@@ -65,7 +65,7 @@ const DataTable = () => {
           <TableBody className="table-body">
             {userLoading ? (
               <h1 className="deposit-loading">
-                <l-mirage size="80" speed="2.5" color="white"></l-mirage>
+                Loading...
               </h1>
             ) : userAppErr || userServerErr ? (
               <div>Error</div>

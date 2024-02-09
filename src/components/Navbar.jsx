@@ -14,6 +14,7 @@ import { LightModeContext } from '../context/lightModeContext';
 
 
 const Navbar = () => {
+
   const {dispatch} = useContext(LightModeContext)
 
   //show language opions
@@ -78,6 +79,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="nav-right">
+        
       <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>
 
         <div className="language-container" ref={languageRef}>
@@ -86,7 +88,7 @@ const Navbar = () => {
           { 
               showLanguage &&
                       <div className="language-select">
-                        <h4>More languages will be added soon.</h4>
+                      <h4>More languages will be added soon.</h4>
                       <div>English</div>
                       <div>English</div>
                       <div>English</div>

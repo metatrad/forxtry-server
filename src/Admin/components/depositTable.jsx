@@ -50,7 +50,7 @@ const dispatch = useDispatch();
         </TableHead>
 
         <TableBody className='table-body'>
-        {loading? <h1 className='deposit-loading'><l-mirage size="80" speed="2.5" color="white"></l-mirage></h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: depositList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No deposits found.</h1>: depositList?.docs?.map((el)=>{
+        {loading? <h1 className='deposit-loading'>Loading...</h1>: appErr || serverErr? <div>{appErr}{serverErr}</div>: depositList?.docs?.length <= 0? <h1 className='deposit-loading' style={{color: "white"}}>No deposits found.</h1>: depositList?.docs?.map((el)=>{
             return(
                 
                         <TableRow item = {el} key={el?._id}>

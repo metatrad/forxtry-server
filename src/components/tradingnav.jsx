@@ -98,17 +98,7 @@ const TradingNav = () => {
   
             <label htmlFor="language"> Language</label>
             <select name='newPassword' id='newPassword'>
-  
               <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              <option value="">eng</option>
-              
             </select>
   
             <h5>Templates</h5>

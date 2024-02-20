@@ -88,24 +88,6 @@ const Navbar = () => {
           { 
               showLanguage &&
                       <div className="language-select">
-                      <h4>More languages will be added soon.</h4>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
-                      <div>English</div>
                       <div>English</div>
                     </div>
           }
@@ -117,7 +99,7 @@ const Navbar = () => {
 
     
       {/* responsive */}
-      <p className="menu" onClick={handleShowNav}> <Hamburger distance="lg" rounded size={20} color="#fff" /></p>
+      <p className="menu" onClick={handleShowNav}> <Hamburger distance="lg" rounded size={20}/></p>
   
       </div>
 
@@ -137,24 +119,6 @@ const Navbar = () => {
       {
         showNavLanguage &&
         <div className="reslanguage-select">
-            <h4>More languages will be added soon.</h4>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
-             <div>English</div>
              <div>English</div>
       </div>
       }

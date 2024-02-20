@@ -11,7 +11,7 @@
     border: 1px solid black;
 }
 .light input::placeholder, .light input,.light .links-cover h4,.light .settings h5,.light .settings p,.light .support .dark,.light .support .language select, .light .admin-table,.light .tableCell,.light .deposit-loading, .light .admin-table h1{
-    color: black;
+    color: rgba(0, 0, 0, 0.254);
 }
 .light .trading-navbar , .light .trading-topnav,.light .account-options-cover, .light .mb-trading-nav, .light .info-icons .button,.light .infos, .light .steps button, .light .faq .show, .light .faq .questions-cover, .light .faq .all-questions,.light .social-media h6{
     background-color: #ffffff;
@@ -31,7 +31,6 @@
 .light .language-container{
     border-radius: 8px;
     color: #353a4d;
-    background-color: #00000014;
 }
 .light .language-container .language{
     color: #353a4d;
@@ -167,8 +166,7 @@
     background-color: #00000014;
 }
 .light .menu{
-    background-color: #00000014;
-    border-radius: 50px;
+    color: #353a4d;
 }
 .light .App-header h1, .light .display-values p{
     color: #353a4d;
@@ -233,6 +231,29 @@
 .light .view-btn{
     color: #353a4d;
     background-color: #00000014;
+}
+.light .responsive-menu{
+    color: #353a4d;
+    background-color: #f0f0f0;
+}
+.light .responsive-menu a{
+    color: #353a4d;
+}
+.light .res-language{
+    color: #353a4d;
+    background-color: #00000014;
+}
+.light .reslanguage-select div{
+    color: #353a4d;
+}
+.light .market-closed{
+    color: #353a4d;
+}
+.light .withdrawal-otp-box label{
+    color: #353a4d;
+}
+.light .withdrawal-otp-box p{
+    color: #353a4d;
 }
 @media only screen and (max-width:650px){
     .light .place-trades{

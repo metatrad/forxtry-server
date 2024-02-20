@@ -4,6 +4,7 @@
 }
 .switch .demos{
     background-color: #2b62ba;
+    border: 1px solid #2b62ba;
     border: none;
     color: #fff;
 }

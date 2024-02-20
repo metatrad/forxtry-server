@@ -1,90 +1,62 @@
 .security{
-    position: relative;
-    padding: 2em 0em;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px dotted grey;
-}
-.check-withdraw{
-    background-color: #0eaf59;
-    border-radius: 50%;
-    padding: 0.5em;
-    font-size: 0.7rem;
-    color: #fff;
-}
-.security h5{
-    font-size: 0.96rem;
-    margin-bottom: 1em;
-}
-.security label{
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 0.2em;
-    margin-left: 0em;
-    cursor: pointer;
-}
-.security label .check-withdraw-btn{
-    background-color: #8895a2;
-    padding: 0.4em;
-    display: flex;
-    align-items: center;
     position: relative;
-    width: 2.3em;
-    height: 1.11em;
-    border-radius: 20px;
-}
-.check-click{
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-.check-click input{
-    position: absolute;
-    z-index: -1;
-}
-.security label .check-withdraw-btn-on{
-    background-color: #016fd3;
-    padding: 0.4em;
-    box-shadow: 1px 1px 7px 1px #7ec1ff58;
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 2.3em;
-    height: 1.11em;
-    border-radius: 20px;
-}
-.security label .check-withdraw-btn-ball{
-    background-color: #ffffff;
-    position: absolute;
-    width: 1.2em;
-    height: 1.2em;
-    border-radius: 50%;
-    transition: .2s ease;
-}
-.security label .shift-ball{
-    background-color: #ffffff;
-    position: absolute;
-    width: 1.2em;
-    height: 1.2em;
-    border-radius: 50%;
-    transition: .2s ease;
-    margin-left: 1.1em;
+    justify-content: center;
+    gap: 0.1em;
+    width: 86%;
 }
 .security h3{
     display: flex;
     align-items: center;
-    font-size: 0.92rem;
-    margin-bottom: 0.2em;
-    gap: 0.3em;
+    gap: 0.2em;
+    font-size: 0.9rem;
+    margin-top: 0.4em;
+    margin-bottom: 0.6em;
 }
 .security p{
+    color: #5e616c;
+    font-size: 0.87rem;
+    margin-bottom: 0.7em;
+}
+.security .check-withdraw{
+    display: flex;
+    background-color: #35b972;
     font-size: 0.8rem;
-    color: gray;
-    margin-left: 2.1em;
-    margin-bottom: 0.2em;
-    gap: 0.3em;
+    border-radius: 50%;
+    padding: 0.4em;
+}
+.security input{
+    position: absolute;
+    display: none;
+}
+.security .btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2em;
+    background-color: #ffffff;
+    box-shadow: inset 1px 1px 8px 1px #00000098;
+    border-radius: 7px;
+    width: 7em;
+    color: #495968;
+    height: 2.2em;
+    margin-bottom: -1.2em;
+}
+.security .btns .chosen{
+    background-color: #016fd3;
+    color: #ffffff;
+}
+.security .btns .chosenno{
+    background-color: #495968;
+    color: #ffffff;
+}
+.security .btns button{
+    color: #495968;
+    background-color: transparent;
+    font-size: 0.87rem;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -228,7 +200,7 @@
     align-items: center;
     justify-content: center;
 }
-.account-settings form button{
+.account-settings .submit-profile{
     background-color: #016fd3;
     width: 28%;
     margin-bottom: 1.3em;
@@ -424,13 +396,13 @@
 }
 @media only screen and (max-width:650px){
     .security{
-        position: relative;
-        padding: 2em 0em;
-        margin-top: -3em;
-        display: flex;
-        flex-direction: column;
-        border-bottom: 1px dotted grey;
+        width: 100%;
     }
+    .security .btns{
+        margin-bottom: 0em;
+    }
+
+
     .confirm-delete-account{
         width: 91.7%;
         height: 90vh;

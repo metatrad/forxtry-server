@@ -7,6 +7,28 @@ import { updateBalance } from './userSlice';
 export const resetWithdrawalCreated = createAction("withdrawal/reset")
 export const resetWithdrawalUpdated = createAction("adminwithdrawal/reset")
 
+//withdrawal otp
+export const withdrawalOtpAction = createAsyncThunk("/withdrawalotp", async (payload, { rejectWithValue, getState, dispatch })=>{
+    //get user token from store
+    const userToken = getState()?.user?.userAuth?.token;
+    const config = {
+        headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${userToken}`
+        },
+    };
+    try {
+        //http call
+        const { data } = await axios.post(`${baseURL}/withdrawalotp`, payload, config);
+        return data;
+    } catch (error) {
+        if(!error?.response){
+            throw error;
+        }
+        return rejectWithValue(error?.response?.data)
+    }
+});
+
 //withdrawal action
 export const withdrawalAction = createAsyncThunk("/withdrawal", async (payload, { rejectWithValue, getState, dispatch })=>{
     //get user token from store
@@ -104,6 +126,23 @@ const withdrawalSlice = createSlice({
     name: 'withdrawal',
     initialState: {},
     extraReducers:(builder)=>{
+        //create otp withdrawal
+        builder.addCase(withdrawalOtpAction.pending,(state, action)=>{
+            state.loading = true;
+        })
+        builder.addCase(withdrawalOtpAction.fulfilled,(state, action)=>{
+            state.loading = false;
+            state.withdrawalOtpSent = action?.payload;
+            state.OtpErr = action?.payload?.message;
+            state.serverOtpErr = action?.payload?.message; 
+            state.isWithdrawalOtpSent = false
+        })
+        builder.addCase(withdrawalOtpAction.rejected,(state, action)=>{
+            state.loading = false;
+            state.OtpErr = action?.payload?.message;
+            state.serverOtpErr = action?.error?.message; 
+        })
+
         //create withdrawal
         builder.addCase(withdrawalAction.pending,(state, action)=>{
             state.loading = true;

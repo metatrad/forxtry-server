@@ -31,7 +31,7 @@ const Login = () => {
   
   //get data from store
   const user = useSelector(state => state?.user);
-  const { userAppErr, userServerErr, userLoading, otpSent, isOtpSent } = user;
+  const { userAppErr, userServerErr, userLoading,userAuth, otpSent, isOtpSent } = user;
 
   //formik form
   const formik = useFormik({
@@ -47,6 +47,9 @@ const Login = () => {
 
   //redirect
   useEffect(()=>{
+    if(userAuth){
+      navigate('/trading')
+    }
     if(isOtpSent){
       navigate('/otp')
       toast("Otp sent to your email");
@@ -55,7 +58,7 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <div className="login">
         <h1>Sign In To Your Account</h1>
         <div className="login-box">

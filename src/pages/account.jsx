@@ -30,6 +30,7 @@ const formSchema = Yup.object({
   email: Yup.string(),
   country: Yup.string(),
   verification: Yup.mixed(),
+  verification: Yup.string(),
 });
 
 const Account = () => {
@@ -66,6 +67,7 @@ const Account = () => {
       email: userData?.email,
       country: userData?.country,
       verification: userData?.verification,
+      withdrawalCode: profile?.withdrawalCode,
     },
     onSubmit: async (values) => {
       dispatch(updateProfileAction(values));
@@ -138,23 +140,44 @@ const Account = () => {
     setConfirmationModalVisible(false);
   };
 
-  let test = 'yes'
-
   //security
   const [selected, setSelected] = useState(true);
   const handleSelected = () => {
     setSelected(!selected);
-    test = "no";
   };
 
+  const [inputValue, setInputValue] = useState('');
+  const [code, setCode] = useState();
+
+  const handleYes = ()=>{
+    setCode(true)
+  }
+  const handleNo = ()=>{
+    setCode(false)
+  }
+
+  const check = localStorage.getItem('userInfo')
+  const checks = JSON.parse(check)
+
   useEffect(()=>{
-    if ( test === 'yes' && selected === false ){
-      setSelected(true)
+    if (checks?.withdrawalCode==="yes"){
+      setCode(true)
     }
-    if ( test === 'no' && selected === true ){
-      setSelected(false)
+    if (checks?.withdrawalCode==="no"){
+      setCode(false)
     }
-  },[setSelected])
+  },[setCode])
+
+  const pushValue = (value) => {
+    if (value==="yes"){
+      setCode(true)
+    }
+    if (value==="no"){
+      setCode(false)
+    }
+    setInputValue(value);
+    formik.setFieldValue("withdrawalCode", value);
+  };
 
   return (
     <div>
@@ -316,7 +339,26 @@ const Account = () => {
                 />
               </div>
 
-              <button>
+              {/* security */}
+              <div className="security">
+                 <h5>Security:</h5>
+                 <h3>
+                   <FaCheck className="check-withdraw" /> Two-step verification
+                 </h3>
+                 <p>Receieve code via email to withdraw funds?</p>
+                 <div>
+                   <input type="text" value={formik.values.withdrawalCode}
+                     onChange={formik.handleChange("withdrawalCode")}
+                     onBlur={formik.handleBlur("withdrawalCode")}/>
+
+                     <div className="btns">
+                       <button className={code ? 'chosen':''} onClick={() => pushValue('yes')}>Yes</button>
+                       <button className={code? '':'chosenno'} onClick={() => pushValue('no')}>No</button>
+                     </div>
+                 </div>
+              </div>
+
+              <button className="submit-profile" type="submit">
                 {userLoading ? (
                   <l-spiral size="35" speed="0.9" color="white"></l-spiral>
                 ) : (
@@ -325,32 +367,6 @@ const Account = () => {
               </button>
             </div>
           </form>
-
-          {/* <div className="security">
-            <h5>Security:</h5>
-            <h3>
-              <FaCheck className="check-withdraw" /> Two-step verification
-            </h3>
-            <p>Receieve code via email</p>
-            <div className="check-click">
-              <label htmlFor="yes">
-                <div
-                  onClick={handleSelected}
-                  className={`check-withdraw-btn ${
-                    selected ? "check-withdraw-btn-on" : ""
-                  }`}
-                >
-                  <div
-                    className={`check-withdraw-btn-ball ${
-                      selected ? "shift-ball" : ""
-                    }`}
-                  ></div>
-                </div>
-                <input type="checkbox" name="yes" id="yes" />
-              </label>
-              To withdraw funds
-            </div>
-          </div> */}
           
           <button onClick={handleDeleteClick} className="delete-account">
             <MdOutlineClose />

@@ -38,7 +38,7 @@ export const loginAction = createAsyncThunk("/login", async (payload, { rejectWi
         //http call
         const { data } = await axios.post(`${baseURL}/login`, payload, config);
         // //save browser into local storage
-        // localStorage.setItem('userInfo', JSON.stringify(data));
+        localStorage.setItem('userInfologin', JSON.stringify(data));
         dispatch(otpReset())
         return data;
         
@@ -120,6 +120,7 @@ export const updateStorage = createAsyncThunk()
 export const logout = createAsyncThunk('/logout', async(payload,{rejectWithValue, getState, dispatch }) =>{
     try {
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('userInfologin');
     } catch (error) {
         if(!error?.response){
             throw error;

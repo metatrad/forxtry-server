@@ -16,6 +16,7 @@ html, body {
     height: 100vh;
 }
 .app{
+    scroll-behavior: smooth;
     background-color: #1c1f2d;
     height: 100vh;
     overflow: auto;

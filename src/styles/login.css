@@ -1,3 +1,6 @@
+.otp-email-box{
+    display: none;
+}
 .show-error{
     color: red;
     font-weight: 400;

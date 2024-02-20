@@ -30,10 +30,13 @@ const Otp = () => {
   const user = useSelector(state => state?.user);
   const { userAppErr, userServerErr, userLoading, userAuth } = user;
 
+  const loginData = JSON.parse(localStorage.getItem('userInfologin'))
+  console.log(loginData.email)
+
   //formik form
   const formik = useFormik({
     initialValues:{
-      email: "",
+      email: loginData.email,
       otp: "",
     },
     onSubmit: values =>{
@@ -66,6 +69,7 @@ const Otp = () => {
           {userAppErr || userServerErr ? <div className="show-error-top">{userServerErr}{userAppErr}</div> : null}
           <form className="login-form" action="" onSubmit={formik.handleSubmit}>
 
+            <div className="otp-email-box">
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -79,13 +83,15 @@ const Otp = () => {
             <div className="show-error">
               {formik.touched.email && formik.errors.email}
             </div>
-            
-            <label htmlFor="otp">OTP</label>
+            </div>
+
+            <h4>Welcome back!</h4>
+            <label htmlFor="otp">Please enter the PIN-code we've just sent to your email</label>
             <input
               type="text"
               name="otp"
               id="otp"
-              placeholder="OTP"
+              placeholder="Enter 6 digit code..."
               value={formik.values.otp}
               onChange={formik.handleChange("otp")}
               onBlur = {formik.handleBlur("otp")}

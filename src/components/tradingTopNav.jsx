@@ -77,6 +77,13 @@ const TradingTopNav = () => {
     setNotification(!notification)
   }
 
+  //show bal
+  const [bal, setBal] = useState()
+  const handleBal = ()=>{
+    setBal(!bal)
+  }
+
+
   return (
     <div className="cover-whole-top-nav">
       <div className="chart-container">
@@ -105,7 +112,7 @@ const TradingTopNav = () => {
                 <FaTelegramPlane className="plane" color="#35cb02"/>
                 <div className="live-account">
                   <h6> LIVE ACCOUNT </h6>
-                  <p>{CurrencyFormatter("USD",profile?.balance ?profile?.balance: "0")}</p>
+                  <p>{bal? "****" : CurrencyFormatter("USD",profile?.balance ?profile?.balance: "0")}</p>
                 </div>
                 <FaAngleDown
                   className={`icon ${showAccountSwitch ? "expanded" : ""}`}
@@ -121,12 +128,12 @@ const TradingTopNav = () => {
                         STANDARD: <p>+0% profit</p>
                       </h5>{" "}
                     </div>
-                    <div className="eye">
+                    <div onClick={handleBal} className="eye">
                       <IoEye size={15} />
                     </div>
                   </div>
-                  <h3>{userData.email}</h3>
-                  <h6>ID:{userData._id}</h6>
+                  <h3>{bal? '******@gmail.com' : userData?.email}</h3>
+                  <h6>ID:{bal? '****' : userData._id}</h6>
                   <h2 className="currency-change">
                     <p>Currency: {"USD"}</p>{" "}
                   </h2>
@@ -137,7 +144,7 @@ const TradingTopNav = () => {
                           <FiCheck size={12} />
                         </div>
                         <h5>
-                          Live account <p>{CurrencyFormatter("USD",profile?.balance)}</p>
+                          Live account <p>{bal? "****" : CurrencyFormatter("USD",profile?.balance)}</p>
                         </h5>
                       </div>
                     </Link>
@@ -145,7 +152,7 @@ const TradingTopNav = () => {
                       <div className="switch">
                         <div className="round demo"></div>
                         <h5>
-                          Demo account <p>{CurrencyFormatter("USD",profile?.demoBalance)}</p>
+                          Demo account <p>{bal? "****" : CurrencyFormatter("USD",profile?.demoBalance)}</p>
                         </h5>
                       </div>
                     </Link>

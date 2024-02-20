@@ -220,6 +220,7 @@
     display: flex;
     align-items: center;
     background-color: #37bc76;
+    background: linear-gradient(to right, #028740, #37bc76);
     border-radius: 50px;
     padding: 0.6em 0.7em;
     gap: 0.2em;
@@ -262,10 +263,8 @@
 .open-notification{
     height: 10em;
     opacity: 1;
-    /* display: block; */
 }
 .close-notification{
-    /* display: none; */
     height: 0em;
     opacity: 0;
 }
@@ -393,6 +392,7 @@
 }
 .eye{
     border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
 }
 .round{
     display: flex;
@@ -401,6 +401,7 @@
     width: 1.2em;
     height: 1.2em;
     border-radius: 50px;
+    border: 1px solid #2b62ba;
     background-color: #2b62ba;
 }
 .switch .demo{

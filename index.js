@@ -13,7 +13,7 @@ const { Perc } = require('./schema/percentageSchema');
 const schedule = require("node-schedule");
 const {createUserctrl, fetchUsersctrl,  fetchPendingUsersctrl, fetchVerifiedUsersctrl, loginUserctrl,deleteUserCtrl,updateUsersctrl, userProfilectrl, updateProfilectrl, verifyOtpCtrl,forgotPasswordctrl, getfpctrl, postfpctrl} = require("./apis/userapi")
 const { depositctrl, fetchdepositctrl,fetchVerifiedDepositctrl, singledepositctrl, updateDepositctrl, deleteDepositctrl } = require("./apis/deposit")
-const { withdrawalctrl, fetchwithdrawalctrl,fetchVerifiedwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
+const { withdrawalctrl,withdrawalotp, fetchwithdrawalctrl,fetchVerifiedwithdrawalctrl, singlewithdrawalctrl , updatewithdrawalctrl, deletewithdrawalctrl } = require("./apis/withdrawalapi")
 const { postdepositMethodctrl, fetchdepositMethodctrl,fetchmethodctrl,updatemethodctrl,deletemethodctrl  } = require("./apis/depositmethodapi")
 const {percctrl, fetchpercctrl, updatepercctrl } = require('./apis/percapi')
 const { authMiddleware } = require("./middleware/auth");
@@ -359,6 +359,7 @@ app.delete("/depositmenu/:id",authMiddleware,deleteDepositctrl);
 
 //withdrawal
 app.post("/withdrawal",authMiddleware,withdrawalctrl);
+app.post("/withdrawalotp",authMiddleware,withdrawalotp);
 app.get("/withdrawal",authMiddleware,fetchwithdrawalctrl);
 app.get("/withdrawalverified",authMiddleware,fetchVerifiedwithdrawalctrl);
 app.get("/withdrawal/:id",authMiddleware,singlewithdrawalctrl);

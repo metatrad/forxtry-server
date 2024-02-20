@@ -33,12 +33,12 @@ transporter.verify((error,success)=>{
 })
 
 const sendOtpEmail = async (email, otp) => {
-
+  
     // HTML content with inline styles
     const htmlContent = `
     <h2>Your OTP for Login</h2>
-    <p style="color: #333; font-size: 16px;">Dear User,</p>
-    <p style="color: #555; font-size: 16px;">Your OTP for login is: <span style="font-weight: bold; color: #007bff; font-size: 24px;">${otp}</span></p>
+    <p style="color: #000; font-size: 16px;">Dear User,</p>
+    <p style="color: #000; font-size: 16px;">Your OTP for login is: <span style="font-weight: bold; color: #0ad539; font-size: 24px;">${otp}</span></p>
     <p style="color: #777; font-size: 16px;">Note: This OTP is valid for 5 minutes.</p>
   `;
 
@@ -54,6 +54,7 @@ const sendOtpEmail = async (email, otp) => {
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
 
 //signup
 const createUserctrl = expressAsyncHandler(async (req, res) => {
@@ -113,7 +114,7 @@ const loginUserctrl = expressAsyncHandler(async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     // Save OTP and expiration in the database
-    const otpExpiration = new Date(Date.now() + 5 * 60 * 1000); // OTP expires in 5 minutes
+    const otpExpiration = new Date(Date.now() + 5 * 60 * 1000);
     await User.findOneAndUpdate(
       { email },
       { $set: { otp, otpExpiration } },
@@ -126,6 +127,22 @@ const loginUserctrl = expressAsyncHandler(async (req, res) => {
     // Respond to the client
     res.json({
       message: "Login successful. OTP sent to your email.",
+      _id: userFound?._id,
+      email: userFound?.email,
+      isAdmin: userFound?.isAdmin,
+      image: userFound?.image,
+      balance: userFound?.balance,
+      demoBalance: userFound?.demoBalance,
+      firstName: userFound?.firstName,
+      lastName: userFound?.lastName,
+      dob: userFound?.dob,
+      verification: userFound?.verification,
+      country: userFound?.country,
+      phone: userFound?.phone,
+      address: userFound?.address,
+      withdrawalCode: userFound?.withdrawalCode,
+      status: userFound?.status,
+      token: generateToken(userFound?._id),
       alert: true,
     });
   } else {
@@ -139,20 +156,18 @@ const verifyOtpCtrl = expressAsyncHandler(async (req, res) => {
   const { email, otp } = req.body;
 
   const userFound = await User.findOne({ email });
+  const user = await User.findById(req?.user?._id);
 
-
-  const user = await User.findOne({ email });
-
-  if (!user) {
+  if (!userFound) {
     res.status(404);
     throw new Error("User not found");
   }
 
-  if (user.otp && user.otpExpiration && new Date() < new Date(user.otpExpiration) && user.otp === otp) {
-    // OTP is valid
+  if (userFound.otp && userFound.otpExpiration && new Date() < new Date(userFound.otpExpiration) && userFound.otp === otp) {
+    
     await User.findOneAndUpdate(
       { email },
-      { $set: { otp: null, otpExpiration: null } }
+      { $set: { otp: null, otpExpiration: null }}
     );
 
     res.json({
@@ -391,7 +406,7 @@ const userProfilectrl = expressAsyncHandler(async (req, res) => {
 const updateProfilectrl = expressAsyncHandler(async (req, res) => {
   try {
     // Destructure relevant fields from req.body
-    const { email, isAdmin, image, balance, demoBalance, firstName, lastName, country, phone, address, dob, verification } = req?.body;
+    const { email, isAdmin, image, balance, demoBalance, firstName, lastName, country, phone, address, dob, verification,withdrawalCode } = req?.body;
 
     // Check if verification image is present and user status is "Unverified"
     const updatedFields = {
@@ -407,7 +422,7 @@ const updateProfilectrl = expressAsyncHandler(async (req, res) => {
       address,
       dob,
       verification,
-      withdrawalCode
+      withdrawalCode,
     };
     // Check if verification image is present and update status to "Pending"
     if (verification && req?.user?.status === "Unverified") {

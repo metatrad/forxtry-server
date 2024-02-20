@@ -19,7 +19,7 @@ const withdrawalSchema = mongoose.Schema({
         virtuals: true,
     }
 })
-//pagination
+
 withdrawalSchema.plugin(mongoosePaginate)
 
 const Withdrawal = mongoose.model("Withdrawal", withdrawalSchema);

@@ -4,8 +4,6 @@ const { errorHandler, notFound } = require("./middleware/errorMiddleware")
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const socketIo = require('socket.io');6
-const WebSocket = require('ws');
 const { Trade } = require("./schema/tradeSchema");
 const { Demo } = require("./schema/demoTradeSchema");
 const { User } = require("./schema/userSchema");
@@ -26,7 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: 'https://earnbroker.com', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -39,74 +37,6 @@ app.use(express.json());
 dotenv.config()
 
 const server = http.createServer(app);
-
-const socketIO = require('socket.io');
-
-const io = socketIO(server);
-
-let lastFetchedData = null;
-const polygonApiKey = 'rrUQn7NpmfCtAOSHsiRRwsHw1kpYn2wW';
-let tradingPair = 'EUR-USD'; // Default trading pair
-
-io.on('connection', (socket) => {
-  
-  if (lastFetchedData) {
-    socket.emit('forexCandlesticks', [lastFetchedData]);
-  }
-
-  const polygonWsUrl = 'wss://socket.polygon.io/forex';
-  const polygonWs = new WebSocket(polygonWsUrl);
-
-  // Authenticate with Polygon.io
-  polygonWs.onopen = () => {
-    const authMessage = JSON.stringify({ action: 'auth', params: polygonApiKey });
-    polygonWs.send(authMessage);
-
-    const subscribeMessage = JSON.stringify({ action: 'subscribe', params: `CAS.${tradingPair}` });
-    polygonWs.send(subscribeMessage);
-
-  };
-  polygonWs.onmessage = (event) => {
-    const messages = JSON.parse(event.data);
-
-    if (Array.isArray(messages)) {
-      messages.forEach((message) => {
-        if (message.ev === 'CAS') {
-          const realTimeData = {
-            timestamp: parseFloat((message.e/1000)),
-            open: parseFloat(message.o),
-            high: parseFloat(message.h), 
-            low: parseFloat(message.l),
-            close: parseFloat(message.c),
-          };
-          // Emit real-time data to connected clients
-          io.emit('forexData', realTimeData);
-        }
-      });
-    }
-  };
-
-  // Handle disconnection
-  socket.on('disconnect', () => {
-    if (polygonWs.readyState === WebSocket.OPEN) {
-      polygonWs.close();
-    }
-  });
-  // Handle WebSocket errors
-  polygonWs.onerror = (error) => {
-    console.error('WebSocket error:', error);
-  };
-  // Receive user preferences or selections for trading pair
-  socket.on('updateTradingPair', (newTradingPair) => {
-    if (newTradingPair !== tradingPair) {
-      tradingPair = newTradingPair;
-
-      // Update the WebSocket subscription only if the trading pair has changed
-      const subscribeMessage = JSON.stringify({ action: 'subscribe', params: `CAS.${tradingPair}` });
-      polygonWs.send(subscribeMessage);
-    }
-  });
-});
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

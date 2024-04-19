@@ -43,7 +43,7 @@ const sendOtpEmail = async (email, otp) => {
   `;
 
   const mailOptions = {
-    from: "Earn broker",
+    from: "Forxtry",
     to: email,
     subject: 'Your OTP for Login',
     html: htmlContent

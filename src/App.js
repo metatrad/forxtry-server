@@ -80,9 +80,9 @@ function App() {
           <Route path='/demoTrades' element={<DemoTrades/>}/>
 
           <Route path='/not-admin' element={<NotAdmin/>}/>
-          <Route path='/trading' element={<ProtectedRoute/>}>
+          {/* <Route path='/trading' element={<ProtectedRoute/>}> */}
             <Route path='/trading' element = {<Trading/>}/>
-          </Route>
+          {/* </Route> */}
 
           <Route path='/demo' element={<ProtectedRoute/>}>
             <Route path='/demo' element = {<Demo/>}/>

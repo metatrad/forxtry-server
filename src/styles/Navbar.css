@@ -5,16 +5,29 @@
     font-size: 0.4;
     color: rgba(255, 255, 255, 0.358);
 }
+.nav-container{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    width: 100%;
+    
+}
 .navbar{
     display: flex;
     justify-content: space-between;
-    height: 90px;
+    height: 60px;
+    width: 55%;
     align-items: center;
     padding: 0px 30px;
-    border-bottom: 1px solid #282a38;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.052);
+    border-radius: 20px;
+    margin-top: 10px;
 }
 .active{
-    color: #3974d4;
+    color: #2d96f0;
     font-weight: 900;
     text-shadow: 0px 0px 2px #bbd5ff39;
 }
@@ -26,10 +39,10 @@ button{
     outline: none;
     border: none;
     color: white;
-    height: 55px;
-    border-radius: 7px;
-    font-size: 1rem;
-    font-weight: 900;
+    height: 45px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
 }
@@ -41,20 +54,28 @@ button{
 .navlinks{
     display: flex;
     align-items: center;
-    font-size: 1.03rem;
+    font-size: 0.85rem;
     font-weight: 410;
     gap: 50px;
 }
 .nav-left a:hover{
-    color: #3974d4;
+    color: #2d96f0;
     font-weight: 900;
 }
 .logo{
     left: 0;
     cursor: pointer;
-    width: 9em;
+    width: 2.2em;
     height: 1.9em;
-    background-image: url(../images/earnbroker.png);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2d96f0;
+    background-image: url('../images/logoL.PNG');
+    background-position: center;
+    background-size: contain;
+    font-weight: 900;
+    font-size: 1.5rem;
     background-position: center;
     background-size: cover;
 }
@@ -70,11 +91,18 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 3px;
     font-size: 1.07rem;cursor: pointer;
-    height: 55px;
-    width: 100px;
+    height: 45px;
+    width: 55px;
     border-radius: 7px;
+}
+.language img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
 }
 .language-select{
     justify-content: center;
@@ -108,32 +136,41 @@ button{
 }
 
 .login-btn{
-    background-color: #444b5d;
-    width: 112px;
+    background-color: #1c1f2d00;
+    border: 1px solid #2d96f0;
+    color: #2d96f0;
+    width: 90px;
 }
 .signup-btn{
-    background-color: #35b972;
-    width: 133px;
+    background-color: #2d96f0;
+    width: 100px;
     box-shadow: 1px 1px 9px #68eaa549;
 }
 .signup-btn:hover{
-    background-color: #4dce89;
+    background-color: #63aff3;
 }
 .menu{
     display: none;
 }
 .responsive-menu{
     position: relative;
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-wrap: wrap;
-    margin-top: -1px;
+    margin-top: 550px;
     position: absolute;
-    height: 88.06vh;
-    background-color: #1c1f2d;
+    height: 30em;
+    border-radius: 30px;
+    background-color: #ffffff10;
+    backdrop-filter: blur(50px);
     color: #fff;
     justify-content: center;
     z-index: 1;
+    transition: 0.3s ease;
+}
+.responsive-menu-hide{
+    width: 0%;
+    transition: 0.3s ease;
 }
 .responsive-menu a{
     display: flex;
@@ -141,8 +178,11 @@ button{
     font-weight: 600;
     font-size: 0.9rem;
 }
+.responsive-menu-hide .res-links{
+    display: none;
+}
 .res-links{
-    padding: 0.99em 1.7em;
+    padding: 2em 1.7em;
     width:42em;
     height: 21em;
 }
@@ -158,63 +198,6 @@ button{
     font-size: 0.77rem;
     color: #52545f;
 }
-.res-language{
-    padding: 0px 25px;
-    margin: 0px 25px;
-    display: flex;
-    align-items: center;
-    background-color: #242939;
-    border-radius: 7px;
-    height: 52px;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.globe-en{
-    font-weight: 500;
-    gap: 1em;
-    align-items: center;
-    display: flex;
-}
-.reslanguage-container{
-    width: 56em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.reslanguage-select{
-    justify-content: center;
-    gap: 0em 1.9em;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    position: absolute;
-    background-color: #494f65;
-    width: 93.5%;
-    border-radius: 7px;
-    color: #fff;
-    margin-top: 9px;
-    padding: 5px;
-    top: 0;
-    left: 0;
-    margin-top: -40px;
-    margin-left: 20px;
-}
-.reslanguage-select div{
-    cursor: pointer;
-    display: flex;
-    font-weight: 500;
-    padding-left: 20px;
-    align-items: center;
-    width: 40%;
-    height: 50px;
-    border-radius: 7px;
-    color: #fff;
-}
-.reslanguage-select div:hover{
-    background-color: #363b4cd8;
-}
 
 @media only screen and (max-width:1200px){
     .navbar{
@@ -223,7 +206,8 @@ button{
 }
 @media only screen and (max-width:1050px){
     .navbar{
-        padding: 0px 100px;
+        width: 61%;
+        padding: 0px 30px;
     }
 }
 @media only screen and (max-width:900px){
@@ -238,12 +222,12 @@ button{
         display: none;
     }
     .login-btn{
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         height: 42px;
         width: 63px;
     }
     .signup-btn{
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         height: 42px;
         width: 71px;
     }
@@ -256,14 +240,10 @@ button{
             height: 90px;
         }
         .logo{
-            width: 2em;
+            width: 2.2em;
             height: 1.9em;
-            background-image: url(../images/earnbroker.png);
             background-position: left;
             background-size: cover;
-        }
-        .top-nav-logo{
-            background-image: url(../images/ICON.png);
         }
         .login-btn{
             font-size: 1rem;
@@ -277,24 +257,22 @@ button{
     }
 }
 @media only screen and (max-width:500px){
-        .navbar{
-            height: 79px;
-        }
-        .reslanguage-select{
-            width: 89%;
-        }
-        .reslanguage-select div{
-            width: 35%;
+    .navbar{
+        height: 55px;
+        width: 70%;
+        padding: 0px 5px;
+    }
+        .responsive-menu{
+            width: 80%;
+            margin-top: 540px;
         }
         .login-btn{
             font-size: 0.78rem;
-            height: 42px;
-            width: 80px;
+            height: 38px;
+            width: 55px;
         }
         .signup-btn{
-            font-size: 0.78rem;
-            height: 42px;
-            width: 88px;
-    }
+            display: none;
+        }
 }
 

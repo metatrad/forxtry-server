@@ -1,3 +1,8 @@
+
+.home{
+    padding-top: 4em;
+    background: linear-gradient(45deg, #ff000000 70%, #2d95f022, #2d95f088);
+}
 .innovative{
     display: flex;
     align-items: center; 
@@ -7,12 +12,36 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
+.img-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.glow{
+    position: absolute;
+    width: 190px;
+    height: 300px;
+    border-radius: 50%;
+    z-index: 0;
+    box-shadow: 0px 0px 200px 0px #2d96f0;
+}
 .innovative-img{
-    background-image: url(../images/platform@2x.png);
-    background-position: right;
-    background-size: cover;
-    width: 53%;
-    height: 105vh;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    width: 45%;
+    height: 97vh;
+}
+.innovative-img img{
+    /* position: absolute; */
+    top: 0;
+    z-index: 1;
+    /* margin-left: -150px; */
+    height: 850px;
 }
 .innovative-right{
     gap: 20px;
@@ -20,76 +49,53 @@
     flex-direction: row;
     flex-wrap: wrap;
     color: #fff;
-    width: 470px;
+    width: 500px;
     height: 50vh;
     font-weight: 600;
     padding-right: 40px;
 }
+.crypt{
+    display: flex;
+    align-items: center;
+}
+.crypt img{
+    height: 100px;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
+    border-radius: 15px;
+}
 .innovative-right h2{
-    font-size: 2.7rem;
+    font-size: 4rem;
+}
+.innovative-right h2 span{
+    font-size: 4rem;
+    color: #2d96f0;
 }
 .innovative-right p{
     color: #97989b;
-    font-size: 1.6rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 .register-btn{
-    background-color: #35b972;
+    background-color: #2d96f0;
     width: 234px;
-    box-shadow: 1px 1px 9px #68eaa549;
+    box-shadow: 1px 1px 9px #2d95f046;
 }
 .register-btn:hover{
-    background-color: #4dce89;
+    background-color: #76b9f4;
 }
 .open-demo-btn{  
-    background-color: #ffffff;
+    background-color: #ffffff00;
     width: 215px;
-    color: #575c6b;
+    color: #2d96f0;
+    border: 1px solid #2d96f0;
 }
 .open-demo-btn:hover{  
     background-color: #444b5d;
     color: #fff;
 }
-
-
-
-
-
-.gray-icons{
-    display: flex;
-    padding: 2em;
-    align-items: center;
-    justify-content: space-between;
-    height: 4em;
-    margin-bottom: 2.5em;
-}
-.gray-icons div{
-    background-position: center;
-    background-size: cover
-}
-.visa{
-    width: 6em;
-    height: 2em;
-    background-image: url(../images/visa.webp) ;
-}
-.master{
-    width: 6em;
-    height: 4em;
-    background-image: url(../images/mastercard.webp) ;
-}
-.advcash{
-    width: 9.5em;
-    height: 2.7em;
-    background-image: url(../images/advcash.webp);
-}
-.perfect{
-    width: 13em;
-    height: 2.8em;
-    background-image: url(../images/perfectmoney.webp) ;
-}
-
-
-
 
 
 .info-icons{
@@ -103,11 +109,23 @@
     justify-content: space-between;
     align-items: center;
     display: flex;
-    width: 1150px;
-    background-color: #313446;
-    border-radius: 7px 7px 0px 0px;
-    border-bottom: 1px solid #404251;
+    width: 100%;
     color: white;
+}
+.info{
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    width: 28%;
+    border-radius: 20px;
+    height: 110px;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
 }
 .infos .img{
     width: 130px;
@@ -120,15 +138,18 @@
     font-size: 1.19rem;
     font-weight: 900;
     margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+.infos h2 span{
+    color: #2b98fe;
+    font-size: 1.5em;
 }
 .infos p{
-    color: #c2c3c8;
-    font-size: 0.99rem;
-    font-weight: 500;
-}
-.infos div{
-    width: 220px;
-    height: 275px;
+    color: #ffffffc6;
+    font-size: 0.93rem;
+    font-weight: 300;
 }
 .infos-1 .img{
     background-image: url(../images/convenient.png);
@@ -152,7 +173,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #313446;
     width: 1214px;
     height: 135px;
     border-radius: 0px 0px 7px 7px;
@@ -163,120 +183,31 @@
     width: 320px;
     height: 72px;
     display: flex;
-    background-color: #35b972;
+    background-color: #2d96f0;
     justify-content: center;
     align-items: center;
     font-weight: 900;
     font-size: 0.9em;
 }
 .button button:hover{
-    background-color: #4dce89;
+    background-color: #69b0ee;
 }
 button p{ 
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #75ce9e;
+    background-color: #2d96f0;
     border-radius: 20px;
-}
-
-
-
-.predict-fixed{
-    padding: 0em 2em;
-}
-.predict-fixed h2{
-    font-weight: 900;
-    margin-bottom: 0.4em;
-    font-size: 2.4em;
-}
-.predict-fixed h5{
-    font-size: 1.45em;
-    font-weight: 500;
-    color: #aaacb1;
-    margin-bottom: 0.4em;
-}
-.predict{
-    display: flex;
-    gap: 3em;
-    margin-bottom: 3em;
-}
-.chart{
-    background-color: #404251;
-    width: 890px;
-    height: 414px;
-
-}
-.chart-buttons{
-    padding: 2.5em 0em;
-    display: flex;
-    flex-wrap: wrap;
-    width: 275px;
-    height: 337px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: #313446;
-    border-radius: 7px;
-}
-.predict-logo{
-    background-position: center;
-    background-size: cover;
-    width: 150px;
-    height: 32px;
-    background-image: url(../images/earnbroker.png);
-}
-.prdict-text{
-    width: 240px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid #404251;
-}
-.chart-buttons h4{
-    font-size: 1.29rem;
-    margin-top: 1em;
-}
-.chart-buttons p{
-    display: flex;
-    padding: 0.23em;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: #ffffff61;
-    border-radius: 20px;
-}
-.chart-buttons button{
-    display: flex;
-    width: 244px;
-    height: 63px;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.price-up{
-    background-color: #35b972;
-}
-.price-up:hover{
-    background-color: #75ce9e;
-}
-.price-down{
-    background-color: #e26e61;
-}
-.price-down:hover{
-    background-color: #ea897e;
 }
 
 
 
 .steps{
     padding: 0em 2em;
-    border-bottom: 1px solid #404251;
 }
 .steps h1{
-    font-weight: 900;
+    font-weight: 700;
     margin-bottom: 0.2em;
     font-size: 2.5em;
 }
@@ -292,58 +223,33 @@ button p{
     margin-bottom: 4em;
 }
 .steps-links div{
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    width: 28%;
+    border-radius: 20px;
+    height: 110px;
+    padding: 1em;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 245px;
     text-align: center;
-    padding: 1em 0em;
-    gap: 1.7em;
-}
-.steps-links .steps-img{
-    background-position: center;
-    background-size: cover;
-}
-.steps-sign-up .steps-img{
-    width: 120px;
-    height: 80px;
-    background-image: url(../images/start-trading-1@2x.png);
-}
-.steps-practice .steps-img{
-    width: 120px;
-    height: 80px;
-    background-image: url(../images/start-trading-2@2x.png);
-}
-.steps-deposit .steps-img{
-    width: 130px;
-    height: 80px;
-    background-image: url(../images/start-trading-3@2x.png);
-}
-.steps-links button{
-    color: #2b98fe;
-    background-color: #313446;
-    font-size: 0.87em;
-    font-weight: 500;
-    width: 240px;
-    height: auto;
-    padding: 0.9em 0em;
+    align-items: center;
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
+    justify-content: center;
+    flex-direction: column;
 }
 .steps-links h4{
     font-size: 1.4em;
     font-weight: 900;
 }
 .steps-links p{
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 0.93em;
+    font-weight: 300;
     color: #bbbcc0;
 }
 
 
 .faq{
     padding: 2em;
-    border-bottom: 1px solid #404251;
 }
 .faq h1{
     font-size: 2.5em;
@@ -369,18 +275,21 @@ button p{
 }
 .faq .questions-cover{
     cursor: pointer;
-    background-color: #313446;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     border-radius: 7px;
     width: 525px;
     padding: 1em 2em;
 }
 .questions h2{
     font-size: 1.5em;
-    font-weight: 800;
+    font-weight: 500;
 }
 .questions p{
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 0.93em;
+    font-weight: 300;
     color: #c2c3c8;
 }
 .main-questions{
@@ -404,8 +313,8 @@ button p{
     justify-content: center;
     align-items: center;
     background-color: #313446;
-    border-radius: 7px;
-    width: 340px;
+    border-radius: 15px;
+    width: 300px;
     padding: 1.4em 2em;
     gap: 0.9em;
     margin: 1.5em 0em;
@@ -414,24 +323,41 @@ button p{
 
 
 .bottom{
-    height: 130vh;
+    height: 80vh;
+    padding: 0em 1em;
+    position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 2.5em;
 }
+.bottom-text-cover{
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    height: 30vh;
+    display: flex;
+    flex: 4;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2em;
+    padding: 1em 2em;
+}
 .bottom h1{
-    font-size: 2.5em;
-    font-weight: 900;
+    font-size: 1.5em;
+    font-weight: 400;
 }
 .bottom .image{
     background-position: center;
     background-size: cover;
-    width: 90%;
-    height: 400px;
-    background-image: url(../images/about-us-innovation@2x.png);
+    flex: 6;
+    height: 290px;
+    background-image: url(../images/mapeo.png);
 }
 .bottom .buttons{
     display: flex;
@@ -439,7 +365,7 @@ button p{
     gap: 1.5em;
 }
 .bottom button{
-    width: 297px;
+    width: 200px;
     padding: 2em 0em;
     display: flex;
     align-items: center;
@@ -448,14 +374,15 @@ button p{
     gap: 1em;
 }
 .real{
-    background-color: #35b972;
+    background-color: #2d96f0;
 }
 .real:hover{
-    background-color: #4dce89;
+    background-color: #5baaef;
 }
 .demo{
-    background-color: #fff;
-    color: #1c1f2d;
+    background-color: rgba(255, 255, 255, 0);
+    color: #2d96f0;
+    border: 1px solid #2d96f0;
 }
 .demo:hover{  
     background-color: #444b5d;
@@ -468,7 +395,6 @@ button p{
 
 @media only screen and (max-width:1200px){
     .innovative-img{
-        background-image: url(../images/platform-mobile@2x.png);
         width: 50%;
         height: 600px;
     }
@@ -477,17 +403,18 @@ button p{
         padding: 0em 5em;
     }
     .info-icons{
-        padding: 0em 5em;
+        padding: 0em 0em;
     }
     .infos{
-        width: 65%;
-        padding: 2em 10em;
+        width: 100%;
+        padding: 2em 2em;
         flex-direction: row;
+        gap: 1em;
         flex-wrap: wrap;
     }
-    .infos div{
-        width: 220px;
-        height: 275px;
+    .info{
+        width: 25%;
+        height: 150px;
     }
 
     .button{
@@ -514,8 +441,24 @@ button p{
         width: 70%;
         height: 600px;
     }
+    .crypt{
+        flex-direction: column;
+        justify-content: left;
+        align-items: left;
+    }
+    .infos{
+        width: 100%;
+        padding: 5em 2em;
+        padding-top: 10em;
+        flex-direction: row;
+        gap: 1em;
+        flex-wrap: wrap;
+    }
 }
 @media only screen and (max-width:950px){
+    .innovative-right h2, .innovative-right h2 span{
+        font-size: 1.7rem;
+    }
     .infos{
         padding: 2em 4em;
     }
@@ -528,9 +471,16 @@ button p{
     }
 }
 @media only screen and (max-width:900px){
+    .home{
+        padding-top: 8em;
+    }
     .innovative{
         flex-wrap: wrap;
         justify-content: center;
+    }
+    .glow{
+        width: 120px;
+        height: 300px;
     }
     .innovative-right{
         justify-content: center;
@@ -542,7 +492,10 @@ button p{
     }
     .innovative-img{
         width: 70%;
-        height: 500px;
+        height: 450px;
+    }
+    .innovative-img img{
+        height: 650px;
     }
     .gray-icons{
         padding: 0em 2em;
@@ -570,27 +523,56 @@ button p{
         width: 80%;
         height: 400px;
     }
+    .register-btn{
+        margin-top: 1.2em;
+    }
+    .innovative-img img{
+        height: 550px;
+    }
+    .orbit-container {
+        position: absolute;
+        width: 290px; 
+        height: 290px; 
+        top: 0;
+        border-radius: 50%; 
+        animation: rotateOrbit 5s linear infinite; 
+      }
+    .orbit-container-two {
+        position: absolute;
+        width: 300px; 
+        height: 300px; 
+        top: 0;
+        border-radius: 50%; 
+        animation: rotateOrbit 5s linear infinite; 
+      }
+      .orb-wrap{
+        gap: 5em;
+        display: flex;
+      }
+      
+      .orb {
+        position: absolute;
+        top: 35%;
+        left: 38%; 
+        width: 20px; 
+        height: 20px; 
+        margin-right: 10em;
+        background-color: #ffffff; 
+        border-radius: 50%;
+        box-shadow: 0px 0px 30px 10px #fff;
+      }
+      .orb-two {
+        position: absolute;
+        top: 35%;
+        left: 40%; 
+        width: 20px; 
+        height: 20px; 
+        background-color: #ffffff; 
+        border-radius: 50%;
+        box-shadow: 0px 0px 30px 10px #fff;
+      }
     .gray-icons{
         padding: 0em 1em;
-    }.visa{
-        width: 4em;
-        height: 1.5em;
-        background-image: url(../images/visa.webp) ;
-    }
-    .master{
-        width: 4em;
-        height: 3em;
-        background-image: url(../images/mastercard.webp) ;
-    }
-    .advcash{
-        width: 6em;
-        height: 1.5em;
-        background-image: url(../images/advcash.webp);
-    }
-    .perfect{
-        width: 9em;
-        height: 1.9em;
-        background-image: url(../images/perfectmoney.webp) ;
     }
     .info-icons{
         padding: 0em 2em;
@@ -645,6 +627,9 @@ button p{
     .all-questions{
         width: 250px;
     }
+    .bottom{
+        flex-direction: column;
+    }
     .bottom button{
         width: 220px;    
     }
@@ -657,6 +642,14 @@ button p{
         width: 100%;
         height: 380px;
     }
+    .innovative-img img{
+        height: 450px;
+    }
+    .glow{
+        width: 70px;
+        height: 200px;
+        box-shadow: 0px 0px 100px 0px #2d96f0;
+    }
     .innovative-right{
         display: block;
         padding: 0em 2em;
@@ -664,6 +657,9 @@ button p{
     .innovative-right h2{
         font-size: 1.2rem;
         margin-bottom: 3%;
+    }
+    .innovative-right h2 span{
+        font-size: 1.2rem;
     }
     .innovative-right p{
         font-size: 1rem;
@@ -706,7 +702,7 @@ button p{
         justify-content: center;
         text-align: center;
         border-bottom: 1px solid #404251;
-        padding: 2em 0em;
+        padding: 1em;
     }
     .infos-4 .img{
         background-image: url(../images/perfect.png);

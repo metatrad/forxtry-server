@@ -10,6 +10,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import { FiChevronUp } from 'react-icons/fi';
 import { FiChevronRight } from 'react-icons/fi';
 import { Cross as Hamburger } from 'hamburger-react'
+import EngImage from '../images/eng.png'
 import { LightModeContext } from '../context/lightModeContext';
 
 
@@ -72,60 +73,37 @@ const Navbar = () => {
     <div className="nav-container">
       <div className='navbar'>
       <div className="nav-left">
-        <Link to="/"><div className="logo top-nav-logo"></div></Link>
         <div className="navlinks">
         <NavLink to="/faq">FAQ</NavLink>
         <NavLink to="/about">About us</NavLink>
         </div>
+      {/* responsive */}
+      <p className="menu" onClick={handleShowNav}> <Hamburger distance="lg" rounded size={18}/></p>
       </div>
+
+      <div className="nav-middle">
+      <Link to="/"><div className="logo top-nav-logo"></div></Link>
+      </div>
+
       <div className="nav-right">
         
-      <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div>
-
-        <div className="language-container" ref={languageRef}>
-          <div className="language" style={showLanguage ? { background: '#232634', color: '#2b99ff' } : {}} onClick={handleShowLanguage}><FiGlobe/>EN{showLanguage? <FiChevronUp/>:<FiChevronDown/>}
-          </div>
-          { 
-              showLanguage &&
-                      <div className="language-select">
-                      <div>English</div>
-                    </div>
-          }
-
-        </div>
+      {/* <div className="themes" onClick={()=> dispatch({type:"TOGGLE"}) }><FiMoon/></div> */}
       <Link to="/login"><button className='login-btn'>Log in</button></Link>
       <Link to="/signup"><button className='signup-btn'>Sign up</button></Link>
-
-
-    
-      {/* responsive */}
-      <p className="menu" onClick={handleShowNav}> <Hamburger distance="lg" rounded size={20}/></p>
   
       </div>
 
-
     </div>
-    {
-      showNav&&
-      <div className="responsive-menu">
+
+      <div className={showNav? "responsive-menu": 'responsive-menu-hide'}>
       <div className='res-links'>
       <Link to="/faq" onClick={handleShowNav}>FAQ <FiChevronRight size={25} color="#5c5e68"/></Link>
       <Link to="/about" onClick={handleShowNav}>About us <FiChevronRight size={25} color="#5c5e68"/></Link>
-      </div>
-
-      <div className="reslanguage-container" ref ={languageNavRef}>
-      <div className="res-language" onClick={handleShowNavLanguage}><div className="globe-en"><FiGlobe size={23}/>English</div><FiChevronUp size={25} color="#5c5e68"/>
-      </div>
-      {
-        showNavLanguage &&
-        <div className="reslanguage-select">
-             <div>English</div>
-      </div>
-      }
-      <p>Copyright © 2023 Quotex. All rights reserved</p>
+      <Link to="/login" onClick={handleShowNav}>Sign up<FiChevronRight size={25} color="#5c5e68"/></Link>
+      <Link to="/signup" onClick={handleShowNav}>Login<FiChevronRight size={25} color="#5c5e68"/></Link>
       </div>
     </div>
-    }
+    
     </div>
 
     

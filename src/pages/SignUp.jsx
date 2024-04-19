@@ -59,7 +59,7 @@ const SignUp = () => {
     <div>
       <Navbar />
       <div className="signup">
-        <h1>Sign Up</h1>
+        <h1>Create an account to start trading</h1>
         <div className="signup-box">
           <div className="account-buttons">
             <Link to="/login">

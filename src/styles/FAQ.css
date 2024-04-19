@@ -1,11 +1,12 @@
 
 .faq-main{
     padding: 0em 5em;
+    padding-top: 5em;
 }
 .question-boxes h1{
     font-size: 3rem;
-    margin: 1em 0em;
     font-weight: 900;
+    margin: 0.6em 0em;
 }
 .qboxes{
     overflow: auto;
@@ -19,13 +20,16 @@
     width: 150px;
     height: 113px;
     border-radius: 7px;
-    background-color: #353a4d;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     justify-content: center;
     padding: 0em 1em;
     gap: 0.94em;
 }
 .first-qbox{
-    background-color: #2f80ed;
+    background-color: #2f81ed5c;
 }
 .qboxes h2{
     font-size: 1.03rem;
@@ -72,7 +76,10 @@
     border-radius: 7px;
 }
 .faq-style{
-    background-color: #292d3c;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     padding: 0.8em;
     border-radius: 7px;
     margin-bottom: 1.5em;
@@ -85,6 +92,7 @@
 @media only screen and (max-width:500px){
     .faq-main{
         padding: 0em 1.3em;
+        padding-top: 5em;
     }
     .question-boxes h1{
         font-size: 1.3rem;

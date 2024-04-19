@@ -12,7 +12,12 @@
     width: 100%;
     margin-left: 4em;
 }
-
+.trades-side-nav{
+    padding-top: 0.3em;
+}
+.trades-side-nav-dw{
+    padding-top: 0.8em;
+}
 /* trades */
 .trades-wrapper{
     width: 100%;

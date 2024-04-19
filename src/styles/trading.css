@@ -1,3 +1,40 @@
+    .glow {
+    position: absolute;
+    top: -100%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #00b5882b;
+    box-shadow: 0 0 20px 20px #00b5882e;
+    animation: glowAnimation 2s linear forwards;
+  }
+  .glow-t-in{
+    background-color: #00b589;
+    width: 5em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border-radius: 10px;
+  }
+  
+  @keyframes glowAnimation {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      width: 200px;
+      height: 200px;
+      opacity: 0;
+    }
+  }
+  
 .market-closed{
     position: absolute;
     backdrop-filter: blur(10px);
@@ -10,7 +47,20 @@
     font-size: 1.5rem;
     font-weight: 800;
 }
-
+.account-person{
+    position: absolute;
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border: 1px solid #2c3854;
+    margin: 2.9em 1em;
+}
 
 /* indicators */
 .App-header button{
@@ -153,7 +203,6 @@
 #chart{
     width: 990px;
     height: 100%;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.263);
     border-top: none;
     border-radius: 2px;
 }
@@ -175,7 +224,6 @@
 .trade-btns-cover-wrapper a{
     color: #2b99ff;
 }
-
 .tradingview-widget-container{
     position: relative;
     display: flex;
@@ -191,50 +239,72 @@
     height: 80vh;
 }
 
-
+.trade-btns-cover-wrapper{
+    position: absolute;
+    width: 94%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+}
 .trade-btn{
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: space-between;
     padding: 0em 0.5em;
-    font-weight: 800;
-    height: 2.5em;
-    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    height: 4em;
     cursor: pointer;
     transition: .2s ease-in-out;
 }
 .place-trades .over, .place-trades .even{
-    background-color: #0eaf59;
+    color: #d6334a;
+    width: 10em;
+    margin-right: -0.9em;
+    border-radius: 10px 0px 0px 10px;
+    backdrop-filter: blur(5px);
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border: 1px solid #2c3854;
+    border-right: none;
 }
 .place-trades .under, .place-trades .odd{
-    background-color: #ff6250;
+    color: #00b589;
+    width: 10em;
+    backdrop-filter: blur(5px);
+    border-radius: 0px 10px 10px 0px;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border: 1px solid #2c3854;
 }
 .place-trades .over:hover, .place-trades .even:hover{
-    background-color: #0adb6c;
-    box-shadow: 1px 1px 10px 1px #95fbc52d;
+    background: linear-gradient(to top, #ffffff0a, #0d1018);
 }
 .place-trades .under:hover, .place-trades .odd:hover{
-    background-color: #ec3d2a;
-    box-shadow: 1px 1px 10px 1px#f89b9148;
+    background: linear-gradient(to top, #ffffff0a, #0d1018);
 }
 .trade-btn .icon{
     padding: 0.3em;
     font-weight: 800;
-    border-radius: 50px;
+    height: 87%;
+    color: #fff;
+    font-weight: 300;
     background-color: rgba(255, 255, 255, 0.158);
 }
+.trade-btn .up-icon{
+    background-color: #d6334a;
+}
+.trade-btn .down-icon{
+    background-color: #00b589;
+}
 .place-trades{
-    margin-top: 1em;
     position: relative;
-    background-color: #2b3040;
     border-radius: 7px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding-bottom: 2em;
 }
 .place-trades img{
     height: 1.3em;
@@ -259,7 +329,6 @@
     padding: 0em 0.5em;
     margin: 0em 1em 0em 0em;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.8em;
@@ -271,7 +340,6 @@
 }
 .place-trades form div{
     display: flex;
-    flex-direction: column;
     align-items: left;
     width: 95%;
 }
@@ -283,8 +351,8 @@
     font-size: 0.8rem
 }
 .place-trades form h6{
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 .place-trades form input{
     background-color: transparent;
@@ -292,12 +360,18 @@
     outline: none;
     border: none;
     cursor: pointer;
+    padding: 0em 1em;
     color: rgb(255, 255, 255);
 }
 .payout-text-dt, .payout-text-mb{
     gap: 0.1em;
     display: flex;
     font-size: 0.8rem;
+    color: #00b589;
+    font-weight: 500;
+}
+.place-trades form .payout-text-mb{
+    display: none;
 }
 .time-div, .investment-div{
     display: flex;
@@ -305,20 +379,36 @@
     gap: 0.4em;
     border-radius: 4px;
     width: 97%;
-    padding: 0.3em;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgb(178, 176, 176);
+    border: 1px solid rgba(178, 176, 176, 0);
     transition: .24s ease-in-out;
-}
-.time-div:focus,.time-div:hover,.investment-div:focus,.investment-div:hover{
-    border: 1px solid rgb(255, 255, 255);
 }
 .place-trades form .inputs-trade-wrapper,.place-trades form .trade-btns-wrapper{
     display: flex;
-    flex-direction: column;
     gap: 0.8em;
+}
+.place-trades form .inputs-trade-wrapper div{
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border: 1px solid #2c3854;
+    height: 4em;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    flex-direction: column;
+    transition: .2s ease;
+    position: absolute;
+    width: 10em;
+    bottom: 0;
+}
+.investment-cover{
+    margin-left: 21.7em;
+}
+.time-cover{
+    margin-left: -9.5em;
 }
 .trade-under-text{
     color: #2c96f7;
@@ -353,13 +443,8 @@
     width: 100%;
 }
 
-
-.place-trades form .payout-text-mb{
-    display: none;
-}
 .trade-btns-wrapper{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -382,7 +467,6 @@
 }
 .view-trade-history{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.2em;
@@ -399,102 +483,16 @@
 
 
 @media only screen and (max-width:1050px){
-    /* indicators */
-    .indicators{
-        position: absolute;
-        width: 90%;
-    }
-    .open-indicators{
-        background-color: #1c1f2d;
-        width: 12em;
-    }
-    .indicators-text{
-        align-items: center;
-        display: flex;
-        gap: 74%;
-    }
-    .closed-indicators{
-        height: 0em;
-    }
 
-    .widget{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .trade-btns-cover-wrapper{
-        height: 37vh;
-        width: 100%;
-    }
-    .payout-text-dt{
-        width: 20%;
-    }
-    .place-trades form {
-        width: 98%;
-        padding-bottom: 1em;
-    }
-    .place-trades form h2{
-        font-size: 1rem;
-    }
-    .place-trades .buttons{
-        width: 100%;
-        gap: 0em;
-    }
-    .place-trade-top-text{
-        left: 0;
-        top: 0;
-        position: absolute;
-        font-size: 0.8rem;
-    }
-    .tradingview-widget-container{
-        flex-direction: column;
-        width: 99%;
-    }
-    .place-trades form p{
-        flex-direction: column;
-    }
-    .place-trades{
-        height: 8em;
-        width: 100%;
-        padding: 0em;
-        margin: 0em 0em 0em 0em;
-        padding: 1em 0em;
-        display: flex;
-        border-radius: 10px;
-    }
-    .place-trades form .inputs-trade-wrapper{
-        gap: 2em;
-        flex-direction: row;
-    }
-    .place-trades form .trade-btns-wrapper{
-        gap: 1.5em;
-        display: flex;
-        flex-direction: row;
-    }
-    .time-left-mb{
-        display: block;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-    }
-    .time-div, .investment-div{
-        align-items: left;
-        justify-content: left;
-    }
-    .place-trades form input{
-        width: 100%;
-    }
-    .time-history{
-        border-radius: 10px;
-    }
 }
 @media only screen and (max-width:650px){
     .display-values{
         margin-left: 15.2em;
         font-size: 0.7rem;
         z-index: 5;
+    }
+    .account-person{
+        display: none;
     }
     /* indicators */
     .App-header button{
@@ -575,17 +573,25 @@
         width: 100%;
         height: 5em;
         margin-bottom: 0.2em;
-    }
-    .place-trades form label{
-        background-color: #1c1f2d;
-    }    
+    }  
     .trade-btn{
         height: 3em;
     }
     .place-trades{
         background-color: transparent;
         padding: 0em 0em;
-        margin-bottom: 4em;
+        margin-bottom: 0.5em;
+    }
+    .place-trades form .inputs-trade-wrapper div{
+        height: 3em;
+        width: 9.3em;
+        margin-bottom: 3.4em;
+    }
+    .investment-cover{
+        margin-left: 9.2em;
+    }
+    .time-cover{
+        margin-left: -0.6em;
     }
     .place-trades form .inputs-trade-wrapper{
         gap: 1.2em;
@@ -604,10 +610,7 @@
         flex-direction: row;
         position: absolute;
         top: 0;
-        margin-top: 0.5em;
-    }
-    .place-trades form .payout-text-dt{
-        display: none;
+        margin-top: 0.7em;
     }
     .place-trades form .trade-btns-wrapper{
         gap: 0.5em;
@@ -617,6 +620,9 @@
     }
     .trading-widget-select{
         display: none;
+    }
+    .tradingNav{
+        width: 0em;
     }
     .App-header{
         position: relative;

@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-between;
     padding: 2em 1em;
+    padding-top: 3em;
     align-items: center;
-    border-bottom: 1px solid #282a38;
 }
 .about-us-left{
     width: 60%;
@@ -35,7 +35,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #282a38;
 }
 .fulfill-img{
     background-image: url(../images/about-us-desires@2x-2.png);
@@ -64,7 +63,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #282a38;
 }
 .modern h1{
     width: 570px;
@@ -81,7 +79,10 @@
 .modern-boxes div{
     width: 240px;
     height: 260px;
-    background-color: #252a3bc3;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     border-radius: 7px;
     display: flex;
     align-items: center;
@@ -93,7 +94,6 @@
 
 .how{
     padding: 0em 2em;
-    border-bottom: 1px solid #282a38;
 }
 .how-top h1{
     margin: 1em 0em 0.5em 0em;
@@ -115,7 +115,10 @@
 .how-boxes .img{
     width: 180px;
     height: 125px;
-    background-color: #252939;
+    background: linear-gradient(to top, #ffffff0a, #1c2435);
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     border-radius: 7px;
     background-position: center;
     background-size: cover;
@@ -147,7 +150,10 @@
     background-image: url(../images/about-us-problem@2x.png);
     width: 100%;
     height: 450px;
-    background-color: #252939;
+    background-color: #1c2435;
+    border-top: 1px solid #2c3854;
+    border-left: 1px solid #2c3854;
+    border-right: 1px solid #2c3854;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -194,9 +200,10 @@
 }
 .about-demo{
     width: 350px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     height: 70px;
-    color: #3e4355;
+    color: #2d96f0;
+    border: 1px solid #2d96f0;
 }
 .about-demo:hover{
     background-color: #444b5d;
@@ -217,40 +224,6 @@
     width: 250px;
     margin-top: 1.7em;
     margin-left: 4em;
-}
-
-.innovation{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-image: url(../images/about-us-innovation@2x.png);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-.innovation h1{
-    font-size: 2.44rem;
-    text-align: center;
-    font-weight: 900;
-    margin: 2em 0em 12em 0em;
-}
-.innovation .innovation-btns{
-    display: flex;
-    gap: 1.5em;
-}
-.innovation .innovation-btns button{
-    width: 300px;
-    height: 70px;
-    margin-bottom: 5em;
-}
-.innovation-btns .about-open{
-    background-color: #35b972;
-    width: 234px;
-    box-shadow: 1px 1px 9px #68eaa549;
-}
-.innovation-btns .about-open:hover{
-    background-color: #4dce89;
 }
 
 

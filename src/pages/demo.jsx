@@ -3,15 +3,21 @@ import { useEffect,useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import TradingNav from '../components/tradingnav';
 import TradingWidget from '../components/tradingWidget';
-import { MdRocketLaunch } from "react-icons/md";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { FaPlus } from "react-icons/fa";
+import { LiaUser } from "react-icons/lia";
 import { FaAngleDown } from "react-icons/fa6";
-import { FaTelegramPlane } from "react-icons/fa";
-import { IoEye } from "react-icons/io5";
-import { MdOutlineLogout } from "react-icons/md";
-import { FiCheck } from "react-icons/fi";
-import { useSelector, useDispatch} from 'react-redux';
+import { CiBank } from "react-icons/ci";
+import { IoExitOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { RiBankCardLine } from "react-icons/ri";
+import { RiAdminLine } from "react-icons/ri";
+import { PiTelegramLogoLight } from "react-icons/pi";
+import { IoCloseOutline } from "react-icons/io5";
+import { HiOutlineChartBarSquare } from "react-icons/hi2";
+import { GoPerson } from "react-icons/go";
+import { FaPlus } from "react-icons/fa";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { FcAreaChart } from "react-icons/fc";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { toast } from 'react-hot-toast';
 import { logout } from '../redux/userSlice';
 import { userProfileAction } from '../redux/userSlice';
@@ -70,52 +76,135 @@ const Demo = () => {
     setBal(!bal)
   }
 
+  const [showMb, setShowMb] = useState(false);
+
+  const handleShowMb = () => {
+    setShowMb(!showMb);
+  };
+
   return (
     <div>
       <div className='check'>
           <div className="tradingNav">
-          <div className="trading-topnav">
-                <Link to ="/demo"><div className="trading-logo"></div></Link>
-                <h5 className="web-text">WEB TRADING PLATFORM</h5>
-                <Link to = "/deposit"><div className="bonus"><MdRocketLaunch color='#3b405b' size={30}/> <p>Get a 30% bonus on your first deposit</p> <h2>30%</h2></div></Link>
-                <div className="right-top-nav">
-          
-          <div ref={accountRef} onClick={handleNotification} className="notification">
-            <IoIosNotificationsOutline size={23} />
-            <div className={`no-notifications ${notification? 'open-notification':'close-notification'}`}>
-              <p>No notifications.</p>
+          <div className="cover-whole-top-nav">
+      <div className="chart-container">
+        <div className="trading-topnav" ref={accountRef}>
+        <div className="withdrawal-topnav top-dt">
+            <FcAreaChart className="plane" color="#257af0"/>
+          </div>
+          <div className="withdrawal-topnav top-mb" onClick={handleShowMb}>
+            <HiOutlineMenuAlt2 className="plane" color="#257af0"/>
+          </div>
+          <div className="trading-topnav-wrapper">
+            <div className="account-switch" onClick={handleShowAccountSwitch}>
+              <div className="live-account">
+                <h6>
+                  DEMO ACCOUNT
+                  <FaAngleDown
+                    className={`icon ${showAccountSwitch ? "expanded" : ""}`}
+                  />
+                </h6>
+                <p>
+                  {CurrencyFormatter(
+                        "USD",
+                        profile?.demoBalance ? profile?.demoBalance : "0"
+                      )}
+                </p>
+              </div>
+            </div>
+            <div className="right-top-nav">
+              <div className="account-switch-container">
+                <div ref={accountRef}>
+                  <div
+                    className={`account-swicthbox ${
+                      showAccountSwitch ? "open-account-swicthbox" : ""
+                    }`}
+                  >
+                    <div
+                      className={`account-switchbox-coat ${
+                        showAccountSwitch ? "open-account-switchbox-coat" : ""
+                      }`}
+                    >
+                      <div className="buttons-switch">
+                        <Link to="/trading">
+                          <div className="switch">
+                            <div className="round live">
+                             
+                            </div>
+                            <h5>
+                              Live account
+                              <p>
+                                {CurrencyFormatter("USD", profile?.balance)}
+                              </p>
+                            </h5>
+                          </div>
+                        </Link>
+                        <Link to="/demo">
+                          <div className="switch">
+                            <div className="round live">
+                            <div className="round-in"></div>
+                            </div>
+                            <h5>
+                              Demo account
+                              <p>
+                                {CurrencyFormatter("USD", profile?.demoBalance)}
+                              </p>
+                            </h5>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="buttons">
+                <Link to="/deposit">
+                  <button className="deposit">
+                    <FaPlus size={14} className="d-plus" />
+                    Deposit
+                  </button>
+                </Link>
+                <Link to="/withdrawal">
+                  <button className="withdrawal">Withdrawal</button>
+                </Link>
+              </div>
             </div>
           </div>
+          <div className="deposit-topnav top-dt">
+            <FcAreaChart className="plane" color="#257af0" />
+          </div>
+          <div className="deposit-topnav top-mb" onClick={handleShowMb}>
+            <HiOutlineMenuAlt3 className="plane" color="#257af0" />
+          </div>
+        </div>
+        <div className={`mb-trading-nav ${showMb ? "visible" : "not-visible"}`}>
+          <div className="close-mb" onClick={handleShowMb}><IoCloseOutline size={20}/></div>
+          <div className="profile-mb-wrap">
+            <Link to="/account">
+              <div className="profile-mb">
+                <LiaUser color="#fff" size={30}/>
+              </div>
+            </Link>
+            <h4>{userData?.email}</h4>
+          </div>
 
-                <div className="account-switch-container">
-                <div ref={accountRef}>                
-                     <div className="account-switch" onClick={handleShowAccountSwitch}><FaTelegramPlane className="plane" color='#35cb02'/><div className="live-account"><h6> DEMO ACCOUNT </h6><p>{bal? "****" : CurrencyFormatter("USD", profile?.demoBalance ?profile?.demoBalance: "0")}</p></div><FaAngleDown className={`icon ${showAccountSwitch ? 'expanded' : ''}`}/></div>  
-
-                      <div className={`account-swicthbox ${showAccountSwitch?'open-account-swicthbox': ''}`}>
-                        <div className={`account-switchbox-coat ${showAccountSwitch?'open-account-switchbox-coat': ''}`}>
-                      <div className="see">
-                        <div className="standard-profit"><FaTelegramPlane color='#35cb02' size={20}/> <h5>STANDARD: <p>+0% profit</p></h5> </div>
-                        <div onClick={handleBal} className="eye"><IoEye size={15}/></div>
-                      </div>
-                      <h3>{bal? "******@gmail.com" : userData.email}</h3>
-                      <h6>ID:{bal? "****" : userData._id}</h6>
-                      <h2 className="currency-change"><p>Currency: {"USD"}</p></h2>
-                      <div className="buttons">
-                        <Link to = "/trading"><div className='switch'><div className="round lives"></div><h5>Live account <p>{bal? "****" : CurrencyFormatter("USD",profile?.balance)}</p></h5></div></Link>
-                        <Link to = "/demo"><div className='switch'><div className="round demos"><FiCheck size={12}/></div><h5>Demo account <p>{bal? "****" : CurrencyFormatter("USD",profile?.demoBalance)}</p></h5></div></Link>
-                      </div>
-                      <p className='logout' onClick={handleLogout}><MdOutlineLogout/>Logout</p>
-                      </div>
-                      </div>
-                     
-                     </div>
-                </div>
-                <div className="buttons">
-                    <Link to = "/deposit"><button className='deposit'><FaPlus className='d-plus' size={14}/>Deposit</button></Link>
-                    <Link to = "/withdrawal"><button className='withdrawal'>Withdrawal</button></Link>
-                </div>
-                </div>
-            </div>
+          <div className="mb-menu-links">
+            {userData?.isAdmin === true && (
+            <Link className="mb-a" to="/admin"><RiAdminLine/>Admin Dashboard</Link>
+            )} 
+            <Link className="mb-a" to="/deposit"><CiBank/>Deposit</Link>
+            <Link className="mb-a" to="/userdeposit"><CiBank/>Deposit history</Link>
+            <Link className="mb-a" to="/withdrawal"><RiBankCardLine/>Withdrawal</Link>
+            <Link className="mb-a" to="/userwithdrawal"><RiBankCardLine/>Withdrawal history</Link>
+            <Link className="mb-a" to="/trades"><HiOutlineChartBarSquare/>Trades</Link>
+            <Link className="mb-a" to="/demoTrades"><HiOutlineChartBarSquare/>Demo Trades</Link>
+            <a className="mb-a" href="/demoTrades"><PiTelegramLogoLight/>Reach us</a>
+          </div>
+          <p onClick={handleLogout}><IoExitOutline size={20}/>Logout</p>
+        </div>
+      </div>
+    </div>
           </div>
         </div>
       <div className="trading-section">
@@ -127,6 +216,7 @@ const Demo = () => {
       <TradingWidget/>
       <Demotradebtns/>
       </div>
+      <Link to="/account"><div className="account-person"><GoPerson/></div></Link>
       </div>
     </div>
   );

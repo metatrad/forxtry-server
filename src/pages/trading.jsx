@@ -1,5 +1,7 @@
 import React from 'react'
 import TradingNav from '../components/tradingnav';
+import { Link, useNavigate,NavLink } from "react-router-dom";
+import { GoPerson } from "react-icons/go";
 import TradingTopNav from '../components/tradingTopNav';
 import TradingWidget from '../components/tradingWidget';
 import Tradebtns from '../components/trade-btns';
@@ -23,6 +25,7 @@ const Trading = () => {
         <TradingWidget/>
         <Tradebtns/>
       </div>
+      <Link to="/account"><div className="account-person"><GoPerson/></div></Link>
       </div>
     </div>
   )

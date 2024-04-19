@@ -55,7 +55,7 @@ const Otp = () => {
   return (
     <div>
       <Navbar />
-      <div className="login">
+      <div className="login login-cover">
         <h1>Enter the OTP sent to your email</h1>
         <div className="login-box">
         <div className="account-buttons">

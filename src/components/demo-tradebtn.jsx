@@ -56,6 +56,8 @@ const Demotradebtns = () => {
     isTradeCreated,
   } = states;
 
+  const [showGlow, setShowGlow] = useState(false);
+
   //fetch trade
   const [page, setPage] = useState(1);
 
@@ -67,17 +69,24 @@ const Demotradebtns = () => {
   const formik = useFormik({
     initialValues: {
       time: 0,
-      investment: 0,
+      investment: '',
       calculatedResult: "",
       tradeResult: "Pending",
     },
     onSubmit: async (values, { resetForm }) => {
+      
       try {
         const trade = await dispatch(DemotradeAction(values));
         if (trade?.payload?.alert) {
           new Audio(Audiop).play();
           toast.success("Trade placed");
           resetForm({ values: "" });
+          setShowGlow(true);
+
+          // Reset the glow after 2 seconds
+          setTimeout(() => {
+            setShowGlow(false);
+          }, 2000);
         }
       } catch (error) {
         console.error("Dispatch failed:", error);
@@ -96,83 +105,64 @@ const Demotradebtns = () => {
 
   return (
     <div className="trade-btns-cover-wrapper">
-      <div className="place-trades">
-        <div className="buttons">
-          <form action="" onSubmit={formik.handleSubmit}>
-            {appErr || serverErr ? (
-              <div className="show-error-top">{appErr}</div>
-            ) : null}
-            <h2 className="place-trade-top-text">
-              Place trade{" "}
-              <span><Link to="/demoTrades">View trades</Link></span>
-            </h2>
-
-            <div className="inputs-trade-wrapper">
-              <div>
-                <label htmlFor="time">Time</label>
-                <h1 className="time-div">
-                  <MdAccessTime size={20} />
-                  <input
-                    type="number"
-                    name="time"
-                    id="time"
-                    min="1"
-                    value={formik.values.time}
-                    onChange={formik.handleChange("time")}
-                    />
-                </h1>
-                <p className="trade-under-text">MINUTES</p>
-              </div>
-              <div>
-                <label htmlFor="investment">Stake</label>
-                <h1 className="investment-div">
-                  <BsCurrencyDollar size={20} />
-                  <input
-                    type="number"
-                    name="investment"
-                    id="investment"
-                    min="10"
-                    value={formik.values.investment}
-                    onChange={handleIChange}
-                    onBlur={formik.handleBlur("investment")}
+      {showGlow && <div className="glow"><div className="glow-t-in">Trade!</div></div>}
+    <div className="place-trades">
+      <div className="buttons">
+        <form action="" onSubmit={formik.handleSubmit}>
+          {appErr || serverErr ? (
+            <div className="show-error-top">{appErr}</div>
+          ) : null}
+          <div className="inputs-trade-wrapper">
+            <div className="time-cover">
+              <h1 className="time-div">
+                <input
+                  type="number"
+                  name="time"
+                  id="time"
+                  min="1"
+                  value={formik.values.time}
+                  onChange={formik.handleChange("time")}
                   />
-                </h1>
-                <p className="trade-under-text">AMOUNT</p>
-              </div>
+              </h1>
+              <label htmlFor="time">Time</label>
             </div>
-            {formik.values.calculatedResult !== null && (
-              <p className="payout-text-mb">
+            <div className="investment-cover">
+              <h1 className="investment-div">
+                <input
+                  type="number"
+                  name="investment"
+                  placeholder="Stake"
+                  id="investment"
+                  min="10"
+                  value={formik.values.investment}
+                  onChange={handleIChange}
+                  onBlur={formik.handleBlur("investment")}
+                />
+              </h1>
+              {formik.values.calculatedResult !== null && (
+              <p className="payout-text-dt">
                 Payout: <h6>${formik.values.calculatedResult}</h6>
               </p>
-            )}
-
-            <div className="trade-btns-wrapper">
-              <button type="submit" className="trade-btn even">
-                {tradeloading ? "Placing.." : "Up"}
-                <IoMdArrowRoundUp className="icon" />
-              </button>
-              {formik.values.calculatedResult !== null && (
-                <p className="payout-text-dt">
-                  Your payout: <h6>${formik.values.calculatedResult}</h6>
-                </p>
-              )}
-              <button type="submit" className="trade-btn odd">
-                {tradeloading ? "Placing.." : "Down"}{" "}
-                <IoMdArrowRoundDown className="icon" />
-              </button>
+          )}
             </div>
-          </form>
-        </div>
-      </div>
-      <div className="time-history">
-        <div className="time-history-cover">
-          <p className="time-left-dk"><Link to="/demoTrades">View trades</Link></p>
-          <div className="view-trade-history">
-            <Link to="/demoTrades"><FaHistory size={40} color="gray" /></Link>
           </div>
-        </div>
+
+          <div className="trade-btns-wrapper">
+            <button type="submit" className="trade-btn even">
+              <IoMdArrowRoundUp className="icon up-icon" />
+              {tradeloading ? "Placing.." : "Up"}
+              <p></p>
+            </button>
+            <button type="submit" className="trade-btn odd">
+              <p></p>
+              {tradeloading ? "Placing.." : "Down"}
+              <IoMdArrowRoundDown className="icon down-icon" />
+            </button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
   );
 };
 

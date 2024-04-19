@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import '../adminStyles/sideNav.css'
-import { Link,NavLink,useNavigate } from 'react-router-dom'
+import { NavLink,useNavigate } from 'react-router-dom'
 import { RiHomeLine } from "react-icons/ri";
 import { GrUserSettings } from "react-icons/gr";
 import { GrAtm } from "react-icons/gr";
@@ -10,14 +10,12 @@ import { MdCurrencyExchange } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { PiArrowsClockwiseBold } from "react-icons/pi";
-import { LightModeContext } from '../../context/lightModeContext';
 import { LuUserCheck } from "react-icons/lu";
 import { LuUserX } from "react-icons/lu";
 import { Spin as Hamburger } from 'hamburger-react'
 import { MdOutlinePendingActions } from "react-icons/md";
 import { LuCheckCircle } from "react-icons/lu";
 import { AiOutlineUserSwitch } from "react-icons/ai";
-import { useContext } from 'react';
 import { logout } from '../../redux/userSlice'
 import { useDispatch } from "react-redux";;
 
@@ -40,8 +38,6 @@ const AdminSideNav = () => {
   const toggleWOptions = () => {
     setShowWUsers(!showWUsers);
   };
-
-  const {dispatch} = useContext(LightModeContext)
 
   const dispatche = useDispatch();
   const navigate = useNavigate();

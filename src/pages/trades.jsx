@@ -13,7 +13,7 @@ const Trades = () => {
       <TradingTopNav/>
       </div>
        <div className='trades-body-wrapper'>
-        <TradingNav/>
+        <div className="trades-side-nav"> <TradingNav/></div>
         <div className="trades-body">
             <div className="padding">
             <div className="trades-body-container">

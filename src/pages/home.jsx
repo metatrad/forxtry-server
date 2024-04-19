@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
-import { AiOutlineArrowUp } from "react-icons/ai";
-import { AiOutlineArrowDown } from "react-icons/ai";
+import { GoGraph } from "react-icons/go";
+import { TbBrandSpeedtest } from "react-icons/tb";
 import { IoDocumentTextSharp } from "react-icons/io5";
+import { MdOutlineCandlestickChart } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
@@ -12,6 +13,8 @@ import { LuGraduationCap } from "react-icons/lu";
 import { FaChartLine } from "react-icons/fa6";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Broker from "../images/homeimg.png";
+import Cryptos from '../images/crypto.png'
 import "../styles/home.css";
 
 const Home = () => {
@@ -45,58 +48,57 @@ const Home = () => {
       <Navbar />
       <div className="home">
         <div className="innovative">
-          <div className="innovative-img"></div>
+          <div className="innovative-img">
+            <div className="img-wrapper">
+              {/* <div className="glow"></div> */}
+              <img src={Broker}/>
+              <div className="orb-wrap">
+                {/* <div className="orbit-container">
+                <div className="orb"></div>
+              </div> */}
+                {/* <div className="orbit-container-two">
+                <div className="orb-two"></div>
+              </div> */}
+              </div>
+            </div>
+          </div>
           <div className="innovative-right">
-            <h2>Innovative platform for smart investments</h2>
-            <p>
-              Register and get $ 10,000 on a demo account for learning to trade
-            </p>
-            <Link to="/signup">
-              <button className="register-btn">Registration</button>
-            </Link>
+            <h2>
+              <span>Trading</span> made smoother with forxtry.
+            </h2>
+            <p>Get a $10,000 demo account to practice with when you register</p>
+            <div className="crypt">
+              <p>
+                Invest in crypto currencies and assets towards continuous income
+              </p>
+
+              <img src={Cryptos}/>
+
+            </div>
             <Link to="/demo">
-              <button className="open-demo-btn">Open demo account</button>
+              <button className="register-btn">Try free demo</button>
             </Link>
           </div>
-        </div>
-
-        <div className="gray-icons">
-          <div className="visa"></div>
-          <div className="master"></div>
-          <div className="advcash"></div>
-          <div className="perfect"></div>
         </div>
 
         <div className="info-icons">
           <div className="infos">
             <div className="infos-1 info">
-              <div className="img"></div>
-              <h2>Convenient trading interface</h2>
+              <h2><span><GoGraph/></span> Convenient trading interface</h2>
               <p>
                 We created the most simple and comfortable interface that does
-                not distract from the main thing - from trading
-              </p>
-            </div>
-            <div className="infos-2 info">
-              <div className="img"></div>
-              <h2>Integrated signals</h2>
-              <p>
-                Approach the strategy thoughtfully - the most precise and
-                innovative signals with an accuracy of 87% will help you create
-                your own effective strategy
+                not distract from the main thing
               </p>
             </div>
             <div className="infos-3 info">
-              <div className="img"></div>
-              <h2>Trading indicators</h2>
+              <h2><span><MdOutlineCandlestickChart/></span> Trading indicators</h2>
               <p>
                 We have gathered the most useful trading indicators. Use them to
                 boost your account balance
               </p>
             </div>
             <div className="infos-4 info">
-              <div className="img"></div>
-              <h2>Perfect speed</h2>
+              <h2><span><TbBrandSpeedtest/></span> Perfect speed</h2>
               <p>
                 Our platform runs on the most modern technology and delivers
                 incredible speed
@@ -107,7 +109,7 @@ const Home = () => {
           <div className="button">
             <Link to="/signup">
               <button>
-                Try playing on demo account{" "}
+                Try playing on demo account
                 <p>
                   <BsArrowRightShort size={24} />
                 </p>
@@ -116,48 +118,27 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="predict-fixed">
-          {/* ill come back */}
-        </div>
-
         <div className="steps">
           <h1>Start trading</h1>
           <h2>3 steps</h2>
           <div className="steps-links">
             <div className="steps-sign-up">
-              <div className="steps-img"></div>
               <h4>Sign up</h4>
-              <p>Open an account for free in just a few minutes</p>
-              <Link to="/signup">
-                <button>
-                  Trade on a demo <br /> account in 1 click
-                </button>
-              </Link>
+              <p>Open an account for free in just a few minutes to start trading</p>
             </div>
             <div className="steps-practice">
-              <div className="steps-img"></div>
               <h4>Practice</h4>
               <p>
                 Get your skills better with a demo account and training
                 materials
               </p>
-              <Link to="/signup">
-                <button>
-                  Start training with demo <br />
-                  account
-                </button>
-              </Link>
             </div>
             <div className="steps-deposit">
-              <div className="steps-img"></div>
-              <h4>Deposit and trade</h4>
+              <h4>Deposit, trade and withdraw</h4>
               <p>
                 Over 410 instruments and a minimum deposit of $10 for optimal
                 trading
               </p>
-              <Link to="/deposit">
-                <button>Go to Deposit option</button>
-              </Link>
             </div>
           </div>
         </div>
@@ -325,7 +306,7 @@ const Home = () => {
             </div>
             <Link to="/faq">
               <div className="all-questions">
-                <BsFillQuestionCircleFill color="#fff" size={20} />
+                <BsFillQuestionCircleFill color="#fff" size={20}/>
                 Go to all questions
               </div>
             </Link>
@@ -334,8 +315,9 @@ const Home = () => {
 
         <div className="bottom">
           <div className="image"></div>
+          <div className="bottom-text-cover">
           <h1>
-            Earnbroker: Innovation Platform <br /> Digital Asset Trading
+            Forxtry: Innovation Platform <br /> Digital Asset Trading
           </h1>
           <div className="buttons">
             <Link to="/signup">
@@ -349,6 +331,7 @@ const Home = () => {
                 Demo account
               </button>
             </Link>
+          </div>
           </div>
         </div>
       </div>

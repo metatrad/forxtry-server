@@ -59,8 +59,8 @@ const Login = () => {
   return (
     <div>
       <Navbar/>
-      <div className="login">
-        <h1>Sign In To Your Account</h1>
+      <div className="login-cover">
+        <h1>Login to an existing account</h1>
         <div className="login-box">
           <div className="account-buttons">
             <Link to="/login">

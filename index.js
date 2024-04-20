@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
 const corsOptions = {
-  origin: 'http://forxtry.com', 
+  origin: 'https://forxtry.com', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,

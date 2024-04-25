@@ -23,14 +23,8 @@ app.set("view engine","ejs")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('trading'));
 
-const corsOptions = {
-  origin: 'https://forxtry.com', 
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.json());
